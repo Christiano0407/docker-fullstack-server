@@ -32,6 +32,7 @@
 
 Stack sugerido:
 
+- Vite
 - React
 - Next.js
 - TypeScript
