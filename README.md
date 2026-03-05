@@ -26,6 +26,42 @@
 
 ---
 
+## Desarrollo Frontend
+
+> El Frontend está construido usando:
+
+Stack sugerido:
+
+- React
+- Next.js
+- TypeScript
+- Tailwind
+
+Estructura inicial:
+
+```bash
+frontend
+│
+├── src
+├── public
+├── package.json
+└── README.md
+
+```
+
+---
+
+## Desarrollo Backend 
+
+> El backend está construido usando:
+
+- Python 3.12
+- FastAPI
+- uv (gestor moderno de dependencias)
+- Uvicorn (servidor ASGI)
+
+---
+
 ### Licencia
 
 MIT
