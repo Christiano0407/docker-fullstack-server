@@ -52,6 +52,31 @@ frontend
 
 ---
 
+```bash
+
+project-root
+│
+├── README.md
+├── backend
+│   ├── main.py
+│   ├── pyproject.toml
+│   ├── uv.lock
+│   ├── .env
+│   ├── .gitignore
+│   └── .venv (local dev)
+│
+└── frontend
+    ├── package.json
+    ├── pnpm-lock.yaml
+    ├── vite.config.ts
+    ├── index.html
+    ├── src/
+    └── public/
+
+```
+
+---
+
 ## Desarrollo Backend 
 
 > El backend está construido usando:
