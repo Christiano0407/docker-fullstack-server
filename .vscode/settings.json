@@ -1,6 +1,8 @@
 {
   "cSpell.words": [
+    "código",
     "Copiar",
+    "crea",
     "Crear",
     "Dependencias",
     "desde",
@@ -9,7 +11,9 @@
     "Instalar",
     "proyecto",
     "pyproject",
+    "usar",
     "uvicorn",
+    "venv",
     "Vite"
   ]
 }
