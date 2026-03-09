@@ -3,8 +3,8 @@ FROM python:3.12-slim AS builder
 
 WORKDIR /app
 
-# instalar uv
-RUN pip install uv
+# instalar uv | Evitar Caché
+RUN pip install --no-cache-dir uv
 
 # copiar metadata
 COPY pyproject.toml uv.lock ./
