@@ -75,6 +75,13 @@ project-root
 
 ```
 
+> Agregar (Add): .gitignore (Root) principal
+
+```bash
+ .gitignore
+ 
+```
+
 ---
 
 ## Desarrollo Backend 
