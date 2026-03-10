@@ -1,3 +1,8 @@
+"""
+main.py | Disney Movies API
+FastAPI + OpenAPI Contract
+"""
+
 from fastapi import FastAPI
 from app.services.data_product_workflow import load_data
 
