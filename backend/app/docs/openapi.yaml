@@ -1,0 +1,77 @@
+openapi: "3.1.0"
+
+# ─────────────────────────────────────────
+# Info 
+# ─────────────────────────────────────────
+info:
+  title: Disney Movies API - OpenAPI
+  version: "1.0.0"
+  description: | 
+     API REST para consultar y analizar el dataset de películas Disney (1937–2016)
+
+      ## Endpoints
+    
+      ## Endpoints
+      | Método | Ruta                  | Descripción                        |
+      |--------|-----------------------|------------------------------------|
+      | GET    | `/api/v1/movies`      | Lista paginada de películas        |
+      | GET    | `/api/v1/movies/search` | Filtrar por género y/o rating    |
+      | GET    | `/api/v1/movies/stats`  | Estadísticas del dataset         |
+      | GET    | `/api/v1/movies/{title}` | Buscar película por título      |
+
+      ## Ratings disponibles
+      `G` · `PG` · `PG-13` · `R` · `Not Rated`
+
+  contact:
+    name: Disney Movies API's
+    url: http://localhost:5000/docs
+
+  license:
+    name: MIT
+
+
+# ─────────────────────────────────────────
+# SERVERS
+# ─────────────────────────────────────────
+servers:
+  - url: http://localhost:5000
+    description: Desarrollo local con Docker & Nginx Proxy
+  - url: http://staging.api.example.com
+    description: Staging
+
+# ─────────────────────────────────────────
+# TAGS
+# ─────────────────────────────────────────
+tags:
+  - name: Health
+    description: Estado del Servidor
+  - name: Movies
+    description: Operaciones | Endpoints sobre el dataset de películas de Disney.
+
+# ─────────────────────────────────────────
+# PATHS
+# ─────────────────────────────────────────
+paths:
+
+
+  /:
+    get:
+      tags: [Health]
+      summary: Health check
+      operationId: healthCheck
+      responses: 
+        "200":
+          description: Servidor Activo
+          content: 
+            application/json:
+              schema: 
+                $ref: "#/components/schemas/HealthResponse"
+              example:
+                status: ok
+                message: Disney Movies API's Running
+                docs: /docs
+                openapi: /openapi.json
+
+
+
+  # =================== List Movies =======================

@@ -75,6 +75,36 @@ project-root
 
 ```
 
+> Estructura Adaptada a la API con OpenAPI
+
+```bash
+
+backend/
+└── app/
+    ├── main.py                    ← Entry point FastAPI
+    │
+    ├── api/
+    │   └── v1/
+    │       ├── __init__.py
+    │       └── routes/
+    │           ├── __init__.py
+    │           ├── movies.py      ← Lo que ya tienes
+    │           └── auth.py        ← Siguiente fase (JWT)
+    │
+    ├── schemas/
+    │   ├── __init__.py
+    │   └── movie.py               ← Pydantic models
+    │
+    ├── services/
+    │   ├── __init__.py
+    │   └── data_product_workflow.py
+    │
+    └── core/                      ← Cuando llegues a Auth
+        ├── __init__.py
+        └── config.py              ← Settings, secret keys, env vars
+
+```
+
 > Agregar (Add): .gitignore (Root) principal
 
 ```bash
@@ -92,6 +122,49 @@ project-root
 - FastAPI
 - uv (gestor moderno de dependencias)
 - Uvicorn (servidor ASGI)
+
+---
+
+## Git Flow
+
+```bash
+main          ← Producción (solo merge desde develop)
+staging       ← Pre-producción / QA
+develop       ← Integración (base de todo el desarrollo)
+feature/*     ← Ramas temporales por funcionalidad
+```
+
+---
+
+## Contrato OpenAPI
+
+El contrato completo está en `backend/docs/openapi.yaml`.
+
+Para visualizarlo localmente:
+
+1. Abre [editor.swagger.io](https://editor.swagger.io)
+2. Pega el convened de `openapi.yaml`
+
+O con el servidor corriendo:
+
+```bash
+
+openapi.yaml
+├── info          → título, versión, descripción, licencia
+├── servers       → localhost:5000 (Docker) + staging
+├── tags          → Health, Movies
+├── paths         → los 5 endpoints documentados
+└── components
+    ├── parameters → LimitParam, OffsetParam (reutilizables con $ref)
+    ├── schemas    → MovieResponse, MovieListResponse, StatsResponse, ErrorResponse
+    └── responses  → NotFound, InternalError (reutilizables con $ref)
+
+```
+
+```bash
+http://localhost:5000/docs       ← Swagger UI (autogenerado por FastAPI)
+http://localhost:5000/openapi.json
+```
 
 ---
 
