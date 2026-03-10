@@ -14,9 +14,9 @@ DATA_PATH = BASE_DIR / "data" / "disney_movies_2_cleaned.csv"# Up Two Levels #
 
 def _parse_row(row: dict) -> dict:
   """
-  Obtener datos ya Tipados [Pydantic]
-  Normaliza una fila del CSV al esquema Pydantic.
-  Mapea los nombres de columna del CSV a snake_case.
+   - Obtener datos ya Tipados [Pydantic]
+   - Normaliza una fila del CSV al esquema Pydantic.
+   - Mapea los nombres de columna del CSV a snake_case.
   """
   return {
     "movie_title": row.get("MovieTitle", "").strip(),
