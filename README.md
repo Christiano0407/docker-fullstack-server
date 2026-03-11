@@ -188,8 +188,6 @@ http://localhost:5000/openapi.json
 
 ---
 
----
-
 ## 🗺 Roadmap
 
 > Roadmap: Explicar el Proceso que se tomó y la toma de decisiones. Desde Contenedores Docker y Nginx; hasta el trabajo y desarrollo de la API. Manejo de Frontend y Backend
