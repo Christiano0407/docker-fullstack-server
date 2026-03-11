@@ -4,7 +4,7 @@
 
 > Producto/Proyecto Docker & Nginx | Desarrollo Fullstack
 
-- Desarrollar un proyecto Fullstack y usar Docker 
+- Desarrollar un proyecto Fullstack y usar Docker
 - Desarrolla Docker Multi-stage, Compose y networking
 - Desarrolla NginxProxy y Load Balancing
 - Cómo estructurar micro-servicios simples
@@ -15,7 +15,6 @@
 ## Fullstack Project (Frontend + Backend)
 
 > Proyecto base para una arquitectura **Fullstack moderna**, preparada para:
-
 
 - Backend API con (FastAPI)
 - Frontend (por implementar)
@@ -114,7 +113,7 @@ backend/
 
 ---
 
-## Desarrollo Backend 
+## Desarrollo Backend
 
 > El backend está construido usando:
 
@@ -165,6 +164,27 @@ openapi.yaml
 http://localhost:5000/docs       ← Swagger UI (autogenerado por FastAPI)
 http://localhost:5000/openapi.json
 ```
+
+---
+
+## Convención de commits
+
+> Comandos: Comandos que usamos durante el desarrollo
+
+```bash
+
+| Prefijo | Uso |
+|---------|-----|
+| `feat:` | Nueva funcionalidad |
+| `fix:` | Corrección de bug |
+| `docs:` | Documentación |
+| `refactor:` | Refactor sin cambio funcional |
+| `test:` | Pruebas |
+| `chore:` | Tareas de mantenimiento |
+
+```
+
+---
 
 ---
 
