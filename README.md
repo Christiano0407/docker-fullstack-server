@@ -168,6 +168,48 @@ http://localhost:5000/openapi.json
 
 ---
 
+---
+
+## 🗺 Roadmap
+
+> Roadmap: Explicar el Proceso que se tomó y la toma de decisiones. Desde Contenedores Docker y Nginx; hasta el trabajo y desarrollo de la API. Manejo de Frontend y Backend
+
+### ✅ Fase 1 — API Base
+
+- [x] Endpoint `/data` functional con CSV
+- [x] Docker Multi-stage build
+- [x] Corrección de bugs (path resolution, `resolve()`)
+- [x] Estructura professional `api/v1/routes/`
+
+### ✅ Fase 2 — Contrato OpenAPI
+
+- [x] Schemas Pydantic con herencia (`MovieBase → MovieResponse`)
+- [x] 4 endpoints documentados con `operationId`, examples y error responses
+- [x] Contrato YAML OpenAPI 3.1.0 en `docs/openapi.yaml`
+- [x] Paginación con `limit` / `offset`
+- [x] Endpoint de estadísticas por género
+
+### 🔄 Fase 3 — Auth / JWT (en desarrollo)
+
+- [ ] `POST /api/v1/auth/register`
+- [ ] `POST /api/v1/auth/login`
+- [ ] Protección de endpoints con `Depends(get_current_user)`
+- [ ] `core/security.py` — generación y verificación de tokens
+
+### ⏳ Fase 4 — Docker Compose + Nginx
+
+- [ ] `docker-compose.yml` con servicios backend + frontend + nginx
+- [ ] Nginx como reverse proxy
+- [ ] Variables de entorno por entorno (`dev`, `staging`, `prod`)
+
+### ⏳ Fase 5 — Frontend conectado
+
+- [ ] Cliente TypeScript generado desde `openapi.yaml`
+- [ ] Integración con endpoints de la API
+- [ ] CORS configurado para producción
+
+---
+
 ### Licencia
 
 MIT
