@@ -2,6 +2,7 @@ import csv
 from pathlib import Path
 from itertools import islice
 from collections import defaultdict
+from collections import defaultdict
 # df = pd.read_csv(DATA_PATH)
 
 # __file__ = /app/app/services/data_product_workflow.py

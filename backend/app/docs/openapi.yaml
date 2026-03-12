@@ -115,7 +115,84 @@ paths:
           $ref: "#/components/InternalError"
 
   # =================== Movies for Title [Search] =======================
-
+# ── Stats ─────────────────────────────
+  /api/v1/movies/stats:
+    get:
+      tags: [Movies]
+      summary: Dataset Statics (stats)
+      operationId: getStats
+      description: |
+        Return Statics of the Movies
+      responses:
+        "200":
+          description: Dataset General Statics (stats)
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/StatsResponse"
+              example:
+                total_movies: 579
+                genres:
+                  - genre: Action
+                    count: 32
+                    total_gross_sum: 2341000000
+                    avg_gross: 73156250.0
+                  - genre: Adventure
+                    count: 141
+                    total_gross_sum: 12870000000
+                    avg_gross: 91276595.0
+                top_grossing:
+                  movie_title: Star Wars Ep. VII The Force Awakens
+                  release_date: "18/12/2015"
+                  genre: Adventure
+                  rating: PG-13
+                  total_gross: 936662225
+                  adjusted_gross: 936662225
+                most_recent:
+                  movie_title: "Rogue One: A Star Wars Story"
+                  release_date: "16/12/2016"
+                  genre: Adventure
+                  rating: PG-13
+                  total_gross: 529483936
+                  adjusted_gross: 529483936
+        "500":
+          $ref: "#/components/responses/InternalError"
+ 
+ 
+  # ── Get By Title ──────────────────────
+  /api/v1/movies/{title}:
+    get:
+      tags: [Movies]
+      summary: Get Movies for Title
+      operationId: getMovieByTitle
+      description: |
+        Search Movies for Title & Get Movies
+      parameters:
+        - name: title
+          in: path
+          required: true
+          description: Title for movie
+          schema:
+            type: string
+          example: The Lion King
+      responses:
+        "200":
+          description: Película encontrado
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/MovieResponse"
+              example:
+                movie_title: The Lion King
+                release_date: "15/06/1994"
+                genre: Adventure
+                rating: G
+                total_gross: 422780140
+                adjusted_gross: 761640898
+        "404":
+          $ref: "#/components/responses/NotFound"
+        "500":
+          $ref: "#/components/responses/InternalError"
 
 
 # ─────────────────────────────────────────
