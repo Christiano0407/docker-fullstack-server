@@ -80,3 +80,30 @@ def get_movies_by_title(title:str) -> dict | None:
     if row["movie_title"].lower() == title_lower:
       return row
   return None
+
+
+# = Search = #
+def search_movies(
+    genre:str | None = None,
+    rating:str | None = None, 
+    limit: int = 10,
+    offset: int = 0
+) -> tuple[list[dict], int]:
+  """
+    Get Movies for Filter (Search) by genre & rating
+  """
+  all_rows_movies = _load_all_rows()
+  filtered = all_rows_movies
+  
+  if genre: 
+    filtered = [r for r in filtered if r["genre"].lower() == genre.lower()]
+
+  if rating: 
+    filtered = [r for r in filtered if r["rating"].lower() == rating.lower()]
+
+  total = len(filtered)
+  return filtered[offset: offset + limit], total
+
+# = Stats | Statics (Estadísticas) = #
+def get_stats():
+  pass
