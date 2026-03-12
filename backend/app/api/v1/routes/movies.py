@@ -34,7 +34,7 @@ router = APIRouter(
   description="Return all list of movies Disney. Dataset Disney movies",
 )
 def list_movies(
-  limit: int = Query(default=10, ge=1, le=100, description="Number the Movies per Page (Paginated)"),
+  limit: int = Query(default=10, ge=1, le=100, description="Number the Movies per Page (Paginated - max. 100)"),
   offset: int = Query(default=0, ge=0, description="Number to Register to skip(Omitir)")
 ):
   try:

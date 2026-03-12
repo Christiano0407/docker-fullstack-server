@@ -74,4 +74,132 @@ paths:
 
 
 
-  # =================== List Movies =======================
+  # =================== List Movies [Get Movies] =======================
+  /api/v1/movies:
+    get:
+      tags: [Movies]
+      summary: List Of Movies
+      operationId: listMovies
+      description: |
+        Return all list of movies Disney. Dataset Disney movies
+        Use "limit" & "offset" to paginated
+      parameters:
+        - $ref: "#/components/parameters/LimitParam"
+        - $ref: "#/components/parameters/OffsetParam"
+      responses:
+        "200": 
+          description: "List Of Movies"
+          content:
+            application/jason:
+              schema:
+                $ref: "#/components/schema/MovieListResponse"
+              example: 
+                count: 2 
+                total: 579 
+                limit: 2
+                offset: 0 
+                data:
+                  - movie_title: Snow White and the Seven Dwarfs 
+                    release_date: "21/12/1937" 
+                    genre: Musical
+                    rating: G
+                    total_gross: 184925485
+                    adjusted_gross: 5228953251
+                  - movie_title: Pinocchio
+                    release_date: "09/02/1940" 
+                    genre: Adventure
+                    rating: G 
+                    total_gross: 84300000,
+                    adjusted_gross: 2188229052
+        "500":
+          $ref: "#/components/InternalError"
+
+  # =================== Movies for Title [Search] =======================
+
+
+
+# ─────────────────────────────────────────
+# === COMPONENTS (Componentes) ===
+# ─────────────────────────────────────────
+components:
+
+## === Parameters === ## 
+  parameters:
+
+    LimitParam:
+      name: limit
+      in: query
+      required: false
+      description: Number the Movies per Page (Paginated - max. 100)
+      schema:
+        type: integer
+        default: 10
+        minimum: 1
+        maximum: 100
+
+    OffsetParam: 
+      name: offset
+      in: query
+      required: false
+      description: Number to Register to skip(Omitir)"
+      schema:
+        type: integer
+        default: 0
+        minimum: 0
+
+
+## === Paginated List Movies === ##
+  schemas:
+    
+    # === Individual Movie === #
+    MovieResponse:
+      type: object
+      required: 
+        - movie_title
+        - release_date
+        - genre
+        - rating 
+        - total_gross
+        - adjusted_gross
+      properties: 
+        movie_title:
+          type: string
+          description: Title for movie
+          example: The Lion King
+        release_date: 
+          type: string
+          description: Date of the Premiere (DD/MM/YYYY)
+        genre: 
+          type: string
+          description: Genre of the Movie
+          example: Adventure
+        rating: 
+          type: string
+          description: MPAA Clasification
+          example: [G, PG, PG-13, R, "Not Rated"]
+
+    # === Movie Paginated === #
+    MovieListResponse:
+      type: object
+      required: [count, total, limit, offset, data]
+      properties: 
+        count: 
+          type: integer
+          description: Number of movies on this response
+          example: 10
+        total: 
+          type: integer
+          description: Movie Total in the Dataset (DB)
+          example: 579
+        limit: 
+          type: integer
+          description: Limit in the request of the movies
+          example: 10
+        offset: 
+          type: integer
+          description: Offset of Pagination
+          example: 0
+        data: 
+          type: array
+          items: 
+            $ref: "#/components/schemas/MovieResponse"
