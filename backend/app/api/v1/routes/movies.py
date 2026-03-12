@@ -80,10 +80,6 @@ def get_by_title(
   except FileNotFoundError as e:
     raise HTTPException(status_code=500, detail=str(e))
   
-<<<<<<< HEAD
-=======
-
->>>>>>> develop
 # ─────────────────────────────────────────
 # GET /movies/search
 # Búsqueda por género y/o rating
