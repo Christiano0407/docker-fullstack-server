@@ -4,7 +4,6 @@ Endpoints con Contrato OpenAPI
 """
 from fastapi import APIRouter, Query, HTTPException, Path
 from app.schemas.movie import (
-  MovieBase, 
   MovieResponse,
   MovieListResponse, 
   StatsStaticsResponse, 
@@ -124,3 +123,18 @@ def search(
 # GET /movies/stats
 # Estadísticas del dataset
 # ─────────────────────────────────────────
+@router.get(
+  "/stats", 
+  response_model=StatsStaticsResponse, 
+  response={
+    200: {"description": "Dataset General Statics (stats)"}, 
+    500: {"model": ErrorResponse, "description": "Intern Error Server"},
+  },
+  summary= "Dataset Statics (stats)", 
+  description="Return Statics of the Movies"
+)
+def stats():
+  try: 
+    return get_stats()
+  except FileNotFoundError as e:
+    raise HTTPException(status_code=500, detail=(e))
