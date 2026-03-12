@@ -12,7 +12,9 @@ from app.schemas.movie import (
 )
 from app.services.data_product_workflow import ( 
   get_data_paginated,
-  get_movies_by_title
+  get_movies_by_title,
+  search_movies, 
+  get_stats
 )
 
 router = APIRouter(
@@ -78,6 +80,10 @@ def get_by_title(
   except FileNotFoundError as e:
     raise HTTPException(status_code=500, detail=str(e))
   
+<<<<<<< HEAD
+=======
+
+>>>>>>> develop
 # ─────────────────────────────────────────
 # GET /movies/search
 # Búsqueda por género y/o rating
