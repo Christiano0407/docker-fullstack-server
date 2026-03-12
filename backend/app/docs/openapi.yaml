@@ -215,6 +215,18 @@ components:
           items: 
             $ref: "#/components/schemas/MovieResponse"
 
+    # — Error —
+    ErrorResponse:
+      type: object
+      required: [detail, code]
+      properties:
+        detail:
+          type: string
+          example: Movie 'Bambi' not found.
+        code:
+          type: integer
+          example: 404
+
 
 # === Response === #
   responses: 
@@ -227,4 +239,4 @@ components:
             $ref: "#/components/schemas/ErrorResponse"
           example: 
             details: "csv not found at path /app/data/disney_movies_2_cleaned.csv"
-            code: 404
+            code: 500
