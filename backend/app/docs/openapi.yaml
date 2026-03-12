@@ -168,15 +168,26 @@ components:
           example: The Lion King
         release_date: 
           type: string
-          description: Date of the Premiere (DD/MM/YYYY)
+          description: Date of the movie premier (DD/MM/YYYY)
+          example: "15/06/1994"
         genre: 
           type: string
-          description: Genre of the Movie
+          description: Genre of the movie
           example: Adventure
         rating: 
           type: string
           description: MPAA Clasification
           example: [G, PG, PG-13, R, "Not Rated"]
+        total_gross: 
+          type: integer
+          description: Total gross movie in USD
+          minimum: 0
+          example: 422780140
+        adjusted_gross:
+          type: integer
+          description: Adjusted gross movie for Inflation in USD
+          minimum: 0
+          example: 761640898
 
     # === Movie Paginated === #
     MovieListResponse:
@@ -203,3 +214,17 @@ components:
           type: array
           items: 
             $ref: "#/components/schemas/MovieResponse"
+
+
+# === Response === #
+  responses: 
+
+    InternalError:
+      description: Descripción del error
+      content: 
+        application/jason:
+          schema:
+            $ref: "#/components/schemas/ErrorResponse"
+          example: 
+            details: "csv not found at path /app/data/disney_movies_2_cleaned.csv"
+            code: 404
