@@ -77,3 +77,47 @@ def get_by_title(
     raise 
   except FileNotFoundError as e:
     raise HTTPException(status_code=500, detail=str(e))
+  
+# ─────────────────────────────────────────
+# GET /movies/search
+# Búsqueda por género y/o rating
+# ─────────────────────────────────────────
+@router.get(
+  "/search", 
+  response_model=MovieListResponse, 
+  response={
+    200: {"description": "Movie successfully | Result for Search"}, 
+    404: {"model": ErrorResponse, "description": "Movie not Founded"},
+    500: {"model": ErrorResponse, "description=": "Intern Error Server"},
+  },
+  summary="Search Movie", 
+  description="Filter movies for genre and clasification MPAA(G, PG, PG-13, R)",
+)
+def search(
+  genre: str | None = Query(default=None, description="Filter by Genre (ex:Adventure, Comedy)"), 
+  rating: str | None = Query(default=None, description="Filter by rating MPAA(G, PG, PG-13, R)" ),
+  limit: int = Query(default=10, ge=1, le=100),
+  offset: int = Query(default=0, ge=0)
+):
+  try: 
+    rows, total = search_movies(genre=genre, rating=rating, limit=limit, offset=offset)
+    if not rows:
+      raise HTTPException(status_code=404, detail="Not movies found with the given filters")
+    return MovieListResponse(
+      count=len(rows),
+      total=total,
+      limit = limit,
+      offset = offset,
+      data = rows
+    )
+  except HTTPException: 
+    raise
+  except FileNotFoundError as e: 
+    raise HTTPException(status_code=500, detail=(e))
+
+
+
+# ─────────────────────────────────────────
+# GET /movies/stats
+# Estadísticas del dataset
+# ─────────────────────────────────────────

@@ -80,3 +80,11 @@ def get_movies_by_title(title:str) -> dict | None:
     if row["movie_title"].lower() == title_lower:
       return row
   return None
+
+# = Search = #
+def search_movies():
+  pass
+
+# = Stats | Statics (Estadísticas) = #
+def get_stats():
+  pass
