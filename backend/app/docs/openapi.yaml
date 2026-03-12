@@ -230,6 +230,16 @@ components:
 
 # === Response === #
   responses: 
+  
+    NotFound:
+      description: Recurso no encontrado
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/ErrorResponse"
+          example:
+            detail: "Movie 'Bambi' not found."
+            code: 404
 
     InternalError:
       description: Descripción del error

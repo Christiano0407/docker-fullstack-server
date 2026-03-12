@@ -1,6 +1,7 @@
 import csv
 from pathlib import Path
 from itertools import islice
+from collections import defaultdict
 # df = pd.read_csv(DATA_PATH)
 
 # __file__ = /app/app/services/data_product_workflow.py
@@ -104,6 +105,40 @@ def search_movies(
   total = len(filtered)
   return filtered[offset: offset + limit], total
 
-# = Stats | Statics (Estadísticas) = #
-def get_stats():
-  pass
+# = Stats | Statics (Estadísticas) = # | # Agregar por género (Genre) #
+def get_stats() -> dict:
+  """
+  Genera estadísticas agregadas del dataset:
+  - total de películas
+  - agrupación por género
+  - top grossing
+  - más reciente (última en el CSV)
+  """
+  all_rows = _load_all_rows()
+
+  #  - Agrupar por género -
+  genre_map: dict[str, list[dict]] = defaultdict(list)
+
+  for row in all_rows:
+      genre_map[row["genre"]].append(row)
+
+  genres = []
+
+  for genre, movies in sorted(genre_map.items()):
+      total_sum = sum(m["total_gross"] for m in movies)
+      genres.append({
+          "genre": genre,
+          "count": len(movies),
+          "total_gross_sum": total_sum,
+          "avg_gross": round(total_sum / len(movies), 2),
+      })
+
+  top_grossing = max(all_rows, key=lambda r: r["adjusted_gross"])
+
+  return {
+      "total_movies": len(all_rows),
+      "genres": genres,
+      "top_grossing": top_grossing,
+      "most_recent": all_rows[-1],
+  }
+
