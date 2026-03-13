@@ -37,6 +37,24 @@ Stack sugerido:
 - TypeScript
 - Tailwind
 
+```bash
+## 🛠 Stack Técnico
+ 
+| Capa | Tecnología |
+|------|------------|
+| Backend | Python 3.12 · FastAPI · Pydantic v2 |
+| Auth | JWT (PyJWT) · bcrypt · RBAC |
+| ORM | SQLAlchemy |
+| Base de datos | PostgreSQL 16 |
+| Package manager | uv |
+| Tests | pytest · httpx · unittest.mock |
+| Contrato API | OpenAPI 3.1.0 (YAML) |
+| Contenedores | Docker Multi-stage · Docker Compose |
+| Frontend (WIP) | React · TypeScript · Vite |
+| Proxy (WIP) | Nginx |
+
+```
+
 Estructura inicial:
 
 ```bash
@@ -131,6 +149,27 @@ main          ← Producción (solo merge desde develop)
 staging       ← Pre-producción / QA
 develop       ← Integración (base de todo el desarrollo)
 feature/*     ← Ramas temporales por funcionalidad
+```
+
+> Desarrollo mientras trabajas [Git - GitHub - Terminal]
+
+```bash
+# Crear feature
+git checkout develop
+git switch -c feature/nombre-feature
+ 
+# Commit y merge
+git add .
+git commit -m "feat: descripción"
+git checkout develop
+git merge feature/nombre-feature
+git branch -d feature/nombre-feature
+git push origin develop
+ 
+# Promote a main (cuando develop está estable)
+git checkout main
+git merge develop
+git push origin main
 ```
 
 ---
@@ -256,6 +295,16 @@ http://localhost:5000/openapi.json
 - [ ] `POST /api/v1/auth/login`
 - [ ] Protección de endpoints con `Depends(get_current_user)`
 - [ ] `core/security.py` — generación y verificación de tokens
+
+### ✅ Fase TDD — Pipeline de Tests
+
+- [x] `pytest.ini` en raíz de `backend/`
+- [x] Tests unitarios: `test_movies_service.py` (34 tests)
+- [x] Tests unitarios: `test_security.py` (22 tests)
+- [x] Tests unitarios: `test_auth_service.py` (9 tests)
+- [x] Tests integración: `test_movies_endpoints.py` (40 tests)
+- [x] Tests integración: `test_auth_endpoints.py` (18 tests)
+- [x] Todos los tests usan mocks — sin CSV real ni DB
 
 ### ⏳ Fase 4 — Docker Compose + Nginx
 
