@@ -1,7 +1,7 @@
 # === Pydantic Scheme === #
 """
-schemas | Disney movies
-contract api - openapi | pydantic [Tipar los Datos] + POO 
+  - schemas | Disney movies
+  - contract api - openapi | pydantic [Tipar los Datos] + POO 
 """
 from pydantic import BaseModel, Field, field_validator
 from typing import Optional
