@@ -15,9 +15,9 @@ from app.api.v1.routes.movies import router as movies_router
 app = FastAPI(
     title="Disney Movies API",
     description="""
-## 🎬 Disney Movies API
+## Disney Movies API
  
-API REST para consultar y analizar el dataset de películas Disney (1937–2016).
+ > API REST para consultar y analizar el dataset de películas Disney (1937–2016).
  
 ### Endpoints disponibles
  
@@ -29,6 +29,7 @@ API REST para consultar y analizar el dataset de películas Disney (1937–2016)
 | GET | `/movies/{title}` | Buscar por título |
  
 ### Notas
+
 - Los datos provienen de `disney_movies_2_cleaned.csv`
 - La paginación usa `limit` y `offset`
 - Ratings disponibles: `G`, `PG`, `PG-13`, `R`, `Not Rated`
@@ -53,10 +54,10 @@ API REST para consultar y analizar el dataset de películas Disney (1937–2016)
     ],
 )
 
-# ─────────────────────────────────────────
+# ─────────────────────────────────────────--------------
 # CORS — para conectar con el Frontend | Plus Middlewares
 # - 5000 PORT [py] | Docker
-# ─────────────────────────────────────────
+# ─────────────────────────────────────────---------------
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["http://localhost:5000", "http://localhost:5173"],
@@ -66,18 +67,19 @@ app.add_middleware(
 )
  
 # ─────────────────────────────────────────
-# Routers
+# Routers [Routes & Endpoints]
 # ─────────────────────────────────────────
 app.include_router(movies_router)
 
 
-# ─────────────────────────────────────────
-# === Endpoints API's ===
-# ─────────────────────────────────────────
+# ─────────────────────────────────────────-------
+# === Endpoints API's | Health Check OpenAPI ===
+# ─────────────────────────────────────────-------
+
 # = Debugging | para ver las rutas registradas
 #print([route.path for route in app.routes])
 
-@app.get("/")
+@app.get("/", tags=["Health"], summary="Health Check")
 def root():
   return {
         "status": "ok",
