@@ -167,6 +167,51 @@ http://localhost:5000/openapi.json
 
 ---
 
+> Agregamos versión y endpoints & rutas (Routes) en nuestro Contrato & 'main'
+
+## Endpoints disponibles
+
+```bash
+| Método | Ruta | Descripción |
+|--------|------|-------------|
+| GET | `/movies` | Lista paginada de películas |
+| GET | `/movies/search` | Filtrar por género y/o rating |
+| GET | `/movies/stats` | Estadísticas del dataset |
+| GET | `/movies/{title}` | Buscar por título |
+```
+
+## Notas
+
+> Notas referentes a las rutas (Routes) y endpoints
+
+- Los datos provienen de `disney_movies_2_cleaned.csv`
+- La paginación usa `limit` y `offset`
+- Ratings disponibles: `G`, `PG`, `PG-13`, `R`, `Not Rated`
+
+```yaml
+    version="0.1.0",
+    contact={
+        "name": "Disney Movies API",
+        "url": "http://localhost:5000/docs",
+    },
+    license_info={
+        "name": "MIT",
+    },
+    openapi_tags=[
+        {
+            "name": "Movies",
+            "description": "Operaciones sobre el dataset de películas Disney.",
+        },
+        {
+            "name": "Health",
+            "description": "Estado del servidor.",
+        },
+    ],
+)
+```
+
+---
+
 ## Convención de commits
 
 > Comandos: Comandos que usamos durante el desarrollo
@@ -183,8 +228,6 @@ http://localhost:5000/openapi.json
 | `chore:` | Tareas de mantenimiento |
 
 ```
-
----
 
 ---
 
