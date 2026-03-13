@@ -1,6 +1,6 @@
 """
-Router (Rutas) | movies.py
-Endpoints con Contrato OpenAPI
+  - Router (Rutas) | movies.py
+  - Endpoints con Contrato OpenAPI
 """
 from fastapi import APIRouter, Query, HTTPException, Path
 from app.schemas.movie import (

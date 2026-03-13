@@ -53,7 +53,7 @@ tags:
 # ─────────────────────────────────────────
 paths:
 
-
+  # - Init Path | Health - #
   /:
     get:
       tags: [Health]
@@ -291,6 +291,25 @@ components:
           type: array
           items: 
             $ref: "#/components/schemas/MovieResponse"
+            
+
+    # - Health -
+    HealthResponse:
+      type: object
+      properties:
+        status:
+          type: string
+          example: ok
+        message: 
+          type: string
+          example: Disney Movies APIs running
+        docs: 
+          type: string
+          example: /docs
+        openapi:
+          type: string
+          example: /openapi.json
+
 
     # — Error —
     ErrorResponse:

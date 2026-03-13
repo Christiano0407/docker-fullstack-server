@@ -1,3 +1,8 @@
+"""
+ - Service | data_product_workflow.py | Obtener los datos
+ - Lógica de negocio — carga y procesamiento del CSV [Data]
+ - Transformar & Analizar los datos [Data Analyst] - Polars & Pandas | Mathplotlib | numpy
+"""
 import csv
 from pathlib import Path
 from itertools import islice
