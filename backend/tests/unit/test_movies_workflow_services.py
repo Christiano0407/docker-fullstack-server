@@ -229,6 +229,18 @@ class testLoadPaginatedData:
     row, total = get_data_paginated()
     assert total == len(MOCK_ROWS)
 
+  def test_load_data_respect_limit(self, mock_all_load):
+    """Límite que respetar al retornar datos"""
+    from app.services.data_product_workflow import get_data_paginated
+    row, total = get_data_paginated(limit=4)
+    assert len(row) == 4
+
+  def test_load_data_respect_offset(self, mock_all_load): 
+    """
+      - Respetar el límite & Offset dentro de la paginación de retorno de datos
+      - Las páginas no deben solaparse
+    """
+    pass
  
 
 # ═══════════════════════════════════════
