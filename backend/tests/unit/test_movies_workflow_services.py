@@ -206,21 +206,118 @@ class TestParseRow:
 # SUITE 2 — load_data
 # Paginación básica
 # ═══════════════════════════════════════
+class testLoadPaginatedData:
+  """
+    - TDD: load_data(limit, offset)
+    - RED → implementar paginación en data_product_workflow.py
+  """
+  def test_load_data_return_tuple(self, mock_load_all):
+    from app.services.data_product_workflow import get_data_paginated
+    result = get_data_paginated()
+    assert isinstance(result, tuple)
+    assert len(result) == 2
+
+  def test_load_data_limit(self, mock_all_load): 
+    """Limit the movies = 10"""
+    from app.services.data_product_workflow import get_data_paginated
+    rows, total = get_data_paginated()
+    assert len(rows) <= 10
+
+  def test_load_data_total(self, mock_all_load): 
+    """return Total of movies"""
+    from app.services.data_product_workflow import get_data_paginated
+    row, total = get_data_paginated()
+    assert total == len(MOCK_ROWS)
+
+  def test_load_data_respect_limit(self, mock_all_load):
+    """Límite que respetar al retornar datos"""
+    from app.services.data_product_workflow import get_data_paginated
+    row, total = get_data_paginated(limit=4)
+    assert len(row) == 4
+
+  def test_load_data_respect_offset(self, mock_all_load): 
+    """
+      - Respetar el límite & Offset dentro de la paginación de retorno de datos
+      - Las páginas no deben solaparse
+    """
+    from app.services.data_product_workflow import get_data_paginated
+    rows_pag_1, _ = get_data_paginated(limit=2, offset=0)
+    rows_pag_2, _ = get_data_paginated(limit=2, offset=2)
+    title_p1 = { r["movie_title"] for r in rows_pag_1 }
+    title_p2 = { r["movie_title"] for r in rows_pag_2 }
+    assert title_p1.isdisjoint(title_p2)
+
+  def test_load_data_offset_beyond_total_return_empty(self, mock_all_load):
+    from app.services.data_product_workflow import get_data_paginated
+    rows, total = get_data_paginated(limit=10, offset=999)
+    assert rows == []
+    assert total == len(MOCK_ROWS)
  
+  def test_load_data_row_correct(self, mock_all_load):
+    """Verificar que el primer dato es correcto"""
+    from app.services.data_product_workflow import get_data_paginated
+    rows, _ = get_data_paginated(limit=1, offset=0)
+    assert rows[0]["movie_title"] == "The Lion King"
+
+  def test_data_csv_not_found_raise(self,  mock_csv_missing): 
+    """Verificar que el CSV[data], carga correctamente y no tiene errores"""
+    from app.services.data_product_workflow import get_data_paginated
+    with pytest.raises(FileNotFoundError):
+      get_data_paginated()
 
 # ═══════════════════════════════════════
 # SUITE 3 — get_movie_by_title
 # Búsqueda por título
 # ═══════════════════════════════════════
 
+class TestGetMoviesTitle:
+  """
+   -TDD: get_movie_by_title(title)
+   - Búsqueda exacta case-insensitive | For title.
+  """
+
+  def test_return_movie_found_title(self, mock_load_all):
+    """Retornar la película por título exacta"""
+    from app.services.data_product_workflow import get_data_paginated
+    result = get_data_paginated("The Lion King")
+    assert result is not None
+    assert result["movie_title"] == "The Lion King"
+
 
 # ═══════════════════════════════════════
 # SUITE 4 — search_movies
 # Filtros por género y rating
 # ═══════════════════════════════════════
+class TestSearchFilterMovies:
+  """
+    - TDD: search_movies(genre, rating, limit, offset)
+  """
+
+  def test_filter_bu_genre(self, mock_load_all): 
+    """ Search/filter by Genre (Búsqueda por género) """
+    from app.services.data_product_workflow import search_movies
+    rows, total = search_movies(genre="Adventure")
+    assert all(ro["genre"] == "Adventure" for ro in rows)
 
 
 # ═══════════════════════════════════════
 # SUITE 5 — get_stats
 # Estadísticas agregadas
 # ═══════════════════════════════════════
+
+class TestGetStatsStatics: 
+  """
+    - TDD: get_stats()
+    - Verifica estructura y correctitud de las estadísticas.
+  """
+  
+  def test_total_statics_stats_required_keys(self, mock_load_all):
+    """ 
+      - TDD: Estadísticas de las películas  
+    """
+    from app.services.data_product_workflow import get_stats
+    results = get_stats()
+    assert "total_movies" in results 
+    assert "genres" in results 
+    assert "top_grossing" in results 
+    assert "most_recent" in results 
