@@ -206,7 +206,7 @@ class TestParseRow:
 # SUITE 2 — load_data
 # Paginación básica
 # ═══════════════════════════════════════
- 
+
 
 # ═══════════════════════════════════════
 # SUITE 3 — get_movie_by_title
