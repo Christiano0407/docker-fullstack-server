@@ -7,3 +7,7 @@ __pycache__
 .gitignore
 .venv
 node_modules
+
+# pipeline tests
+tests/
+pytest.ini
