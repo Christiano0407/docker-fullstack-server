@@ -288,11 +288,16 @@ class TestGetMoviesTitle:
 # SUITE 4 — search_movies
 # Filtros por género y rating
 # ═══════════════════════════════════════
-class TestSearchMovies:
+class TestSearchFilterMovies:
   """
     - TDD: search_movies(genre, rating, limit, offset)
   """
-  pass
+
+  def test_filter_bu_genre(self, mock_load_all): 
+    """ Search/filter by Genre (Búsqueda por género) """
+    from app.services.data_product_workflow import search_movies
+    rows, total = search_movies(genre="Adventure")
+    assert all(ro["genre"] == "Adventure" for ro in rows)
 
 
 # ═══════════════════════════════════════
@@ -305,4 +310,14 @@ class TestGetStatsStatics:
     - TDD: get_stats()
     - Verifica estructura y correctitud de las estadísticas.
   """
-  pass
+  
+  def test_total_statics_stats_required_keys(self, mock_load_all):
+    """ 
+      - TDD: Estadísticas de las películas  
+    """
+    from app.services.data_product_workflow import get_stats
+    results = get_stats()
+    assert "total_movies" in results 
+    assert "genres" in results 
+    assert "top_grossing" in results 
+    assert "most_recent" in results 
