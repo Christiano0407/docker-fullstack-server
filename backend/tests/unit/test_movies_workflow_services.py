@@ -110,6 +110,7 @@ class TestParseRow:
    """
 
    def test_parse_row_maps_all_data(self):
+    """Verify all Data we have correctly row maps value"""
     from app.services.data_product_workflow import _parse_row
 
     raw = {
@@ -131,8 +132,8 @@ class TestParseRow:
     assert result[761640898] == 761640898
 
 
-    # = Data with White Space = #
     def test_parse_row_maps_white_space(self):
+      """Data with White Space"""
       from app.services.data_product_workflow import _parse_row
 
       raw = {
@@ -151,13 +152,56 @@ class TestParseRow:
       assert result[" G "] == "G"
 
 
-    # = Transform/convert text to Int - Float = 
+    def test_parse_row_maps_gros_to_int(self):
+      """ Transform/convert text to Int - Float"""
+      from app.services.data_product_workflow import _parse_row
+
+      raw = {
+        "movie_title": "Beauty and the Beast",
+        "release_date": "13/11/1991",
+        "genre": "Musical",
+        "rating": "G",
+        "total_gross": 218951625,
+        "adjusted_gross": 363017667,
+      }
+
+      result = _parse_row(raw)
+
+      assert isinstance[result["total_gross"], int]
+      assert isinstance[result["adjusted_gross"], int]
 
 
+    def test_parse_row_maps_empty_value(self): 
+      """When Get a value empty | Filas con gross vacío deben devolver 0, no lanzar error."""
+      from app.services.data_product_workflow import _parse_row
+
+      raw = {
+        "movie_title": "Tarzan",
+        "release_date": "16/06/1999",
+        "genre": "Adventure",
+        "rating": "G",
+        "total_gross": "",
+        "adjusted_gross": "",
+      }
+
+      result = _parse_row(raw)
+
+      assert result["total_gross"] == 0
+      assert result["adjusted_gross"] == 0
+
+
+      def test_parse_row_handle_missing_keys(self):
+        """Filas con claves faltantes devuelven valores por defecto."""
+        from app.services.data_product_workflow import _parse_row
+
+        raw = {}
+
+        result = _parse_row(raw)
+
+        assert result["movie_title"] == ""
+        assert result["total_gross"] == 0
 
     
-
-
 # ═══════════════════════════════════════
 # SUITE 2 — load_data
 # Paginación básica
