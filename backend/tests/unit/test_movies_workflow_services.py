@@ -114,22 +114,22 @@ class TestParseRow:
     from app.services.data_product_workflow import _parse_row
 
     raw = {
-        "movie_title": "The Lion King", 
-        "release_date": "15/06/1994", 
-        "genre": "Adventure", 
-        "rating": "G", 
-        "total_gross": 422780140,
-        "adjusted_gross": 761640898
+        "MovieTitle":    "The Lion King",
+        "ReleaseDate":   "15/06/1994",
+        "Genre":         "Adventure",
+        "Rating":        "G",
+        "TotalGross":    "422780140",
+        "AdjustedGross": "761640898",
     }
 
     result = _parse_row(raw)
 
-    assert result["The Lion King"] == "The Lion King"
-    assert result["15/06/1994"] == "15/06/1994"
-    assert result["Adventure"] == "Adventure"
-    assert result["0"] == "G"
-    assert result[422780140] == 422780140
-    assert result[761640898] == 761640898
+    assert result["movie_title"] == "The Lion King"
+    assert result["release_date"] == "15/06/1994"
+    assert result["genre"] == "Adventure"
+    assert result["rating"] == "G"
+    assert result["total_gross"] == 422780140
+    assert result["adjusted_gross"] == 761640898
 
 
     def test_parse_row_maps_white_space(self):
@@ -141,8 +141,8 @@ class TestParseRow:
         "release_date": "11/11/1992", 
         "genre": " Comedy ", 
         "rating": " G ", 
-        "total_gross": 217350219,
-        "adjusted_gross": 441969178
+        "total_gross": "217350219",
+        "adjusted_gross": "441969178"
       }
 
       result = _parse_row(raw)
@@ -161,8 +161,8 @@ class TestParseRow:
         "release_date": "13/11/1991",
         "genre": "Musical",
         "rating": "G",
-        "total_gross": 218951625,
-        "adjusted_gross": 363017667,
+        "total_gross": "218951625",
+        "adjusted_gross": "363017667",
       }
 
       result = _parse_row(raw)
@@ -176,7 +176,7 @@ class TestParseRow:
       from app.services.data_product_workflow import _parse_row
 
       raw = {
-        "movie_title": "Tarzan",
+        "movie_title": "Test",
         "release_date": "16/06/1999",
         "genre": "Adventure",
         "rating": "G",
