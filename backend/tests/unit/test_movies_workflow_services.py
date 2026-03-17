@@ -103,6 +103,59 @@ def mock_csv_missing():
 # SUITE 1 — _parse_row
 # Normalización de filas del CSV
 # ═══════════════════════════════════════
+class TestParseRow:
+   """
+    TDD: _parse_row
+    - Verifica que los nombres de columna del CSV se mapeen correctamente.
+   """
+
+   def test_parse_row_maps_all_data(self):
+    from app.services.data_product_workflow import _parse_row
+
+    raw = {
+        "movie_title": "The Lion King", 
+        "release_date": "15/06/1994", 
+        "genre": "Adventure", 
+        "rating": "G", 
+        "total_gross": 422780140,
+        "adjusted_gross": 761640898
+    }
+
+    result = _parse_row(raw)
+
+    assert result["The Lion King"] == "The Lion King"
+    assert result["15/06/1994"] == "15/06/1994"
+    assert result["Adventure"] == "Adventure"
+    assert result["0"] == "G"
+    assert result[422780140] == 422780140
+    assert result[761640898] == 761640898
+
+
+    # = Data with White Space = #
+    def test_parse_row_maps_white_space(self):
+      from app.services.data_product_workflow import _parse_row
+
+      raw = {
+        "movie_title": " Aladdin ", 
+        "release_date": "11/11/1992", 
+        "genre": " Comedy ", 
+        "rating": " G ", 
+        "total_gross": 217350219,
+        "adjusted_gross": 441969178
+      }
+
+      result = _parse_row(raw)
+
+      assert result[" Pinoccio "] == "Aladdin"
+      assert result[" Adventure "] == "Comedy"
+      assert result[" G "] == "G"
+
+
+    # = Transform/convert text to Int - Float = 
+
+
+
+    
 
 
 # ═══════════════════════════════════════
