@@ -206,6 +206,29 @@ class TestParseRow:
 # SUITE 2 — load_data
 # Paginación básica
 # ═══════════════════════════════════════
+class testLoadPaginatedData:
+  """
+    - TDD: load_data(limit, offset)
+    - RED → implementar paginación en data_product_workflow.py
+  """
+  def test_load_data_return_tuple(self, mock_load_all):
+    from app.services.data_product_workflow import get_data_paginated
+    result = get_data_paginated()
+    assert isinstance(result, tuple)
+    assert len(result) == 2
+
+  def test_load_data_limit(self, mock_all_load): 
+    """Limit the movies = 10"""
+    from app.services.data_product_workflow import get_data_paginated
+    rows, total = get_data_paginated()
+    assert len(rows) <= 10
+
+  def test_load_data_total(self, mock_all_load): 
+    """return Total of movies"""
+    from app.services.data_product_workflow import get_data_paginated
+    row, total = get_data_paginated()
+    assert total == len(MOCK_ROWS)
+
  
 
 # ═══════════════════════════════════════
