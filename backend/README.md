@@ -199,6 +199,26 @@ backend/
 
 ---
 
+## uv Deps to Pipeline Tests
+
+> project file [.toml]
+
+```bash
+
+# Deps principales
+uv add pydantic-settings sqlalchemy psycopg2-binary pyjwt bcrypt redis
+
+# Deps de desarrollo (tests)
+uv add --dev pytest pytest-asyncio httpx
+
+# Correr
+pytest app/tests/unit/test_movies_service.py -v
+pytest app/tests/ -v
+
+```
+
+---
+
 ## 🗺 Roadmap
 
 > Roadmap: Explicar el Proceso que se tomó y la toma de decisiones. Desde Contenedores Docker y Nginx; hasta el trabajo y desarrollo de la API. Manejo de Frontend y Backend
