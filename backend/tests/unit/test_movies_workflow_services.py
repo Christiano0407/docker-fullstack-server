@@ -240,22 +240,69 @@ class testLoadPaginatedData:
       - Respetar el límite & Offset dentro de la paginación de retorno de datos
       - Las páginas no deben solaparse
     """
-    pass
+    from app.services.data_product_workflow import get_data_paginated
+    rows_pag_1, _ = get_data_paginated(limit=2, offset=0)
+    rows_pag_2, _ = get_data_paginated(limit=2, offset=2)
+    title_p1 = { r["movie_title"] for r in rows_pag_1 }
+    title_p2 = { r["movie_title"] for r in rows_pag_2 }
+    assert title_p1.isdisjoint(title_p2)
+
+  def test_load_data_offset_beyond_total_return_empty(self, mock_all_load):
+    from app.services.data_product_workflow import get_data_paginated
+    rows, total = get_data_paginated(limit=10, offset=999)
+    assert rows == []
+    assert total == len(MOCK_ROWS)
  
+  def test_load_data_row_correct(self, mock_all_load):
+    """Verificar que el primer dato es correcto"""
+    from app.services.data_product_workflow import get_data_paginated
+    rows, _ = get_data_paginated(limit=1, offset=0)
+    assert rows[0]["movie_title"] == "The Lion King"
+
+  def test_data_csv_not_found_raise(self,  mock_csv_missing): 
+    """Verificar que el CSV[data], carga correctamente y no tiene errores"""
+    from app.services.data_product_workflow import get_data_paginated
+    with pytest.raises(FileNotFoundError):
+      get_data_paginated()
 
 # ═══════════════════════════════════════
 # SUITE 3 — get_movie_by_title
 # Búsqueda por título
 # ═══════════════════════════════════════
 
+class TestGetMoviesTitle:
+  """
+   -TDD: get_movie_by_title(title)
+   - Búsqueda exacta case-insensitive | For title.
+  """
+
+  def test_return_movie_found_title(self, mock_load_all):
+    """Retornar la película por título exacta"""
+    from app.services.data_product_workflow import get_data_paginated
+    result = get_data_paginated("The Lion King")
+    assert result is not None
+    assert result["movie_title"] == "The Lion King"
+
 
 # ═══════════════════════════════════════
 # SUITE 4 — search_movies
 # Filtros por género y rating
 # ═══════════════════════════════════════
+class TestSearchMovies:
+  """
+    - TDD: search_movies(genre, rating, limit, offset)
+  """
+  pass
 
 
 # ═══════════════════════════════════════
 # SUITE 5 — get_stats
 # Estadísticas agregadas
 # ═══════════════════════════════════════
+
+class TestGetStatsStatics: 
+  """
+    - TDD: get_stats()
+    - Verifica estructura y correctitud de las estadísticas.
+  """
+  pass
