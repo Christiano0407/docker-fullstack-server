@@ -199,6 +199,69 @@ backend/
 
 ---
 
+## Pipeline Tests
+
+> Proceso de Desarrollo de Pruebas [Tests]
+
+```bash
+
+# Solo movies (sin tocar Auth)
+pytest tests/unit/test_movies_service.py -v
+pytest tests/integration/test_movies_endpoints.py -v
+
+# Todos juntos
+pytest tests/ -v
+
+```
+
+```bash
+
+backend/
+├── app/
+│   ├── api/
+│   ├── core/
+│   ├── schemas/
+│   ├── services/
+│   └── main.py
+├── tests/              ← aquí (fuera de app/)
+│   ├── conftest.py
+│   ├── unit/
+│   │   └── test_movies_service.py
+│   └── integration/
+│       └── test_movies_endpoints.py
+├── data/
+├── pytest.ini          ← aquí (al lado de pyproject.toml)
+├── pyproject.toml
+└── uv.lock
+
+```
+
+> Instalar dependencias de test y correr:
+
+```bash
+
+uv add --dev pytest httpx
+pytest
+
+# Por qué `tests/` fuera de `app/`
+
+`app/` es código que se despliega — va dentro del contenedor Docker. Los tests **no deben ir al contenedor de producción**. Al estar en `tests/` separado, el `Dockerfile` los ignora naturalmente y el `.dockerignore` puede excluirlos explícitamente:
+
+# .dockerignore
+tests/
+pytest.ini
+
+# Solo movies (sin tocar Auth)
+pytest tests/unit/test_movies_service.py -v
+pytest tests/integration/test_movies_endpoints.py -v
+
+# Todos juntos
+pytest tests/ -v
+
+```
+
+---
+
 ## 🗺 Roadmap
 
 > Roadmap: Explicar el Proceso que se tomó y la toma de decisiones. Desde Contenedores Docker y Nginx; hasta el trabajo y desarrollo de la API. Manejo de Frontend y Backend

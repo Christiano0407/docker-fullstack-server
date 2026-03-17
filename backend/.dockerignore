@@ -7,3 +7,6 @@ __pycache__
 .gitignore
 .venv
 node_modules
+
+tests/
+pytest.ini
