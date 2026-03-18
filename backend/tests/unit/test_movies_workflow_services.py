@@ -276,18 +276,18 @@ class TestGetMoviesTitle:
    - Búsqueda exacta case-insensitive | For title.
   """
 
-  def test_return_movie_found_title(self, mock_load_all):
-    """Retornar la película por título exacta"""
-    from app.services.data_product_workflow import get_data_paginated
-    result = get_data_paginated("The Lion King")
+  def test_movie_found_returns_data(self, mock_load_all):
+    """Título existente → retorna la película."""
+    from app.services.data_product_workflow import get_movies_by_title
+    result = get_movies_by_title("The Lion King")
     assert result is not None
     assert result["movie_title"] == "The Lion King"
 
-  def test_movie_title_not_found(self, mock_load_all):
-    """Not found movie by title | Not exist"""
+  def test_movie_not_found_returns_none(self, mock_load_all):
+    """Título inexistente → retorna None."""
     from app.services.data_product_workflow import get_movies_by_title
-    result = get_movies_by_title("Avengers")
-    assert result is not None
+    result = get_movies_by_title("Bambi")
+    assert result is None
 
   def test_movie_title_case_insensitive(self, mock_load_all):
     """Búsquedas permitidas por Título"""
@@ -332,6 +332,41 @@ class TestSearchFilterMovies:
     rows, total = search_movies(genre="Adventure")
     assert all(ro["genre"] == "Adventure" for ro in rows)
 
+  def test_filter_by_rating(self, mock_load_all):
+    """ Search/filter by Rating """
+    from app.services.data_product_workflow import search_movies
+    rows, total = search_movies(rating="G")
+    assert all(ro["rating"] == "G" for ro in rows)
+
+  def test_filter_by_paginated(self, mock_load_all):
+    """Límite por paginación (Paginated) | Limit & Offset"""
+    from app.services.data_product_workflow import search_movies
+    rows, total = search_movies(genre="Adventure", limit=2, offset=0)
+    assert len(rows) == 2
+    assert total == 3
+
+  def test_filtered(self, mock_load_all): 
+    """Filtro por todo"""
+    from app.services.data_product_workflow import search_movies
+    rows, total = search_movies(genre="Adventure", rating="G", limit=2, offset=0)
+    assert len(rows) == 2 and all(r["genre"] == "Adventure" for r in rows) and all(ro["rating"] == "G" for ro in rows)
+    assert total == 3
+
+
+  def test_filtered_by_count_limit(self, mock_load_all):
+    """Limitar el número de respuestas de búsquedas"""
+    from app.services.data_product_workflow import search_movies
+    rows, total = search_movies(genre="Comedy", limit=1)
+    assert total == 2 # Num de response
+    assert len(rows) == 1 # Limit that response
+
+  def test_filtered_empty(self, mock_load_all):
+    """Retorno Vacío por Búsqueda/filter: Genre o Rating (En caso de que no exista)"""
+    from app.services.data_product_workflow import search_movies
+    rows, total = search_movies(genre="SciFi")
+    assert rows == []
+    assert total == 0
+
 
 # ═══════════════════════════════════════
 # SUITE 5 — get_stats
@@ -341,7 +376,7 @@ class TestSearchFilterMovies:
 class TestGetStatsStatics: 
   """
     - TDD: get_stats()
-    - Verifica estructura y correctitud de las estadísticas.
+    - Verifica estructura y correctas  estadísticas.
   """
   
   def test_total_statics_stats_required_keys(self, mock_load_all):
@@ -354,3 +389,40 @@ class TestGetStatsStatics:
     assert "genres" in results 
     assert "top_grossing" in results 
     assert "most_recent" in results 
+
+  def test_total_stats_movies(self, mock_load_all):
+    """
+      - Traer los datos correctos de las cantidad de películas que tenemos en nuestra DB
+    """
+    from app.services.data_product_workflow import get_stats
+    result = get_stats()
+    assert result["total_movies"] == len(MOCK_ROWS)
+
+  def test_total_stats_by_genre(self, mock_load_all):
+    """TObtener los Dstos correctos por género (total)"""
+    from app.services.data_product_workflow import get_stats
+    result = get_stats()
+    assert isinstance(result["genres"], list)
+
+  def test_total_stats_data(self, mock_load_all):
+    """Retornar los datos correctos"""
+    from app.services.data_product_workflow import get_stats
+    result = get_stats()
+    adventure = next(r for r in result["genres"] if r["genre"] == "Adventure")
+    assert adventure["count"] == 3
+
+  def test_total_stats_movies_top_gross(self, mock_load_all):
+    """
+      - Traer los datos correctos de las cantidad de películas que tenemos en nuestra DB | TOP Movies per gross (Ganancias)
+    """
+    from app.services.data_product_workflow import get_stats
+    result = get_stats()
+    top = result["top_grossing"]
+    max_gross = max(r["adjusted_gross"] for r in MOCK_ROWS)
+    assert top["adjusted_gross"] == max_gross
+
+  def test_recent_stats_movies(self, mock_load_all):
+    """most_recent debe ser el último elemento del CSV (Splash en MOCK_ROWS)."""
+    from app.services.data_product_workflow import get_stats
+    result = get_stats()
+    assert result["most_recent"]["movie_title"] == MOCK_ROWS[-1]["movie_title"]
