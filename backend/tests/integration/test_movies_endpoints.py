@@ -96,7 +96,7 @@ class TestMoviesEndpoints:
 
   def test_status_200(self, client):
     """Response Status 2000/ok"""
-    response = client().get("/api/v1/movies")
+    response = client.get("/api/v1/movies")
     assert response.status_code == 200
 
   def test_response_has_required_keys(self, client):

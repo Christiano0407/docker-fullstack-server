@@ -69,7 +69,7 @@ app.add_middleware(
 # ─────────────────────────────────────────
 # Routers [Routes & Endpoints]
 # ─────────────────────────────────────────
-app.include_router(movies_router)
+app.include_router(movies_router, prefix="/api/v1")
 
 
 # ─────────────────────────────────────────-------
