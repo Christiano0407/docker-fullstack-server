@@ -92,6 +92,24 @@ def mock_csv():
 # SUITE 1 — GET /api/v1/movies
 # ═══════════════════════════════════════
 
+class TestMoviesEndpoints:
+
+  def test_status_200(self, client):
+    """Response Status 2000/ok"""
+    response = client().get("/api/v1/movies")
+    assert response.status_code == 200
+
+  def test_response_has_required_keys(self, client):
+    body = client.get("/api/v1/movies").json()
+    assert "count" in body
+    assert "total" in body
+    assert "limit" in body
+    assert "offset" in body
+    assert "data" in body
+
+  def test_data_is_list(self, client):
+    body = client.get("/api/v1/movies").json()
+    assert isinstance(body["data"], list)
 
 # ═══════════════════════════════════════
 # SUITE 2 — GET /api/v1/movies/search
