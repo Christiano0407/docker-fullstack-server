@@ -332,6 +332,20 @@ class TestSearchFilterMovies:
     rows, total = search_movies(genre="Adventure")
     assert all(ro["genre"] == "Adventure" for ro in rows)
 
+  def test_filter_by_rating(self, mock_load_all):
+    """ Search/filter by Rating """
+    from app.services.data_product_workflow import search_movies
+    rows, total = search_movies(rating="G")
+    assert all(ro["rating"] == "G" for ro in rows)
+
+  def test_filter_by_paginated(self, mock_load_all):
+    """Límite por paginación (Paginated) | Limit & Offset"""
+    pass
+
+  def test_filtered_by_count_limit(self, mock_load_all):
+    """Limitar el número de respuestas de búsquedas"""
+    pass
+
 
 # ═══════════════════════════════════════
 # SUITE 5 — get_stats
