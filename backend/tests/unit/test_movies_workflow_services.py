@@ -340,11 +340,32 @@ class TestSearchFilterMovies:
 
   def test_filter_by_paginated(self, mock_load_all):
     """Límite por paginación (Paginated) | Limit & Offset"""
-    pass
+    from app.services.data_product_workflow import search_movies
+    rows, total = search_movies(genre="Adventure", limit=2, offset=0)
+    assert len(rows) == 2
+    assert total == 3
+
+  def test_filtered(self, mock_load_all): 
+    """Filtro por todo"""
+    from app.services.data_product_workflow import search_movies
+    rows, total = search_movies(genre="Adventure", rating="G", limit=2, offset=0)
+    assert len(rows) == 2 and all(r["genre"] == "Adventure" for r in rows) and all(ro["rating"] == "G" for ro in rows)
+    assert total == 3
+
 
   def test_filtered_by_count_limit(self, mock_load_all):
     """Limitar el número de respuestas de búsquedas"""
-    pass
+    from app.services.data_product_workflow import search_movies
+    rows, total = search_movies(genre="Comedy", limit=1)
+    assert total == 2 # Num de response
+    assert len(rows) == 1 # Limit that response
+
+  def test_filtered_empty(self, mock_load_all):
+    """Retorno Vacío por Búsqueda/filter: Genre o Rating (En caso de que no exista)"""
+    from app.services.data_product_workflow import search_movies
+    rows, total = search_movies(genre="SciFi")
+    assert rows == []
+    assert total == 0
 
 
 # ═══════════════════════════════════════
