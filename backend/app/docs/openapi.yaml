@@ -9,6 +9,9 @@ info:
   description: | 
      API REST para consultar y analizar el dataset de películas Disney (1937–2016)
 
+      ## Roles RBAC
+        Jerarquía: `admin` > `manager` > `editor` > `moderator` > `user`
+
       ## Endpoints
     
       ## Endpoints
@@ -21,6 +24,35 @@ info:
 
       ## Ratings disponibles
       `G` · `PG` · `PG-13` · `R` · `Not Rated`
+
+      ## Tests — TDD Pipeline
+      Todos los tests usan mocks — sin CSV real ni DB.
+  
+      | Archivo | Tipo | Suites | Tests | Cubre |
+      |---------|------|--------|-------|-------|
+      | `test_movies_service.py` | unit | 5 | 34 | `_parse_row`, `load_data`, `get_movie_by_title`, `search_movies`, `get_stats` |
+      | `test_movies_endpoints.py` | integration | 5 | 40 | HTTP movies + health |
+      | `test_auth_endpoints.py` | integration | 3 | 18 | HTTP register, login, endpoints protegidos |
+  
+      **Total: ~123 tests**
+  
+      Correr:
+      ```bash
+          pytest                          # todos
+          pytest app/tests/unit/ -v       # solo unitarios
+          pytest app/tests/integration/   # solo integración
+      ```
+      servers:
+        - url: http://localhost:5000
+          description: Desarrollo local (Docker Compose)
+        - url: http://staging.api.example.com
+          description: Staging
+
+      tags:
+        - name: Health
+          description: Estado del servidor
+        - name: Movies
+          description: Operaciones sobre el dataset de películas Disney
 
   contact:
     name: Disney Movies API's

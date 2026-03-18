@@ -276,18 +276,18 @@ class TestGetMoviesTitle:
    - Búsqueda exacta case-insensitive | For title.
   """
 
-  def test_return_movie_found_title(self, mock_load_all):
-    """Retornar la película por título exacta"""
-    from app.services.data_product_workflow import get_data_paginated
-    result = get_data_paginated("The Lion King")
+  def test_movie_found_returns_data(self, mock_load_all):
+    """Título existente → retorna la película."""
+    from app.services.data_product_workflow import get_movies_by_title
+    result = get_movies_by_title("The Lion King")
     assert result is not None
     assert result["movie_title"] == "The Lion King"
 
-  def test_movie_title_not_found(self, mock_load_all):
-    """Not found movie by title | Not exist"""
+  def test_movie_not_found_returns_none(self, mock_load_all):
+    """Título inexistente → retorna None."""
     from app.services.data_product_workflow import get_movies_by_title
-    result = get_movies_by_title("Avengers")
-    assert result is not None
+    result = get_movies_by_title("Bambi")
+    assert result is None
 
   def test_movie_title_case_insensitive(self, mock_load_all):
     """Búsquedas permitidas por Título"""
@@ -396,13 +396,13 @@ class TestGetStatsStatics:
     """
     from app.services.data_product_workflow import get_stats
     result = get_stats()
-    assert result["movie_title"] == len(MOCK_ROWS)
+    assert result["total_movies"] == len(MOCK_ROWS)
 
   def test_total_stats_by_genre(self, mock_load_all):
     """TObtener los Dstos correctos por género (total)"""
     from app.services.data_product_workflow import get_stats
     result = get_stats()
-    assert isinstance(result["genre"], list)
+    assert isinstance(result["genres"], list)
 
   def test_total_stats_data(self, mock_load_all):
     """Retornar los datos correctos"""
