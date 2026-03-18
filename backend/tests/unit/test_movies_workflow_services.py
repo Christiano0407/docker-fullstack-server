@@ -376,7 +376,7 @@ class TestSearchFilterMovies:
 class TestGetStatsStatics: 
   """
     - TDD: get_stats()
-    - Verifica estructura y correctitud de las estadísticas.
+    - Verifica estructura y correctas  estadísticas.
   """
   
   def test_total_statics_stats_required_keys(self, mock_load_all):
@@ -389,3 +389,40 @@ class TestGetStatsStatics:
     assert "genres" in results 
     assert "top_grossing" in results 
     assert "most_recent" in results 
+
+  def test_total_stats_movies(self, mock_load_all):
+    """
+      - Traer los datos correctos de las cantidad de películas que tenemos en nuestra DB
+    """
+    from app.services.data_product_workflow import get_stats
+    result = get_stats()
+    assert result["movie_title"] == len(MOCK_ROWS)
+
+  def test_total_stats_by_genre(self, mock_load_all):
+    """TObtener los Dstos correctos por género (total)"""
+    from app.services.data_product_workflow import get_stats
+    result = get_stats()
+    assert isinstance(result["genre"], list)
+
+  def test_total_stats_data(self, mock_load_all):
+    """Retornar los datos correctos"""
+    from app.services.data_product_workflow import get_stats
+    result = get_stats()
+    adventure = next(r for r in result["genres"] if r["genre"] == "Adventure")
+    assert adventure["count"] == 3
+
+  def test_total_stats_movies_top_gross(self, mock_load_all):
+    """
+      - Traer los datos correctos de las cantidad de películas que tenemos en nuestra DB | TOP Movies per gross (Ganancias)
+    """
+    from app.services.data_product_workflow import get_stats
+    result = get_stats()
+    top = result["top_grossing"]
+    max_gross = max(r["adjusted_gross"] for r in MOCK_ROWS)
+    assert top["adjusted_gross"] == max_gross
+
+  def test_recent_stats_movies(self, mock_load_all):
+    """most_recent debe ser el último elemento del CSV (Splash en MOCK_ROWS)."""
+    from app.services.data_product_workflow import get_stats
+    result = get_stats()
+    assert result["most_recent"]["movie_title"] == MOCK_ROWS[-1]["movie_title"]
