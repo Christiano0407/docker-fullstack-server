@@ -283,6 +283,39 @@ class TestGetMoviesTitle:
     assert result is not None
     assert result["movie_title"] == "The Lion King"
 
+  def test_movie_title_not_found(self, mock_load_all):
+    """Not found movie by title | Not exist"""
+    from app.services.data_product_workflow import get_movies_by_title
+    result = get_movies_by_title("Avengers")
+    assert result is not None
+
+  def test_movie_title_case_insensitive(self, mock_load_all):
+    """Búsquedas permitidas por Título"""
+    from app.services.data_product_workflow import get_movies_by_title
+    assert get_movies_by_title("The Lion King") is not None
+    assert get_movies_by_title("THE LION KING") is not None
+    assert get_movies_by_title("the lion king") is not None
+
+  def test_movies_title_all_keys(self, mock_load_all):
+    """Retornar por búsquedas clave"""
+    from app.services.data_product_workflow import get_movies_by_title
+    result = get_movies_by_title("Toy Story")
+    expected_keys= {
+      "movie_title", "release_date", "genre", "rating", "total_gross", "adjusted_gross"
+    }
+    assert expected_keys.issubset(result.keys())
+
+  def test_movies_title_empty(self, mock_load_all): 
+    """Búsqueda vacía | No encontramos ningún título o no existe"""
+    from app.services.data_product_workflow import get_movies_by_title
+    result = get_movies_by_title("")
+    assert result is None
+
+  def test_movie_title_coincidence(self, mock_load_all):
+    """Debe ser coincidencia exacta, no parcial."""
+    from app.services.data_product_workflow import get_movies_by_title
+    assert get_movies_by_title("Lion") is None   
+    assert get_movies_by_title("The Lion") is None   
 
 # ═══════════════════════════════════════
 # SUITE 4 — search_movies
