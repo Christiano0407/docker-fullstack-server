@@ -111,6 +111,43 @@ class TestMoviesEndpoints:
     body = client.get("/api/v1/movies").json()
     assert isinstance(body["data"], list)
 
+  def test_data_limit(self, client):
+    """Limit of data"""
+    body = client.get("/api/v1/movies").json()
+    # = MOCKS (DEV) have 5 data elements. Return the five = #
+    assert body["limit"] == 10
+    assert body["client"] <= 10
+
+  def test_data_total(self, client):
+    body = client.get("/api/v1/movies").json()
+    assert body["total"] == len(MOCK_ROWS)
+
+  def test_row_len_data_limit(self, client):
+    """Get the Limit when return Data"""
+    body = client.get("/api/v1/movies?limit=2").json()
+    assert len(body["data"]) == 2
+    assert body["limit"] == 2
+
+  def test_data_limit_offset(self, client):
+    body_1 = client.get("/api/v1/movies?limit=2&offset=0").json()
+    body_2 = client.get("/api/v1/movies?limit=2&offset=2").json()
+    title_1 = { m["movie_title"] for m in body_1["data"] }
+    title_2 = { m["movie_title"] for m in body_2["data"] }
+    assert title_1.issubset(title_2)
+
+  def test_data_empty(self, client):
+    body = client.get("/api/v1/movies?offset=999").json()
+    assert body["data"] == []
+    assert body["total"] == len(MOCK_ROWS)
+
+  def test_data_fields_movies(self, client):
+    """User Especifica (Específico) los Campos que necesita retornar de los datos"""
+    body = client.get("/api/v1/movies?limit=1").json()
+    data_1 = body["data"][0]
+    data_expected = { "movie_title", "release_date", "genre", "rating", "total_gross", "adjusted_gross" }
+    assert data_expected.issubset(data_1.keys())
+
+
 # ═══════════════════════════════════════
 # SUITE 2 — GET /api/v1/movies/search
 # ═══════════════════════════════════════
