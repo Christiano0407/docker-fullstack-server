@@ -92,6 +92,81 @@ def mock_csv():
 # SUITE 1 — GET /api/v1/movies
 # ═══════════════════════════════════════
 
+class TestMoviesEndpoints:
+
+  def test_status_200(self, client):
+    """Response Status 2000/ok"""
+    response = client.get("/api/v1/movies")
+    assert response.status_code == 200
+
+  def test_response_has_required_keys(self, client):
+    body = client.get("/api/v1/movies").json()
+    assert "count" in body
+    assert "total" in body
+    assert "limit" in body
+    assert "offset" in body
+    assert "data" in body
+
+  def test_data_is_list(self, client):
+    body = client.get("/api/v1/movies").json()
+    assert isinstance(body["data"], list)
+
+  def test_data_limit(self, client):
+    """Limit of data"""
+    body = client.get("/api/v1/movies").json()
+    # = MOCKS (DEV) have 5 data elements. Return the five = #
+    assert body["limit"] == 10
+    assert body["count"] <= 10
+
+  def test_data_total(self, client):
+    body = client.get("/api/v1/movies").json()
+    assert body["total"] == len(MOCK_ROWS)
+
+  def test_row_len_data_limit(self, client):
+    """Get the Limit when return Data"""
+    body = client.get("/api/v1/movies?limit=2").json()
+    assert len(body["data"]) == 2
+    assert body["limit"] == 2
+
+  def test_data_limit_offset(self, client):
+    body_1 = client.get("/api/v1/movies?limit=2&offset=0").json()
+    body_2 = client.get("/api/v1/movies?limit=2&offset=2").json()
+    title_1 = { m["movie_title"] for m in body_1["data"] }
+    title_2 = { m["movie_title"] for m in body_2["data"] }
+    assert title_1.isdisjoint(title_2)
+
+  def test_data_empty(self, client):
+    body = client.get("/api/v1/movies?offset=999").json()
+    assert body["data"] == []
+    assert body["total"] == len(MOCK_ROWS)
+
+  def test_data_fields_movies(self, client):
+    """User Especifica (Específico) los Campos que necesita retornar de los datos"""
+    body = client.get("/api/v1/movies?limit=1").json()
+    data_1 = body["data"][0]
+    data_expected = { "movie_title", "release_date", "genre", "rating", "total_gross", "adjusted_gross" }
+    assert data_expected.issubset(data_1.keys())
+
+  def test_data_limit_min_422(self, client):
+    """Violated data ge=1 | Number paginated"""
+    response = client.get("/api/v1/movies?limit=0")
+    assert response.status_code == 422
+
+  def test_data_limit_max_422(self, client):
+    """Violated Limit Data  le=100 | Number Paginated"""
+    response = client.get("/api/v1/movies?limit=101")
+    assert response.status_code == 422
+
+  def test_data_error_offset_422(self, client):
+    """Violated init Offset = 0 | Number Paginated"""
+    response = client.get("/api/v1/movies?offset=-1")
+    assert response.status_code == 422
+
+  def testdata_limit_offset_422(self, client):
+    """Violated in Limit & Offset | Data"""
+    response = client.get("/api/v1/movies?limit=101&offset=-1")
+    assert response.status_code == 422
+
 
 # ═══════════════════════════════════════
 # SUITE 2 — GET /api/v1/movies/search
