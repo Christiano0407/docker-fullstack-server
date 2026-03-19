@@ -93,7 +93,7 @@ class GenreStatsResponse(BaseModel):
   genre: str
   count: int = Field(..., description="Number of Movies with this Genre.")
   total_gross: int = Field(..., description="Total Gross (Money) for Genre.")
-  average_gross: float = Field(..., "Total Average (Promedio) for Movie")
+  average_gross: int = Field(..., description="Total Average (Promedio) for Movie")
 
 class StatsStaticsResponse(BaseModel):
   """General Response to Movie Statics"""

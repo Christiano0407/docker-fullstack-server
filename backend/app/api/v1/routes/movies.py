@@ -26,8 +26,8 @@ router = APIRouter(
 # Lista paginada de películas
 # ─────────────────────────────────────────
 @router.get(
-  "/", 
-  response={
+  "", 
+  responses={
     200: {"description": "List Of Movies"},
     500: {"model": ErrorResponse, "description": "Error Into To The Server"}
   }, 
@@ -49,36 +49,7 @@ def list_movies(
     )
   except FileNotFoundError as e:
     raise HTTPException(status_code=500, detail=str(e))
-  
 
-# ─────────────────────────────────────────
-# GET /movies/{title}
-# Búsqueda por título exacto | Router
-# ─────────────────────────────────────────
-@router.get(
-  "/{title}", 
-  response_model=MovieResponse, 
-  response={
-    200: {"description": "Movie successfully"}, 
-    404: {"model": ErrorResponse, "description": "Movie not Founded"},
-    500: {"model": ErrorResponse, "description=": "Error Server"},
-  }, 
-  summary="Get Movies for Title", 
-  description="Search Movies for Title & Get Movies"
-)
-def get_by_title(
-  title: str = Path(..., description="Title for movie", example=["The Lion King"])
-):
-  try:
-    movie = get_movies_by_title(title)
-    if not movie:
-      raise HTTPException(status_code=404, detail=f"Movie `{title}` not found.")
-    return movie
-  except HTTPException:
-    raise 
-  except FileNotFoundError as e:
-    raise HTTPException(status_code=500, detail=str(e))
-  
 
 # ─────────────────────────────────────────
 # GET /movies/search
@@ -87,7 +58,7 @@ def get_by_title(
 @router.get(
   "/search", 
   response_model=MovieListResponse, 
-  response={
+  responses={
     200: {"description": "Movie successfully | Result for Search"}, 
     404: {"model": ErrorResponse, "description": "Movie not Founded"},
     500: {"model": ErrorResponse, "description=": "Intern Error Server"},
@@ -118,7 +89,6 @@ def search(
     raise HTTPException(status_code=500, detail=(e))
 
 
-
 # ─────────────────────────────────────────
 # GET /movies/stats
 # Estadísticas del dataset
@@ -126,7 +96,7 @@ def search(
 @router.get(
   "/stats", 
   response_model=StatsStaticsResponse, 
-  response={
+  responses={
     200: {"description": "Dataset General Statics (stats)"}, 
     500: {"model": ErrorResponse, "description": "Intern Error Server"},
   },
@@ -138,3 +108,32 @@ def stats():
     return get_stats()
   except FileNotFoundError as e:
     raise HTTPException(status_code=500, detail=(e))
+
+
+# ─────────────────────────────────────────
+# GET /movies/{title}
+# Búsqueda por título exacto | Router
+# ─────────────────────────────────────────
+@router.get(
+  "/{title}", 
+  response_model=MovieResponse, 
+  responses={
+    200: {"description": "Movie successfully"}, 
+    404: {"model": ErrorResponse, "description": "Movie not Founded"},
+    500: {"model": ErrorResponse, "description=": "Error Server"},
+  }, 
+  summary="Get Movies for Title", 
+  description="Search Movies for Title & Get Movies"
+)
+def get_by_title(
+  title: str = Path(..., description="Title for movie", example=["The Lion King"])
+):
+  try:
+    movie = get_movies_by_title(title)
+    if not movie:
+      raise HTTPException(status_code=404, detail=f"Movie `{title}` not found.")
+    return movie
+  except HTTPException:
+    raise 
+  except FileNotFoundError as e:
+    raise HTTPException(status_code=500, detail=str(e))
