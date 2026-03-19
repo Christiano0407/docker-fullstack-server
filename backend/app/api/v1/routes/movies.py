@@ -58,10 +58,10 @@ def list_movies(
 @router.get(
   "/{title}", 
   response_model=MovieResponse, 
-  response={
+  responses={
     200: {"description": "Movie successfully"}, 
     404: {"model": ErrorResponse, "description": "Movie not Founded"},
-    500: {"model": ErrorResponse, "description=": "Error Server"},
+    500: {"model": ErrorResponse, "description": "Error Server"},
   }, 
   summary="Get Movies for Title", 
   description="Search Movies for Title & Get Movies"
@@ -89,7 +89,7 @@ def get_by_title(
   responses={
     200: {"description": "Movie successfully | Result for Search"}, 
     404: {"model": ErrorResponse, "description": "Movie not Founded"},
-    500: {"model": ErrorResponse, "description=": "Intern Error Server"},
+    500: {"model": ErrorResponse, "description": "Intern Error Server"},
   },
   summary="Search Movie", 
   description="Filter movies for genre and clasification MPAA(G, PG, PG-13, R)",

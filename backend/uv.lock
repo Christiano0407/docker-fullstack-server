@@ -59,14 +59,10 @@ dependencies = [
 
 [package.dev-dependencies]
 dev = [
-<<<<<<< HEAD
     { name = "bcrypt" },
     { name = "httpx" },
     { name = "pydantic-settings" },
     { name = "pyjwt" },
-=======
-    { name = "httpx" },
->>>>>>> develop
     { name = "pytest" },
     { name = "pytest-asyncio" },
 ]
@@ -86,14 +82,10 @@ requires-dist = [
 
 [package.metadata.requires-dev]
 dev = [
-<<<<<<< HEAD
     { name = "bcrypt", specifier = ">=5.0.0" },
     { name = "httpx", specifier = ">=0.28.1" },
     { name = "pydantic-settings", specifier = ">=2.13.1" },
     { name = "pyjwt", specifier = ">=2.12.0" },
-=======
-    { name = "httpx", specifier = ">=0.28.1" },
->>>>>>> develop
     { name = "pytest", specifier = ">=9.0.2" },
     { name = "pytest-asyncio", specifier = ">=1.3.0" },
 ]
@@ -436,8 +428,6 @@ wheels = [
 ]
 
 [[package]]
-<<<<<<< HEAD
-=======
 name = "psycopg2-binary"
 version = "2.9.11"
 source = { registry = "https://pypi.org/simple" }
@@ -479,7 +469,6 @@ wheels = [
 ]
 
 [[package]]
->>>>>>> develop
 name = "pydantic"
 version = "2.12.5"
 source = { registry = "https://pypi.org/simple" }
@@ -590,19 +579,11 @@ wheels = [
 
 [[package]]
 name = "pyjwt"
-<<<<<<< HEAD
-version = "2.12.0"
-source = { registry = "https://pypi.org/simple" }
-sdist = { url = "https://files.pythonhosted.org/packages/a8/10/e8192be5f38f3e8e7e046716de4cae33d56fd5ae08927a823bb916be36c1/pyjwt-2.12.0.tar.gz", hash = "sha256:2f62390b667cd8257de560b850bb5a883102a388829274147f1d724453f8fb02", size = 102511, upload-time = "2026-03-12T17:15:30.831Z" }
-wheels = [
-    { url = "https://files.pythonhosted.org/packages/15/70/70f895f404d363d291dcf62c12c85fdd47619ad9674ac0f53364d035925a/pyjwt-2.12.0-py3-none-any.whl", hash = "sha256:9bb459d1bdd0387967d287f5656bf7ec2b9a26645d1961628cda1764e087fd6e", size = 29700, upload-time = "2026-03-12T17:15:29.257Z" },
-=======
 version = "2.12.1"
 source = { registry = "https://pypi.org/simple" }
 sdist = { url = "https://files.pythonhosted.org/packages/c2/27/a3b6e5bf6ff856d2509292e95c8f57f0df7017cf5394921fc4e4ef40308a/pyjwt-2.12.1.tar.gz", hash = "sha256:c74a7a2adf861c04d002db713dd85f84beb242228e671280bf709d765b03672b", size = 102564, upload-time = "2026-03-13T19:27:37.25Z" }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/e5/7a/8dd906bd22e79e47397a61742927f6747fe93242ef86645ee9092e610244/pyjwt-2.12.1-py3-none-any.whl", hash = "sha256:28ca37c070cad8ba8cd9790cd940535d40274d22f80ab87f3ac6a713e6e8454c", size = 29726, upload-time = "2026-03-13T19:27:35.677Z" },
->>>>>>> develop
 ]
 
 [[package]]
@@ -656,8 +637,6 @@ wheels = [
 ]
 
 [[package]]
-<<<<<<< HEAD
-=======
 name = "redis"
 version = "7.3.0"
 source = { registry = "https://pypi.org/simple" }
@@ -667,7 +646,6 @@ wheels = [
 ]
 
 [[package]]
->>>>>>> develop
 name = "six"
 version = "1.17.0"
 source = { registry = "https://pypi.org/simple" }
