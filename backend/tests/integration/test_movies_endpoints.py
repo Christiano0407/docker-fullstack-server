@@ -281,6 +281,10 @@ class TestStatsStaticEndpoints:
       assert "total_gross_sum" in genre
       assert "avg_gross" in genre
 
+  def test_stats_iteration_count_genres(self, client):
+    body = client.get("api/v1/movies/stats").json()
+    genre = next(m for m in body["genres"] if m["genres"] == "Adventure")
+    assert genre["count"] == 2
 
 
 
