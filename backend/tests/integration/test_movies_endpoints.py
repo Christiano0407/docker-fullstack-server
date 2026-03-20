@@ -172,7 +172,7 @@ class TestMoviesEndpoints:
 # SUITE 2 — GET /api/v1/movies/search
 # ═══════════════════════════════════════
 
-
+  
 # ═══════════════════════════════════════
 # SUITE 3 — GET /api/v1/movies/stats
 # ═══════════════════════════════════════
