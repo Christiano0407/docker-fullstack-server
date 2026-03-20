@@ -230,6 +230,13 @@ class TestSearchMoviesEndpoints:
 # SUITE 3 — GET /api/v1/movies/stats
 # ═══════════════════════════════════════
 
+class TestStatsStaticEndpoints:
+
+  def test_stats_endpoint_status_200(self, client):
+    """ Retorna el """
+    response = client.get("/api/v1/movies/stats")
+    assert response.status_code == 200
+
 
 # ═══════════════════════════════════════
 # SUITE 4 — GET /api/v1/movies/{title}
