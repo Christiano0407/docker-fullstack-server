@@ -229,6 +229,24 @@ class TestSearchMoviesEndpoints:
 # ═══════════════════════════════════════
 # SUITE 3 — GET /api/v1/movies/stats
 # ═══════════════════════════════════════
+class TestStatsStaticEndpoints:
+
+  def test_stats_endpoint_status_200(self, client):
+    """ Retorna el HTTP Status para el Endpoint | Exitoso"""
+    response = client.get("/api/v1/movies/stats")
+    assert response.status_code == 200
+
+  def test_stats_has_required_keys(self, client):
+    """ Retornar todas las 'palabras clave' (datos), dentro de el endpoint"""
+    body = client.get("/api/v1/movies/stats").json()
+    assert "total movies" in body
+    assert "genre" in body
+    assert "top_grossing" in body
+    assert "most_recent" in body
+
+    
+
+
 
 
 # ═══════════════════════════════════════
