@@ -286,6 +286,12 @@ class TestStatsStaticEndpoints:
     genre = next(m for m in body["genres"] if m["genres"] == "Adventure")
     assert genre["count"] == 2
 
+  def test_stats_iteration_top_gross(self, client):
+    body = client.get("api/v1/movies/stats").json()
+    data_top_gross = body["top_grossing"]
+    data_expected = { "movie_title", "release_date", "genre", "rating", "total_gross", "adjusted_gross" }
+    assert data_expected.issubset(data_top_gross.keys())
+
 
 
 # ═══════════════════════════════════════
