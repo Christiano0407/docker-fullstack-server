@@ -172,7 +172,35 @@ class TestMoviesEndpoints:
 # SUITE 2 — GET /api/v1/movies/search
 # ═══════════════════════════════════════
 
+class TestSearchMoviesEndpoints: 
 
+  def test_search_by_genre_200(self, client):
+    """search by Genre & status 200/ok"""
+    response = client.get("api/v1/movies/search?genre=Adventure")
+    assert response.status_code == 200
+
+  def test_search_by_genre_filter_correctly(self, client):
+    """Search & Filter bu Genre correctly success"""
+    body = client.get("api/v1/movies/search?genre=Adventure").json()
+    assert all(m["genre"] == "Adventure" for m in body["data"])
+
+  def test_search_by_rating_200(self, client):
+    response = client.get("api/v1/movies/search?rating=G")
+    assert response.status_code == 200    
+
+  def test_search_by_rating_filter_correctly(self, client):
+    body = client.get("api/v1/movies/search?rating=G").json()
+    assert all(m["rating"] == "G" for m in body["data"])
+
+  def test_search_both_genre_and_rating_correctly(self, client):
+    body = client.get("api/v1/movies/search?genre=Adventure&rating=G").json()
+    for movie in body["data"]:
+      assert movie["genre"] == "Adventure"
+      assert movie["rating"] == "G"
+
+  
+
+  
 # ═══════════════════════════════════════
 # SUITE 3 — GET /api/v1/movies/stats
 # ═══════════════════════════════════════
