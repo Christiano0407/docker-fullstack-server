@@ -236,11 +236,11 @@ class TestStatsStaticEndpoints:
     response = client.get("/api/v1/movies/stats")
     assert response.status_code == 200
 
-  def test_stats_has_required_keys(self, client):
+  def test_response_has_required_keys(self, client):
     """ Retornar todas las 'palabras clave' (datos), dentro de el endpoint"""
     body = client.get("/api/v1/movies/stats").json()
-    assert "total movies" in body
-    assert "genre" in body
+    assert "total_movies" in body
+    assert "genres" in body
     assert "top_grossing" in body
     assert "most_recent" in body
 
@@ -262,7 +262,7 @@ class TestStatsStaticEndpoints:
       - '-1', recorre todo el MOCK 
     """
     body = client.get("api/v1/movies/stats").json()
-    assert body["most_recent"]["movie_title"] == MOCK_ROWS[-1]["movie_tile"]
+    assert body["most_recent"]["movie_title"] == MOCK_ROWS[-1]["movie_title"]
 
   def test_stats_validate_genre(self, client):
     """ 
@@ -283,7 +283,7 @@ class TestStatsStaticEndpoints:
 
   def test_stats_iteration_count_genres(self, client):
     body = client.get("api/v1/movies/stats").json()
-    genre = next(m for m in body["genres"] if m["genres"] == "Adventure")
+    genre = next(m for m in body["genres"] if m["genre"] == "Adventure")
     assert genre["count"] == 2
 
   def test_stats_iteration_top_gross(self, client):
