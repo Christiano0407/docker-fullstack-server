@@ -198,7 +198,14 @@ class TestSearchMoviesEndpoints:
       assert movie["genre"] == "Adventure"
       assert movie["rating"] == "G"
 
-  
+  def test_search_nonexistent_genre_404(self, client):
+        response = client.get("/api/v1/movies/search?genre=SciFi")
+        assert response.status_code == 404
+
+  def test_search_no_filter_all(self, client): 
+    """ Return Total search """
+    body = client.get("api/v1/movies/search").json()
+    assert body["total"] == len(MOCK_ROWS)
 
   
 # ═══════════════════════════════════════
