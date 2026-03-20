@@ -207,6 +207,24 @@ class TestSearchMoviesEndpoints:
     body = client.get("api/v1/movies/search").json()
     assert body["total"] == len(MOCK_ROWS)
 
+  def test_search_total_reflects_filtered_count(self, client):
+        body = client.get("/api/v1/movies/search?rating=R").json()
+        """ Solo 1 película R en MOCK_ROWS """
+        assert body["total"] == 1
+ 
+  def test_search_pagination_with_filter(self, client):
+      """ 2 Adventure en MOCK_ROWS pero limit=1 """
+      body = client.get("/api/v1/movies/search?genre=Adventure&limit=1").json()
+      assert len(body["data"]) == 1
+      assert body["total"] == 2
+
+  def test_search_response_structure(self, client):
+      """ Agregar elementos que complementen la respuesta  """
+      body = client.get("/api/v1/movies/search?genre=Adventure").json()
+      assert "count" in body
+      assert "total" in body
+      assert "data" in body
+
   
 # ═══════════════════════════════════════
 # SUITE 3 — GET /api/v1/movies/stats
