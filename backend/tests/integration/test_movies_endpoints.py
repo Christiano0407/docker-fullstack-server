@@ -229,6 +229,69 @@ class TestSearchMoviesEndpoints:
 # ═══════════════════════════════════════
 # SUITE 3 — GET /api/v1/movies/stats
 # ═══════════════════════════════════════
+class TestStatsStaticEndpoints:
+
+  def test_stats_endpoint_status_200(self, client):
+    """ Retorna el HTTP Status para el Endpoint | Exitoso"""
+    response = client.get("/api/v1/movies/stats")
+    assert response.status_code == 200
+
+  def test_response_has_required_keys(self, client):
+    """ Retornar todas las 'palabras clave' (datos), dentro de el endpoint"""
+    body = client.get("/api/v1/movies/stats").json()
+    assert "total_movies" in body
+    assert "genres" in body
+    assert "top_grossing" in body
+    assert "most_recent" in body
+
+  def test_stats_required_total_movies(self, client): 
+    body = client.get("api/v1/movies/stats").json()
+    assert body["total_movies"] == len(MOCK_ROWS)
+
+  def test_stats_required_top_gross(self, client):
+    """ 
+      - Retornar la película con la mayor ganancia 
+      - 'The Lion King', es la que tiene la mayor ganancia
+    """
+    body = client.get("api/v1/movies/stats").json()
+    assert body["top_grossing"]["movie_title"] == "The Lion King"
+
+  def test_stats_recent_movies(self, client):
+    """ 
+      - Retornar las películas más recientes 
+      - '-1', recorre todo el MOCK 
+    """
+    body = client.get("api/v1/movies/stats").json()
+    assert body["most_recent"]["movie_title"] == MOCK_ROWS[-1]["movie_title"]
+
+  def test_stats_validate_genre(self, client):
+    """ 
+      - Validar que el Género, esté dentro de Stats 
+      - Retornar el género con mayor relevancia
+    """
+    body = client.get("api/v1/movies/stats").json()
+    assert isinstance(body["genres"], list)
+
+  def test_stats_genres_structure(self, client):
+    """ Retornar la estructura de Género"""
+    body = client.get("api/v1/movies/stats").json()
+    for genre in body["genres"]:
+      assert "genre" in genre
+      assert "count" in genre
+      assert "total_gross_sum" in genre
+      assert "avg_gross" in genre
+
+  def test_stats_iteration_count_genres(self, client):
+    body = client.get("api/v1/movies/stats").json()
+    genre = next(m for m in body["genres"] if m["genre"] == "Adventure")
+    assert genre["count"] == 2
+
+  def test_stats_iteration_top_gross(self, client):
+    body = client.get("api/v1/movies/stats").json()
+    data_top_gross = body["top_grossing"]
+    data_expected = { "movie_title", "release_date", "genre", "rating", "total_gross", "adjusted_gross" }
+    assert data_expected.issubset(data_top_gross.keys())
+
 
 
 # ═══════════════════════════════════════
