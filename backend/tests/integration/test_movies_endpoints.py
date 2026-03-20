@@ -293,14 +293,6 @@ class TestStatsStaticEndpoints:
     assert data_expected.issubset(data_top_gross.keys())
 
 
-class TestStatsStaticEndpoints:
-
-  def test_stats_endpoint_status_200(self, client):
-    """ Retorna el """
-    response = client.get("/api/v1/movies/stats")
-    assert response.status_code == 200
-
-
 # ═══════════════════════════════════════
 # SUITE 4 — GET /api/v1/movies/{title}
 # ═══════════════════════════════════════
