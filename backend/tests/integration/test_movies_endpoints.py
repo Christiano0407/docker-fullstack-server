@@ -172,6 +172,59 @@ class TestMoviesEndpoints:
 # SUITE 2 — GET /api/v1/movies/search
 # ═══════════════════════════════════════
 
+class TestSearchMoviesEndpoints: 
+
+  def test_search_by_genre_200(self, client):
+    """search by Genre & status 200/ok"""
+    response = client.get("api/v1/movies/search?genre=Adventure")
+    assert response.status_code == 200
+
+  def test_search_by_genre_filter_correctly(self, client):
+    """Search & Filter bu Genre correctly success"""
+    body = client.get("api/v1/movies/search?genre=Adventure").json()
+    assert all(m["genre"] == "Adventure" for m in body["data"])
+
+  def test_search_by_rating_200(self, client):
+    response = client.get("api/v1/movies/search?rating=G")
+    assert response.status_code == 200    
+
+  def test_search_by_rating_filter_correctly(self, client):
+    body = client.get("api/v1/movies/search?rating=G").json()
+    assert all(m["rating"] == "G" for m in body["data"])
+
+  def test_search_both_genre_and_rating_correctly(self, client):
+    body = client.get("api/v1/movies/search?genre=Adventure&rating=G").json()
+    for movie in body["data"]:
+      assert movie["genre"] == "Adventure"
+      assert movie["rating"] == "G"
+
+  def test_search_nonexistent_genre_404(self, client):
+        response = client.get("/api/v1/movies/search?genre=SciFi")
+        assert response.status_code == 404
+
+  def test_search_no_filter_all(self, client): 
+    """ Return Total search """
+    body = client.get("api/v1/movies/search").json()
+    assert body["total"] == len(MOCK_ROWS)
+
+  def test_search_total_reflects_filtered_count(self, client):
+        body = client.get("/api/v1/movies/search?rating=R").json()
+        """ Solo 1 película R en MOCK_ROWS """
+        assert body["total"] == 1
+ 
+  def test_search_pagination_with_filter(self, client):
+      """ 2 Adventure en MOCK_ROWS pero limit=1 """
+      body = client.get("/api/v1/movies/search?genre=Adventure&limit=1").json()
+      assert len(body["data"]) == 1
+      assert body["total"] == 2
+
+  def test_search_response_structure(self, client):
+      """ Agregar elementos que complementen la respuesta  """
+      body = client.get("/api/v1/movies/search?genre=Adventure").json()
+      assert "count" in body
+      assert "total" in body
+      assert "data" in body
+
   
 # ═══════════════════════════════════════
 # SUITE 3 — GET /api/v1/movies/stats
