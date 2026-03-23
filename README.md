@@ -126,7 +126,7 @@ backend/
 
 ## 🐳 Docker
 
-### Docker Compose — 3 contenedores activos
+> **Docker Compose** - 3 contenedores activos
 
 ```bash
 # Desde la raíz del proyecto
