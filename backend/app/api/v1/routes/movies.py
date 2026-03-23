@@ -133,7 +133,7 @@ def stats():
     description="Search Movies for Title & Get Movies",
 )
 def get_by_title(
-    title: str = Path(..., description="Title for movie", example="The Lion King"),
+    title: str = Path(..., description="Title for movie", examples=["The Lion King"]),
 ):
     try:
         movie = get_movies_by_title(title)
