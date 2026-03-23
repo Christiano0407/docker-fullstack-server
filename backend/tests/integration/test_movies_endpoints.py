@@ -303,6 +303,37 @@ class TestGetMoviesByTitleEndpoints:
     response = client.get("/api/v1/movies/The Lion King")
     assert response.status_code == 200
 
+  def test_returns_correct_movie(self, client):
+        body = client.get("/api/v1/movies/The Lion King").json()
+        assert body["movie_title"] == "The Lion King"
+        assert body["genre"] == "Adventure"
+        assert body["rating"] == "G"
+ 
+  def test_nonexistent_movie_404(self, client):
+      response = client.get("/api/v1/movies/Bambi")
+      assert response.status_code == 404
+
+  def test_404_response_has_detail(self, client):
+      body = client.get("/api/v1/movies/Bambi").json()
+      assert "detail" in body
+
+  def test_case_insensitive_search(self, client):
+      response_lower = client.get("/api/v1/movies/the lion king")
+      response_upper = client.get("/api/v1/movies/THE LION KING")
+      assert response_lower.status_code == 200
+      assert response_upper.status_code == 200
+
+  def test_returns_all_movie_fields(self, client):
+      body = client.get("/api/v1/movies/Aladdin").json()
+      expected = {"movie_title", "release_date", "genre", "rating",
+                  "total_gross", "adjusted_gross"}
+      assert expected.issubset(body.keys())
+
+  def test_gross_values_are_integers(self, client):
+      body = client.get("/api/v1/movies/The Lion King").json()
+      assert isinstance(body["total_gross"], int)
+      assert isinstance(body["adjusted_gross"], int)
+
 
 # ═══════════════════════════════════════
 # SUITE 5 — Health check
