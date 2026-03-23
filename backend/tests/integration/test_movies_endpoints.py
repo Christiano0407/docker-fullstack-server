@@ -297,7 +297,27 @@ class TestStatsStaticEndpoints:
 # SUITE 4 — GET /api/v1/movies/{title}
 # ═══════════════════════════════════════
 
+class TestGetMoviesByTitleEndpoints: 
+
+  def test_title_existing_movie_200(self, client):
+    response = client.get("/api/v1/movies/The Lion King")
+    assert response.status_code == 200
+
 
 # ═══════════════════════════════════════
 # SUITE 5 — Health check
 # ═══════════════════════════════════════
+
+class TestHealthEndpoint:
+
+  def test_root_return_200(self, client):
+    response = client.get("/")
+    assert response.status_code == 200
+
+  def test_root_has_status_ok(self, client):
+    body = client.get("/").json()
+    assert body["status"] == "ok"
+
+  def test_root_has_docs(self, client):
+    body = client.get("/").json()
+    assert "docs" in body
