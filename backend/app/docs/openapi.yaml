@@ -13,8 +13,6 @@ info:
         Jerarquía: `admin` > `manager` > `editor` > `moderator` > `user`
 
       ## Endpoints
-    
-      ## Endpoints
       | Método | Ruta                  | Descripción                        |
       |--------|-----------------------|------------------------------------|
       | GET    | `/api/v1/movies`      | Lista paginada de películas        |
@@ -251,44 +249,6 @@ paths:
         "500":
           $ref: "#/components/responses/InternalError"
 
-
-  # ── Search Movies ──────────────────────
-  /api/v1/movies/search:
-    get:
-      tags: [Movies]
-      summary: Search Movies
-      operationId: searchMovies
-      description: "Filter movies by genre and/or rating MPAA (G, PG, PG-13, R, Not Rated)"
-      parameters:
-        - name: genre
-          in: query
-          required: false
-          description: "Filter by Genre (ex: Adventure, Comedy)"
-          schema:
-            type: string
-            example: Adventure
-        - name: rating
-          in: query
-          required: false
-          description: "Filter by rating MPAA (G, PG, PG-13, R)"
-          schema:
-            type: string
-            example: G
-        - $ref: "#/components/parameters/LimitParam"
-        - $ref: "#/components/parameters/OffsetParam"
-      responses:
-        "200":
-          description: Search results
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/MovieListResponse"
-        "404":
-          $ref: "#/components/responses/NotFound"
-        "500":
-          $ref: "#/components/responses/InternalError"
-
-
   # ── Get By Title ──────────────────────
   /api/v1/movies/{title}:
     get:
@@ -445,59 +405,6 @@ components:
           example: 91276595.0
  
     # — Stats generales —
-    StatsResponse:
-      type: object
-      required: [total_movies, genres, top_grossing, most_recent]
-      properties:
-        total_movies:
-          type: integer
-          example: 579
-        genres:
-          type: array
-          items:
-            $ref: "#/components/schemas/GenreStatsResponse"
-        top_grossing:
-          $ref: "#/components/schemas/MovieResponse"
-        most_recent:
-          $ref: "#/components/schemas/MovieResponse"
-            
-
-    # - Health -
-    HealthResponse:
-      type: object
-      properties:
-        status:
-          type: string
-          example: ok
-        message: 
-          type: string
-          example: Disney Movies APIs running
-        docs: 
-          type: string
-          example: /docs
-        openapi:
-          type: string
-          example: /openapi.json
-
-
-    # === Stats Response === #
-    GenreStatsResponse:
-      type: object
-      required: [genre, count, total_gross_sum, avg_gross]
-      properties:
-        genre:
-          type: string
-          example: Adventure
-        count:
-          type: integer
-          description: Number of Movies with this Genre
-        total_gross_sum:
-          type: integer
-          description: Total Gross (Money) for Genre
-        avg_gross:
-          type: number
-          description: Total Average (Promedio) for Movie
-
     StatsResponse:
       type: object
       required: [total_movies, genres, top_grossing, most_recent]
