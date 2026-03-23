@@ -13,15 +13,23 @@ from typing import Optional
 # ====================================================== #
 class MovieBase(BaseModel):
     movie_title: str = Field(
-        ..., description="Title of the movie", example="The Lion King"
+        ...,
+        description="Title of the movie",
+        json_schema_extra={"example": "The Lion King"},
     )
     release_date: str = Field(
         ...,
         description="Date of the movie premier (DD/MM/YYYY)",
-        example="15/06/1994",
+        json_schema_extra={"example": "15/06/1994"},
     )
-    genre: str = Field(..., description="Genre of the movie", example="Adventure")
-    rating: str = Field(..., description="MPAA Clasification", example="PG")
+    genre: str = Field(
+        ...,
+        description="Genre of the movie",
+        json_schema_extra={"example": "Adventure"},
+    )
+    rating: str = Field(
+        ..., description="MPAA Clasification", json_schema_extra={"example": "PG"}
+    )
     total_gross: int = Field(..., ge=0, description="Total gross movie in USD")
     adjusted_gross: int = Field(
         ..., ge=0, description="Adjusted gross movie for Inflation in USD"
