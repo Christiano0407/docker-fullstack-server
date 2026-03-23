@@ -1,6 +1,6 @@
 """
 - Router (Rutas) | movies.py
-- Endpoints con Contrato OpenAPI
+- Endpoints with OpenAPI Contract
 """
 
 from fastapi import APIRouter, Query, HTTPException, Path
@@ -20,10 +20,6 @@ from app.services.data_product_workflow import (
 router = APIRouter(prefix="/movies", tags=["Movies"])
 
 
-# ─────────────────────────────────────────
-# GET /movies
-# Lista paginada de películas
-# ─────────────────────────────────────────
 @router.get(
     "",
     response_model=MovieListResponse,
@@ -54,39 +50,6 @@ def list_movies(
         raise HTTPException(status_code=500, detail=str(e))
 
 
-# ─────────────────────────────────────────
-# GET /movies/{title}
-# Búsqueda por título exacto | Router
-# ─────────────────────────────────────────
-@router.get(
-    "/{title}",
-    response_model=MovieResponse,
-    responses={
-        200: {"description": "Movie successfully"},
-        404: {"model": ErrorResponse, "description": "Movie not Founded"},
-        500: {"model": ErrorResponse, "description": "Error Server"},
-    },
-    summary="Get Movies for Title",
-    description="Search Movies for Title & Get Movies",
-)
-def get_by_title(
-    title: str = Path(..., description="Title for movie", example="The Lion King"),
-):
-    try:
-        movie = get_movies_by_title(title)
-        if not movie:
-            raise HTTPException(status_code=404, detail=f"Movie `{title}` not found.")
-        return movie
-    except HTTPException:
-        raise
-    except FileNotFoundError as e:
-        raise HTTPException(status_code=500, detail=str(e))
-
-
-# ─────────────────────────────────────────
-# GET /movies/search
-# Búsqueda por género y/o rating
-# ─────────────────────────────────────────
 @router.get(
     "/search",
     response_model=MovieListResponse,
@@ -125,10 +88,6 @@ def search(
         raise HTTPException(status_code=500, detail=(e))
 
 
-# ─────────────────────────────────────────
-# GET /movies/stats
-# Estadísticas del dataset
-# ─────────────────────────────────────────
 @router.get(
     "/stats",
     response_model=StatsStaticsResponse,
@@ -146,10 +105,6 @@ def stats():
         raise HTTPException(status_code=500, detail=(e))
 
 
-# ─────────────────────────────────────────
-# GET /movies/{title}
-# Búsqueda por título exacto | Router
-# ─────────────────────────────────────────
 @router.get(
     "/{title}",
     response_model=MovieResponse,
