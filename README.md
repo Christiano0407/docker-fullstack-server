@@ -124,6 +124,65 @@ backend/
 
 ---
 
+## 🐳 Docker
+
+### Docker Compose — 3 contenedores activos
+
+```bash
+# Desde la raíz del proyecto
+cp .env.example .env
+ 
+# Levantar todo
+docker compose up --build
+ 
+# Detener
+docker compose down
+ 
+# Detener + borrar volumen (datos)
+docker compose down -v
+```
+
+---
+
+## Dockerfile — Multi-stage
+
+> **Nota:** El build context debe apuntar a `./backend`, no a la raíz.
+
+```bash
+Stage 1 (builder)  →  instala deps con uv, crea .venv
+Stage 2 (runtime)  →  copia /app, agrega libpq-dev, expone :5000
+```
+
+---
+
+## Build individual (sin Compose)
+
+```bash
+docker build -t backend-fastapi ./backend
+docker run -d -p 5000:5000 --name backend backend-fastapi
+docker logs backend
+docker stop backend && docker rm backend
+```
+
+---
+
+## 📦 Dataset
+
+> Archivo: `data/disney_movies_2_cleaned.csv`
+
+| Campo | Tipo | Descripción |
+|-------|------|-------------|
+| `MovieTitle` | string | Título de la película |
+| `ReleaseDate` | string | Fecha de estreno (DD/MM/YYYY) |
+| `Genre` | string | Género |
+| `Rating` | string | Clasificación MPAA |
+| `TotalGross` | int | Recaudación total en USD |
+| `AdjustedGross` | int | Recaudación ajustada por inflación |
+
+- **Total:** 579 películas · **Rango:** 1937–2016
+
+---
+
 ## Git Flow
 
 ```bash
@@ -131,6 +190,27 @@ main          ← Producción (solo merge desde develop)
 staging       ← Pre-producción / QA
 develop       ← Integración (base de todo el desarrollo)
 feature/*     ← Ramas temporales por funcionalidad
+```
+
+```bash
+
+# Crear feature
+git checkout develop
+git switch -c feature/nombre-feature
+ 
+# Commit y merge
+git add .
+git commit -m "feat: descripción"
+git checkout develop
+git merge feature/nombre-feature
+git branch -d feature/nombre-feature
+git push origin develop
+ 
+# Promote a main (cuando develop está estable)
+git checkout main
+git merge develop
+git push origin main
+
 ```
 
 ---
@@ -256,11 +336,23 @@ http://localhost:5000/openapi.json
 - [ ] `POST /api/v1/auth/login`
 - [ ] Protección de endpoints con `Depends(get_current_user)`
 - [ ] `core/security.py` — generación y verificación de tokens
+- [x] `docker-compose.yml` con db + redis + backend
 
-### ⏳ Fase 4 — Docker Compose + Nginx
+### ✅ Fase TDD — Pipeline de Tests
 
-- [ ] `docker-compose.yml` con servicios backend + frontend + nginx
-- [ ] Nginx como reverse proxy
+- [x] `pytest.ini` en raíz de `backend/`
+- [x] Tests unitarios: `test_movies_service.py` (34 tests)
+- [x] Tests unitarios: `test_security.py` (22 tests)
+- [x] Tests unitarios: `test_auth_service.py` (9 tests)
+- [x] Tests integración: `test_movies_endpoints.py` (40 tests)
+- [x] Tests integración: `test_auth_endpoints.py` (18 tests)
+- [x] Todos los tests usan mocks — sin CSV real ni DB
+
+### ⏳ Fase 4 — Nginx + Docker Compose completo
+
+- [ ] Descomentar servicio `nginx` en `docker-compose.yml`
+- [ ] `nginx/nginx.conf` — reverse proxy
+- [ ] Descomentar servicio `frontend`
 - [ ] Variables de entorno por entorno (`dev`, `staging`, `prod`)
 
 ### ⏳ Fase 5 — Frontend conectado
