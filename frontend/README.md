@@ -71,3 +71,30 @@ export default defineConfig([
   },
 ])
 ```
+
+---
+
+## Estructura del Frontend
+
+> Frontend [Docker Compose + Nginx Proxy]
+
+```bash
+
+frontend/
+├── Dockerfile              ← multi-stage: build + nginx
+├── nginx-spa.conf          ← sirve React SPA dentro del container
+├── vite.config.ts          ← proxy /api → localhost:5000 en dev
+├── .env.development        ← VITE_API_URL=http://localhost:5000/api/v1
+├── .env.production         ← VITE_API_URL=/api/v1
+└── src/
+    ├── main.tsx
+    ├── App.tsx
+    ├── App.css             ← design system completo (dark editorial)
+    ├── api/
+    │   └── moviesApi.ts    ← cliente HTTP tipado
+    └── components/
+        ├── MovieCard.tsx   ← tarjeta individual
+        ├── MovieList.tsx   ← lista con fetch + estados
+        └── Pagination.tsx  ← controles de paginación
+
+```
