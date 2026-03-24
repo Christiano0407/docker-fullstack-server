@@ -13,7 +13,7 @@ services:
     volumes:
       - ./backend/data:/app/data:ro
     healthcheck:
-      test: ["CMD", "curl", "-f", "http:localhost:500/"]
+      test: ["CMD", "curl", "-f", "http://localhost:5000/"]
       interval: 30s
       timeout: 10s
       retries: 3
@@ -21,7 +21,7 @@ services:
     expose:
       - "5000"
     networks:
-      - disney-network
+      - disney-networks
     restart: unless-stopped
 
 ## === ------ Backend instance [2] (load balancer) ------- ===
@@ -37,20 +37,20 @@ services:
     volumes:
       - ./backend/data:/app/data:ro
     healthcheck:
-      test: ["CMD", "curl", "-f", "http:localhost:500/"]
+      test: ["CMD", "curl", "-f", "http://localhost:5000/"]
       interval: 30s
       timeout: 10s
       retries: 3
       start_period: 5s
     expose:
-      - "5001"
+      - "5000"
     networks:
-      - disney-network
+      - disney-networks
     restart: unless-stopped
 
 
 ## === ------ Frontend ------- ===
-  Frontend:
+  frontend:
     build:
       context: ./frontend
       dockerfile: Dockerfile
@@ -61,7 +61,7 @@ services:
       timeout: 10s
       retries: 3
     networks:
-      - disney-network
+      - disney-networks
     restart: unless-stopped
     depends_on:
       - backend
