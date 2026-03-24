@@ -1,4 +1,4 @@
-# === ----------- Stage 1: Frontend | Build  ---------- === #
+# === ----------------------- Stage 1: Frontend | Build  ----------------------------- === #
 FROM node:20-alpine AS builder
 
 WORKDIR /app
@@ -17,7 +17,7 @@ COPY . .
 # build Vite
 RUN pnpm build
 
-## === ----- Stage 2: Runtime ----- === ##
+## === -------------------------- Stage 2: Runtime --------------------------- === ##
 FROM nginx:alpine
 
 # copiar build generado
