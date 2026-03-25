@@ -25,3 +25,8 @@ dist-ssr
 
 # VSCODE
 .vscode/ 
+
+# frontend/.gitignore — agregar
+.env.development
+.env.production
+.env
