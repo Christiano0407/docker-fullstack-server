@@ -123,4 +123,4 @@ frontend/
 
 ### Licencia
 
-MIT
+MIT License (MIT)
