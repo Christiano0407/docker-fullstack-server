@@ -13,18 +13,25 @@ const LIMIT = 10;
 export default function MovieList() {
   const [data, setData] = useState<MovieListResponse | null >(null);
   const [offset, setOffset] = useState(0); 
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null >(null);   
 
   useEffect(() => {
-    setLoading(true); 
-    setError(null); 
-
+    let ignore = false;
+    
     moviesAPI
       .getMovies(LIMIT, offset)
-      .then(setData)
-      .catch((e: Error) => setError(e.message))
-      .finally(() => setLoading(false)); 
+      .then((data) => {
+        if (!ignore) setData(data);
+      })
+      .catch((e: Error) => {
+        if (!ignore) setError(e.message);
+      })
+      .finally(() => {
+        if (!ignore) setLoading(false);
+      });
+    
+    return () => { ignore = true; };
   },[offset])
 
   if(loading) return (
