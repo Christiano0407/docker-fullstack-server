@@ -121,6 +121,49 @@ frontend/
 
 ---
 
+```bash 
+
+# No requieren instalación — son imágenes Docker
+# nginx:alpine      → en docker-compose.yml
+# node:20-alpine    → en frontend/Dockerfile
+# python:3.12-slim  → en backend/Dockerfile
+```
+
+---
+
+## Checklist de archivos Docker/Frontend
+
+```bash
+
+disney-movies/
+├── docker-compose.yml        ← modificar (agregar nginx + backend_2 + expose)
+├── nginx/
+│   └── nginx.conf            ← crear (upstream + reverse proxy)
+├── frontend/
+│   ├── Dockerfile            ← modificar (multi-stage)
+│   ├── nginx-spa.conf        ← crear (SPA config)
+│   ├── vite.config.ts        ← modificar (proxy /api)
+│   ├── .env.development      ← crear
+│   ├── .env.production       ← crear
+│   └── src/
+│       ├── api/
+│       │   └── moviesApi.ts  ← crear
+│       ├── components/
+│       │   ├── MovieCard.tsx ← crear
+│       │   ├── MovieList.tsx ← crear
+│       │   └── Pagination.tsx← crear
+│       ├── App.tsx           ← modificar
+│       ├── App.css           ← modificar
+│       └── main.tsx          ← verificar
+└── backend/
+    └── app/
+        └── main.py           ← modificar (CORS)
+
+
+```
+
+---
+
 ### Licencia
 
 MIT License (MIT)
