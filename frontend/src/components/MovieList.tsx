@@ -1,0 +1,3 @@
+/**
+ * src/components/MovieList.tsx
+ */
