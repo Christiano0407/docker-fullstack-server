@@ -52,14 +52,14 @@ export default function MovieList() {
       </div>
 
       <div className="list-movieGrid">
-        {data.data.map((movie) => {
+        {data.data.map((movie) => (
           <MovieCard key={`${movie.movie_title} - ${movie.release_date}`} movie={movie}/>
-        })}
+        ))}
       </div>
 
       <Pagination
         offset={offset}
-        limit={limit}
+        limit={LIMIT}
         total={data.total}
         onPrev={ () => setOffset((m) => Math.max(0, m - LIMIT))}
         onNext={() => setOffset((m) => m + LIMIT)}

@@ -3,18 +3,15 @@
  * Cliente HTTP — Disney Movies API
  */
 
-const BASE_URL = import.meta.env.VITE_API_URL ?? "/api/v1"; 
+const BASE_URL = import.meta.env.VITE_API_URL ?? "";
 
-/**
- * === Tipado con Ts - Movies API ===
- */
 export interface Movie {
   movie_title: string; 
   release_date: string; 
   genre: string; 
   rating: string; 
   total_gross: number; 
-  adjusted_gros: number; 
+  adjusted_gross: number; 
 }
 
 export interface MovieListResponse {

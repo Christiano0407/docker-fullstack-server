@@ -1,4 +1,5 @@
 import './App.css'
+import MovieList from './components/MovieList'
 
 function App() {
 
@@ -16,7 +17,7 @@ function App() {
           <div className='header-heroSection'></div>
         </header>
         <main id='idMain' className='main'>
-          
+          <MovieList />
         </main>
         <footer id='idFooter' className='footer'>
           <p>Disney Movies API · FastAPI · Docker · Nginx</p>

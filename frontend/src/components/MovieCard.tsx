@@ -45,7 +45,7 @@ export default function MovieCard({ movie }: Props) {
         <div className="gross-divider" />
         <div className="gross-item">
           <span className="gross-label">Adjusted</span>
-          <span className="gross-value adjusted">{formatConvertMoney(movie.adjusted_gros)}</span>
+          <span className="gross-value adjusted">{formatConvertMoney(movie.adjusted_gross)}</span>
         </div>
       </div>
     </article>
