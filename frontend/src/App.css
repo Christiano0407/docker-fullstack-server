@@ -1,0 +1,91 @@
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --clr-white: #fff;
+  --clr-white-one: #f2f2f2f2;
+  --clr-saturation: hsl(217, 0%, 61%);
+  --clr-black: #111;
+  --clr-black-one: #333;
+  --clr-black-light: hsl(217, 89%, 0%);
+  --bg:          #0c0c0e;
+  --surface:     #141417;
+  --surface-2:   #1c1c21;
+  --border:      #2a2a32;
+  --gold:        #c9a84c;
+  --gold-light:  #e8c97a;
+  --text:        #f0ede6;
+  --text-muted:  #7a7a8a;
+  --text-dim:    #4a4a5a;
+  --radius:      6px;
+  --font-display: 'Playfair Display', Georgia, serif;
+  --font-body:    'DM Sans', system-ui, sans-serif;
+}
+
+html {
+  font-size: 62.5%;
+}
+
+body {
+  min-height: 100dvh;
+  width: 100%;
+}
+
+a {
+  text-decoration: none;
+}
+/* a:hover {
+  color: #535bf2;
+}
+ */
+
+a:has(> img) {
+  object-fit: cover;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+ul {
+  list-style: none;
+}
+
+h1, h2, h3, h4 {
+  text-wrap: balance;
+}
+
+p {
+  text-decoration: balance;
+}
+
+button {
+  border:0;
+  outline: none;
+  margin: 0;
+}
+/* button:hover {
+  border-color: #646cff;
+}
+button:focus,
+button:focus-visible {
+  outline: 4px auto -webkit-focus-ring-color;
+} */
+
+img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+figure:has(> img) {
+  object-fit: cover;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+hr {
+  width: 100%;
+}

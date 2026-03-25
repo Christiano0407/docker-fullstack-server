@@ -1,147 +1,141 @@
 :root {
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
   --clr-white: #fff;
- --clr-white-one: #f2f2f2f2;
- --clr-saturation: hsl(217, 0%, 61%);
- --clr-black: #111;
- --clr-black-one: #333;
- --clr-black-light: hsl(217, 89%, 0%);
- --clr-principal: #27B9F2;
- --clr-secondary: #0D65D9;
- --clr-third:#044BD9;
- --clr-card-1: #DB70FF; 
- --clr-card-2: #6C75F5; 
- --clr-card-3: #63DB86;
- --clr-card-4: #63DBD8;
+  --clr-white-one: #f2f2f2f2;
+  --clr-saturation: hsl(217, 0%, 61%);
+  --clr-black: #111;
+  --clr-black-one: #333;
+  --clr-black-light: hsl(217, 89%, 0%);
+  --clr-principal: #27B9F2;
+  --clr-secondary: #0D65D9;
+  --clr-third:#044BD9;
+  --clr-card-1: #DB70FF; 
+  --clr-card-2: #6C75F5; 
+  --clr-card-3: #63DB86;
+  --clr-card-4: #63DBD8;
 
- --color-primary: #ab79d6;
- --color-on-primary: #351d4a;
- --color-secondary_plus: #d367c1;
- --color-background: #27272c;
- --color-on-background: #c5c5ce;
- --color-background-alt: #1e1c22;
- --color-background-alt-alpha: #1e1c22bf;
- --color-inverse: #fff;
- --color-gray: #8e8e8e;
- --color-yellow: #dedf40;
- --color-green: #62cb5c;
- --color-blue: #00bbcb;
- --color-on-blue: #004a09;
- --clr-gradient:  var(--color-secondary) 10%,var(--color-yellow) 25%,var(--color-green) 50%,var(--color-blue) 75%,var(--color-primary) 90%;
+  --color-primary: #ab79d6;
+  --color-on-primary: #351d4a;
+  --color-secondary_plus: #d367c1;
+  --color-background: #27272c;
+  --color-on-background: #c5c5ce;
+  --color-background-alt: #1e1c22;
+  --color-background-alt-alpha: #1e1c22bf;
+  --color-inverse: #fff;
+  --color-gray: #8e8e8e;
+  --color-yellow: #dedf40;
+  --color-green: #62cb5c;
+  --color-blue: #00bbcb;
+  --color-on-blue: #004a09;
+  --clr-gradient:  var(--color-secondary) 10%,var(--color-yellow) 25%,var(--color-green) 50%,var(--color-blue) 75%,var(--color-primary) 90%;
 
- /* === Fonts* Weight === */
- --font-family:"Roboto", sans-serif;
- --font-normal: normal;
- --font-italic: italic;
- --font-bold: bold;
- --font-regular: 400;
- --font-700: 700;
- --font-900: 900;
+  /* === Fonts* Weight === */
+  --font-family:"Roboto", sans-serif;
+  --font-normal: normal;
+  --font-italic: italic;
+  --font-bold: bold;
+  --font-regular: 400;
+  --font-700: 700;
+  --font-900: 900;
 
- /* === Fonts & Text === */
- --title-full: 4rem;
- --title-media: 3rem;
- --title-principal: 2.4rem;
- --title: 1.8rem;
- --text-big: 1.6rem;
- --text-normal: 1.5rem;
- --text-small: 1.2rem;
- --text-verySmall: 0.8rem;
+  /* === Fonts & Text === */
+  --title-full: 4rem;
+  --title-media: 3rem;
+  --title-principal: 2.4rem;
+  --title: 1.8rem;
+  --text-big: 1.6rem;
+  --text-normal: 1.5rem;
+  --text-small: 1.2rem;
+  --text-verySmall: 0.8rem;
 
- /* === Clamp === */
- --clamp:20px, 50%, 40px;
+  /* === Clamp === */
+  --clamp:20px, 50%, 40px;
 
- /* === Display ==== */
- --flex: flex;
- --grid: grid;
- --grid-repeat-minmax: repeat(auto-fix, minmax(15rem, 1fr));
- --grid-thee: repeat(3, 1fr);
- --grid-frame: 15rem 1fr 1fr;
- --grid-frames: 15rem 1fr 35rem;
- --grid-row: 1fr 1fr 1fr;
- --grid-row-header: 150px 1fr 1fr 1fr;
- --gap: 2rem;
+  /* === Display ==== */
+  --flex: flex;
+  --grid: grid;
+  --grid-repeat-minmax: repeat(auto-fix, minmax(15rem, 1fr));
+  --grid-thee: repeat(3, 1fr);
+  --grid-frame: 15rem 1fr 1fr;
+  --grid-frames: 15rem 1fr 35rem;
+  --grid-row: 1fr 1fr 1fr;
+  --grid-row-header: 150px 1fr 1fr 1fr;
+  --gap: 2rem;
 
- /* === Padding & Margin === */
- --margin: 2rem, auto;
- --margin-1: 1rem, auto;
- --padding: 1rem;
- --padding-one: 1.5rem 2rem; 
- --padding-two: 1.5rem 3rem; 
+  /* === Padding & Margin === */
+  --margin: 2rem, auto;
+  --margin-1: 1rem, auto;
+  --padding: 1rem;
+  --padding-one: 1.5rem 2rem; 
+  --padding-two: 1.5rem 3rem; 
 
- /* === Shadows === */
- --shadow: 5px 5px 40px #48529944;
- --shadow-one: 5px 5px 10px #48529944;
- --shadow-rgb: 5px 5px 5px rgb(0,0,0,0.5) inset;
+  /* === Shadows === */
+  --shadow: 5px 5px 40px #48529944;
+  --shadow-one: 5px 5px 10px #48529944;
+  --shadow-rgb: 5px 5px 5px rgb(0,0,0,0.5) inset;
 
- /* === Border & Radius === */
- --border: 0.8rem;
- --border-50:50%;
+  /* === Border & Radius === */
+  --border: 0.8rem;
+  --border-50:50%;
 
- /* ==== Display ==== */
- --none: none; 
- --display-flex: flex;
- --block: block;
+  /* ==== Display ==== */
+  --none: none; 
+  --display-flex: flex;
+  --block: block;
 
- /* === Width & Height === */
- --width: 100%;
- --height: 100%;
+  /* === Width & Height === */
+  --width: 100%;
+  --height: 100%;
 
- /* === Positions === */
- --relative: relative; 
- --absolute: absolute; 
- --fixed: fixed; 
- --sticky: sticky;
- --static: static;
- --top: top; 
- --bottom: bottom;
- --left: left;
- --right:right;
- --inset: inset;
+  /* === Positions === */
+  --relative: relative; 
+  --absolute: absolute; 
+  --fixed: fixed; 
+  --sticky: sticky;
+  --static: static;
+  --top: top; 
+  --bottom: bottom;
+  --left: left;
+  --right:right;
+  --inset: inset;
 
- /* === Images - Aspect Ratio - ===*/
- --aspect-ratio-hd: 16/9; 
- --aspect-ratio-square: 1;
- --object-fit: cover;
- /* === Images - Max Width - ===*/
- --max-width_one: 1.5rem; 
- --max-width_two: 2.5rem; 
- --max-width_three: 25rem;  
- /* === Text Underline === */
- --text-underline-offset: 0.25rem;
- /* === desplazamiento de contorno === */
- --outline: 2px dashed blue; 
- --outline-offset: 0.25rem;
- --outline-offset_one: -0.25rem;
- /* === Margin Line === */
- --margin-inline:  auto;
- /* === Esquema de Colores === */
- --color-scheme: dark light;
- --background-color-scheme: dark;
- /* === Acentuar el color: :checked === */
- --accent-color: mediumvioletred;
- /* === Ancho: contenido ajustado:"Envolver en su contenido" === */
- --fit-content_width: fit-content; 
- /* === overscroll-behavior (desplazamiento excesivo) === */
- --overscroll-behavior: contain;
- /* === Scroll === */
- --scroll-margin-top: 2rem;
- /* === scrollbar-gutter (barra de desplazamiento-canalón) === */
+  /* === Images - Aspect Ratio - ===*/
+  --aspect-ratio-hd: 16/9; 
+  --aspect-ratio-square: 1;
+  --object-fit: cover;
+  /* === Images - Max Width - ===*/
+  --max-width_one: 1.5rem; 
+  --max-width_two: 2.5rem; 
+  --max-width_three: 25rem;  
+  /* === Text Underline === */
+  --text-underline-offset: 0.25rem;
+  /* === desplazamiento de contorno === */
+  --outline: 2px dashed blue; 
+  --outline-offset: 0.25rem;
+  --outline-offset_one: -0.25rem;
+  /* === Margin Line === */
+  --margin-inline:  auto;
+  /* === Esquema de Colores === */
+  --color-scheme: dark light;
+  --background-color-scheme: dark;
+  /* === Acentuar el color: :checked === */
+  --accent-color: mediumvioletred;
+  /* === Ancho: contenido ajustado:"Envolver en su contenido" === */
+  --fit-content_width: fit-content; 
+  /* === overscroll-behavior (desplazamiento excesivo) === */
+  --overscroll-behavior: contain;
+  /* === Scroll === */
+  --scroll-margin-top: 2rem;
+  /* === scrollbar-gutter (barra de desplazamiento-canalón) === */
 
- /* === Text-wrap (ajuste de texto) === */
- --text-wrap: balance;
-/* === aparición o desaparición de barras de desplazamiento ===*/
---overflow-hidden: hidden;
---scrollbar-gutter: stable both-edges; 
+  /* === Text-wrap (ajuste de texto) === */
+  --text-wrap: balance;
+  /* === aparición o desaparición de barras de desplazamiento ===*/
+  --overflow-hidden: hidden;
+  --scrollbar-gutter: stable both-edges; 
 }
 
-* {
-  box-sizing:border-box;
-  margin: 0; 
-  padding: 0;
-  position: relative;
-  min-width: 0;
-}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
 html {
   font-size: 62.5%;
