@@ -139,3 +139,45 @@ disney-movies/
         └── main.py           ← modificar (CORS)
 
 ```
+
+---
+
+## Pipeline Test con Vitest
+
+> los archivos .test.tsx van en la misma carpeta que los componentes:
+
+```bash
+frontend/src/
+├── components/
+│   ├── MovieList.tsx       ← Componente
+│   ├── MovieList.test.tsx  ← Test del componente
+│   ├── MovieCard.tsx
+│   ├── MovieCard.test.tsx
+│   ├── Pagination.tsx
+│   └── Pagination.test.tsx
+└── test/
+    └── setup.ts            ← Config global
+
+```
+
+> Configuración de vitest.config
+
+```bash
+  export default defineConfig({
+    plugins: [react()],
+    test: {
+      globals: true,
+      environment: 'jsdom',
+      setupFiles: './src/test/setup.ts',
+      include: ['src/**/*.test.{ts,tsx}'],
+    },
+  })
+```
+
+> Modifica el Package.json
+
+```bash
+ "test": "vitest",
+    "test:run": "vitest run",
+    "test:coverage": "vitest --coverage"
+```
