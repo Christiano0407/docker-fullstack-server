@@ -36,3 +36,16 @@ const MOCK_RESPONSE = {
 
 
 // === Tests ====================================
+
+describe(`moviesAPI.getMovies`, () => {
+
+  beforeEach(() => {
+    // - Mocks Fetch Global -
+    vi.stubGlobal("fetch", vi.fn())
+  })
+
+  afterEach(() => {
+    vi.unstubAllGlobals(); 
+  })
+
+})
