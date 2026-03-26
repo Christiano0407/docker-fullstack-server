@@ -73,7 +73,7 @@ describe(`moviesAPI.getMovies`, () => {
     expect(result.total).toBe(579); 
     expect(result.data).toHaveLength(2); 
     expect(result.data[0].movie_title).toBe("The Lion King"); 
-  })
+  }); 
 
   it("respeta limit y offset personalizados", async () => {
     vi.mocked(fetch).mockResolvedValueOnce({
@@ -86,8 +86,20 @@ describe(`moviesAPI.getMovies`, () => {
     expect(fetch).toHaveBeenCalledWith(
       expect.stringContaining("limit=5&offset=10")
     )
-  })
+  }); 
+}); 
 
+it("lanza error cuando la respuesta no es ok | Error Server", async() => {
+  vi.mocked(fetch).mockResolvedValueOnce({
+    ok: false,
+    status: 500
+  } as Response); 
 
+  await expect(moviesAPI.getMovies()).rejects.toThrow("Error 500"); 
+}); 
 
-})
+it("lanza error cuando fetch falla (red caída)", async () => {
+  vi.mocked(fetch).mockRejectedValueOnce(new Error("Network Error")); 
+
+  await expect(moviesAPI.getMovies()).rejects.toThrow("Network Error"); 
+}); 
