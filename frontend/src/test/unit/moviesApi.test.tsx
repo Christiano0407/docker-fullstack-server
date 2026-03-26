@@ -39,9 +39,11 @@ const MOCK_RESPONSE = {
 
 describe(`moviesAPI.getMovies`, () => {
 
+  let mockFetch: ReturnType<typeof vi.fn>;
+
   beforeEach(() => {
-    // - Mocks Fetch Global -
-    vi.stubGlobal("fetch", vi.fn())
+    mockFetch = vi.fn();
+    vi.stubGlobal("fetch", mockFetch);
   })
 
   afterEach(() => {
@@ -49,20 +51,20 @@ describe(`moviesAPI.getMovies`, () => {
   })
 
   it("llama al endpoint correcto con params por defecto", async() => {
-    vi.mocked(fetch).mockResolvedValueOnce({
+    mockFetch.mockResolvedValueOnce({
       ok: true, 
       json: async () => MOCK_RESPONSE,
     } as Response); 
 
     await moviesAPI.getMovies();
     
-    expect(fetch).toHaveBeenCalledWith(
+    expect(mockFetch).toHaveBeenCalledWith(
       expect.stringContaining("/movies?limit=10&offset=0") 
     ); 
   }); 
 
   it("retorna la estructura correcta", async () => {
-    vi.mocked(fetch).mockResolvedValueOnce({
+    mockFetch.mockResolvedValueOnce({
       ok:true,
       json: async () => MOCK_RESPONSE,
     } as Response); 
@@ -76,30 +78,30 @@ describe(`moviesAPI.getMovies`, () => {
   }); 
 
   it("respeta limit y offset personalizados", async () => {
-    vi.mocked(fetch).mockResolvedValueOnce({
+    mockFetch.mockResolvedValueOnce({
       ok: true, 
       json: async () => MOCK_RESPONSE 
     } as Response);
     
     await moviesAPI.getMovies(5, 10); 
 
-    expect(fetch).toHaveBeenCalledWith(
+    expect(mockFetch).toHaveBeenCalledWith(
       expect.stringContaining("limit=5&offset=10")
     )
   }); 
-}); 
 
-it("lanza error cuando la respuesta no es ok | Error Server", async() => {
-  vi.mocked(fetch).mockResolvedValueOnce({
-    ok: false,
-    status: 500
-  } as Response); 
+  it("lanza error cuando la respuesta no es ok", async() => {
+    mockFetch.mockResolvedValueOnce({
+      ok:     false,
+      status: 500,
+    } as Response);
 
-  await expect(moviesAPI.getMovies()).rejects.toThrow("Error 500"); 
-}); 
+    await expect(moviesAPI.getMovies()).rejects.toThrow("Error: 500"); 
+  }); 
 
-it("lanza error cuando fetch falla (red caída)", async () => {
-  vi.mocked(fetch).mockRejectedValueOnce(new Error("Network Error")); 
-
-  await expect(moviesAPI.getMovies()).rejects.toThrow("Network Error"); 
-}); 
+  it("lanza error cuando fetch falla (red caída)", async () => {
+    mockFetch.mockRejectedValueOnce(new Error("Network error"));
+ 
+    await expect(moviesAPI.getMovies()).rejects.toThrow("Network error");
+  });
+});
