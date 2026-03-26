@@ -48,4 +48,46 @@ describe(`moviesAPI.getMovies`, () => {
     vi.unstubAllGlobals(); 
   })
 
+  it("llama al endpoint correcto con params por defecto", async() => {
+    vi.mocked(fetch).mockResolvedValueOnce({
+      ok: true, 
+      json: async () => MOCK_RESPONSE,
+    } as Response); 
+
+    await moviesAPI.getMovies();
+    
+    expect(fetch).toHaveBeenCalledWith(
+      expect.stringContaining("/movies?limit=10&offset=0") 
+    ); 
+  }); 
+
+  it("retorna la estructura correcta", async () => {
+    vi.mocked(fetch).mockResolvedValueOnce({
+      ok:true,
+      json: async () => MOCK_RESPONSE,
+    } as Response); 
+
+    const result = await moviesAPI.getMovies(); 
+
+    expect(result.count).toBe(2); 
+    expect(result.total).toBe(579); 
+    expect(result.data).toHaveLength(2); 
+    expect(result.data[0].movie_title).toBe("The Lion King"); 
+  })
+
+  it("respeta limit y offset personalizados", async () => {
+    vi.mocked(fetch).mockResolvedValueOnce({
+      ok: true, 
+      json: async () => MOCK_RESPONSE 
+    } as Response);
+    
+    await moviesAPI.getMovies(5, 10); 
+
+    expect(fetch).toHaveBeenCalledWith(
+      expect.stringContaining("limit=5&offset=10")
+    )
+  })
+
+
+
 })
