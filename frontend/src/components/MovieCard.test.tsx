@@ -1,9 +1,8 @@
 /**
- * frontend/tests/unit/MovieCard.test.tsx
+ * frontend/src/components/MovieCard.test.tsx
  * TDD — Unit tests para MovieCard
  *
  * Verifica que el componente renderiza correctamente
- * con los datos de tu API. No llama a TMDB (mockeado).
  */
 import { describe, it, expect, beforeEach } from "vitest";
 import { render, screen } from "@testing-library/react";
