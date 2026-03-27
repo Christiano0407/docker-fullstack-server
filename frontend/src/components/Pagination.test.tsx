@@ -10,7 +10,7 @@
  *  - Cálculo correcto de páginas
  */
 import { describe, it, vi, expect, beforeEach } from "vitest";
-import { render, screen } from "@testing-library/react";
+import { fireEvent, render, screen } from "@testing-library/react";
 import Pagination from "../../src/components/Pagination"; 
 
 // ── Helpers | Props ───────────────────────────────────────────
@@ -57,3 +57,43 @@ describe("Pagination - Renderización", () => {
   }); 
 
 }); 
+
+ 
+// ═══════════════════════════════════════
+// — Callbacks - Buttons (Prev & Next) -
+// ═══════════════════════════════════════
+
+describe("Pagination - Callback", () => {
+  
+  it("What If call the Prev Button - Callback", () => {
+    const onPrev = vi.fn(); 
+    renderPagination( { offset: 10, onPrev} ); 
+    fireEvent.click(screen.getByText("Prev")); 
+    expect(onPrev).toHaveBeenCalledTimes(1);
+  }); 
+
+  it("What if disabled to the Button - callback", () => {
+    const onPrev = vi.fn();
+    renderPagination( { offset: 0, onPrev} ); 
+    fireEvent.click(screen.getByText("Prev")); 
+    expect(onPrev).toHaveBeenCalled(); 
+  }); 
+
+  it("What if call the Next Button", () => {
+    const onNext = vi.fn(); 
+    renderPagination( {offset: 0, onNext} ); 
+    fireEvent.click(screen.getByText("Next")); 
+    expect(onNext).toHaveBeenCalledTimes(1); 
+  }); 
+
+  it("what if disabled the Next Button", () => {
+    const onNext = vi.fn(); 
+    renderPagination( {offset:576, limit: 10, total: 579, onNext} ); 
+    fireEvent.click(screen.getByText("Next")); 
+    expect(onNext).not.toHaveBeenCalled(); 
+  }); 
+}); 
+
+// ═══════════════════════════════════════
+// — Cálculo de páginas - 
+// ═══════════════════════════════════════
