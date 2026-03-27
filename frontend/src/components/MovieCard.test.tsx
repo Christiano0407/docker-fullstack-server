@@ -65,7 +65,12 @@ describe("MovieCard - gross formatting", () => {
     expect(screen.getByText("5.22")).toBeTruthy();
   }); 
 
-  
+  it("Show the Rating with the Rating Color", () => {
+    const { container } = render(<MovieCard movie={MOCK_MOVIE} />); 
+    const badge = container.querySelector(".rating-tag"); 
+    expect(badge).toBeTruthy();
+    expect((badge as HTMLElement).style.background).toBe("rgb(34, 197, 94)"); 
+  }); 
 
 }); 
 
