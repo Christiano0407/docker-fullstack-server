@@ -5,7 +5,7 @@
  * Verifica que el componente renderiza correctamente
  * con los datos de tu API. No llama a TMDB (mockeado).
  */
-import { describe, it, expect, vi, beforeEach } from "vitest";
+import { describe, it, expect, beforeEach } from "vitest";
 import { render, screen } from "@testing-library/react";
 import MovieCard from "../../src/components/MovieCard";
 import type { Movie } from "../../src/api/moviesApi";
