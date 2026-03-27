@@ -97,3 +97,26 @@ describe("Pagination - Callback", () => {
 // ═══════════════════════════════════════
 // — Cálculo de páginas - 
 // ═══════════════════════════════════════
+describe("Pagination & Total - Calculate tot he Pages", () => {
+
+  it("Page 1 when offset = 0", () => {
+    renderPagination({ offset: 0, limit: 10 }); 
+    expect(screen.getByText("1")).toBeTruthy(); 
+  }); 
+
+  it("What if will page 2 & offset = 10 ", () => {
+    renderPagination({offset: 10, limit: 10, total: 579 }); 
+    expect(screen.getByText("2")).toBeTruthy(); 
+  }); 
+
+  it("What if will offset= 50 & it's more that limit", () => {
+    renderPagination({offset: 50, limit: 10, total: 579}); 
+    expect(screen.getByText("5")).toBeTruthy(); 
+  }); 
+
+  it("What if will return the exact number", () => {
+    renderPagination({offset:0, limit: 10, total:100}); 
+    expect(screen.getByText("10")).toBeTruthy(); 
+  });
+
+}); 
