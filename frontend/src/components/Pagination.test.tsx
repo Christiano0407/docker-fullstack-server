@@ -9,7 +9,7 @@
  *  - Callbacks onPrev y onNext se llaman correctamente
  *  - Cálculo correcto de páginas
  */
-import { describe, it, vi, expect, beforeEach } from "vitest";
+import { describe, it, vi, expect } from "vitest";
 import { fireEvent, render, screen } from "@testing-library/react";
 import Pagination from "../../src/components/Pagination"; 
 
@@ -118,5 +118,15 @@ describe("Pagination & Total - Calculate tot he Pages", () => {
     renderPagination({offset:0, limit: 10, total:100}); 
     expect(screen.getByText("10")).toBeTruthy(); 
   });
+
+  it("What if will round the pages ", () => {
+    renderPagination({offset: 0, limit: 10, total: 11}); 
+    expect(screen.getByText("2")).toBeTruthy(); 
+  }); 
+
+  it("What if total it's minor that Limit", () => {
+    renderPagination({offset: 0, limit: 10, total: 5}); 
+    expect(screen.getByText("1")).toBeTruthy(); 
+  }); 
 
 }); 
