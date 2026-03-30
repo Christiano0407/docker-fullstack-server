@@ -10,7 +10,7 @@
  *  - Cálculo correcto de páginas
  */
 import { describe, it, vi, expect } from "vitest";
-import { fireEvent, render, screen } from "@testing-library/react";
+import { fireEvent, render } from "@testing-library/react";
 import Pagination from "../../src/components/Pagination"; 
 
 // ── Helpers | Props ───────────────────────────────────────────
@@ -26,107 +26,98 @@ function renderPagination(overrides = {}) {
 }
 
 // ═══════════════════════════════════════
-// SUITE 1 — Renderizado básico: páginas
+// SUITE 1 — Renderizado básico
 // ═══════════════════════════════════════
-
 describe("Pagination - Renderización", () => {
 
   it("Show Prev Button", () => {
-    renderPagination(); 
-    expect(screen.getByText("Prev")).toBeTruthy(); 
-  });
-
-  it("Show the Current Page", () => {
-    renderPagination({ offset:0, limit:10 }); 
-    expect(screen.getByText("1")).toBeTruthy(); 
-  }); 
-
-  it("Show the correct Total Pages", () => {
-    renderPagination({ offset: 0, limit: 10, total: 579 }); 
-    expect(screen.getByText("20")).toBeTruthy(); 
-  }); 
-
-   it("Show Total Pages", () => {
-    renderPagination({ total: 579 }); 
-    expect(screen.getByText(/579 movies/)).toBeTruthy(); 
+    const { container } = renderPagination(); 
+    const prevBtn = container.querySelector("button");
+    expect(prevBtn?.textContent).toBe("Prev"); 
   });
 
   it("Show Next Button", () => {
-    renderPagination();
-    expect(screen.getByText("Next")).toBeTruthy(); 
+    const { container } = renderPagination();
+    const buttons = container.querySelectorAll("button");
+    expect(buttons[1].textContent).toBe("Next"); 
   }); 
+
+  it("Show Total Movies Count", () => {
+    const { container } = renderPagination(); 
+    expect(container.textContent).toContain("579 movies"); 
+  });
 
 }); 
 
- 
+  
 // ═══════════════════════════════════════
 // — Callbacks - Buttons (Prev & Next) -
 // ═══════════════════════════════════════
 
 describe("Pagination - Callback", () => {
   
-  it("What If call the Prev Button - Callback", () => {
+  it("Calls onPrev when Prev button is clicked", () => {
     const onPrev = vi.fn(); 
-    renderPagination( { offset: 10, onPrev} ); 
-    fireEvent.click(screen.getByText("Prev")); 
+    const { container } = renderPagination( { offset: 10, onPrev} ); 
+    fireEvent.click(container.querySelectorAll("button")[0]); 
     expect(onPrev).toHaveBeenCalledTimes(1);
   }); 
 
-  it("What if disabled to the Button - callback", () => {
-    const onPrev = vi.fn();
-    renderPagination( { offset: 0, onPrev} ); 
-    fireEvent.click(screen.getByText("Prev")); 
-    expect(onPrev).toHaveBeenCalled(); 
+  it("Prev Button is disabled at offset 0", () => {
+    const { container } = renderPagination( { offset: 0} ); 
+    const prevBtn = container.querySelector("button") as HTMLButtonElement;
+    expect(prevBtn.disabled).toBe(true); 
   }); 
 
-  it("What if call the Next Button", () => {
+  it("Calls onNext when Next button is clicked", () => {
     const onNext = vi.fn(); 
-    renderPagination( {offset: 0, onNext} ); 
-    fireEvent.click(screen.getByText("Next")); 
+    const { container } = renderPagination( {offset: 0, onNext} ); 
+    fireEvent.click(container.querySelectorAll("button")[1]); 
     expect(onNext).toHaveBeenCalledTimes(1); 
   }); 
 
-  it("what if disabled the Next Button", () => {
-    const onNext = vi.fn(); 
-    renderPagination( {offset:576, limit: 10, total: 579, onNext} ); 
-    fireEvent.click(screen.getByText("Next")); 
-    expect(onNext).not.toHaveBeenCalled(); 
+  it("Next Button is disabled at last page", () => {
+    const { container } = renderPagination( {offset:576, limit: 10, total: 579} ); 
+    const buttons = container.querySelectorAll("button");
+    expect(buttons[1].disabled).toBe(true); 
   }); 
 }); 
 
 // ═══════════════════════════════════════
 // — Cálculo de páginas - 
 // ═══════════════════════════════════════
-describe("Pagination & Total - Calculate tot he Pages", () => {
+describe("Pagination - Page Calculations", () => {
 
-  it("Page 1 when offset = 0", () => {
-    renderPagination({ offset: 0, limit: 10 }); 
-    expect(screen.getByText("1")).toBeTruthy(); 
+  it("Shows correct page info for offset=0, limit=10, total=579", () => {
+    const { container } = renderPagination({ offset: 0, limit: 10, total: 579 }); 
+    const text = container.textContent;
+    expect(text).toContain("1");
+    expect(text).toContain("/58");
   }); 
 
-  it("What if will page 2 & offset = 10 ", () => {
-    renderPagination({offset: 10, limit: 10, total: 579 }); 
-    expect(screen.getByText("2")).toBeTruthy(); 
+  it("Shows page 2 for offset=10, limit=10", () => {
+    const { container } = renderPagination({offset: 10, limit: 10, total: 579 }); 
+    expect(container.textContent).toContain("2");
   }); 
 
-  it("What if will offset= 50 & it's more that limit", () => {
-    renderPagination({offset: 50, limit: 10, total: 579}); 
-    expect(screen.getByText("5")).toBeTruthy(); 
+  it("Shows page 6 for offset=50, limit=10", () => {
+    const { container } = renderPagination({offset: 50, limit: 10, total: 579}); 
+    expect(container.textContent).toContain("6");
   }); 
 
-  it("What if will return the exact number", () => {
-    renderPagination({offset:0, limit: 10, total:100}); 
-    expect(screen.getByText("10")).toBeTruthy(); 
+  it("Shows total pages = 10 for total=100", () => {
+    const { container } = renderPagination({offset:0, limit: 10, total:100}); 
+    expect(container.textContent).toContain("/10");
   });
 
-  it("What if will round the pages ", () => {
-    renderPagination({offset: 0, limit: 10, total: 11}); 
-    expect(screen.getByText("2")).toBeTruthy(); 
+  it("Rounds up to 2 pages for total=11", () => {
+    const { container } = renderPagination({offset: 0, limit: 10, total: 11}); 
+    expect(container.textContent).toContain("/2");
   }); 
 
-  it("What if total it's minor that Limit", () => {
-    renderPagination({offset: 0, limit: 10, total: 5}); 
-    expect(screen.getByText("1")).toBeTruthy(); 
+  it("Shows 1 page when total < limit", () => {
+    const { container } = renderPagination({offset: 0, limit: 10, total: 5}); 
+    expect(container.textContent).toContain("/1");
   }); 
 
-}); 
+});

@@ -13,6 +13,13 @@ RUN pnpm install --frozen-lockfile
 # Copy Code 
 COPY . .
 
+# Build args para variables VITE
+ARG VITE_API_URL=/api/v1
+ARG VITE_ENVIRONMENT=production
+
+ENV VITE_API_URL=$VITE_API_URL
+ENV VITE_ENVIRONMENT=$VITE_ENVIRONMENT
+
 # build Vite
 RUN pnpm build
 

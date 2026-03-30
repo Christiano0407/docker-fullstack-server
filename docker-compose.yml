@@ -54,6 +54,9 @@ services:
     build:
       context: ./frontend
       dockerfile: Dockerfile
+      args:
+        VITE_API_URL: /api/v1
+        VITE_ENVIRONMENT: production
     container_name: disney-frontend
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost/"]
