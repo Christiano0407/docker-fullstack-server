@@ -110,3 +110,36 @@ describe("Movies - MovieList | Load Data - Up", () => {
   }); 
 
 }); 
+
+// ═══════════════════════════════════════
+// SUITE 3 — Estado de error
+// ═══════════════════════════════════════
+describe("MovieList - State of the Error", () => {
+  afterEach(() => vi.clearAllMocks()); 
+
+  it("Show message 'Error', when the API Failed", async () => {
+    vi.mocked(moviesAPI.getMovies).mockRejectedValue(
+      new Error("Error 500") 
+    ); 
+    render(<MovieList />); 
+    await waitFor(() => {
+      expect(screen.getByText("Error 500")).toBeTruthy(); 
+    }); 
+  }); 
+
+  it("Show the Btn 'Retry', when to back call the API", async () => {
+    vi.mocked(moviesAPI.getMovies).mockRejectedValue(new Error("Error")); 
+    render(<MovieList />); 
+    await waitFor(() => {
+      expect(screen.getByText("Retry")).toBeTruthy(); 
+    }); 
+  }); 
+
+   it("Not Show Cards Movies When have Error", async () => {
+    vi.mocked(moviesAPI.getMovies).mockRejectedValue(new Error("Error"));
+    const { container } = render(<MovieList />);
+    await waitFor(() => screen.getByText("⚠"));
+    expect(container.querySelectorAll(".movie-card").length).toBe(0);
+  });
+
+}); 
