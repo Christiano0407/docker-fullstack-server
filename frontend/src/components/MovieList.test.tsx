@@ -178,6 +178,34 @@ describe("MovieList - Pagination", () => {
     }); 
 
     // - Back To Page 1 | Event Prev - 
+    vi.mocked(moviesAPI.getMovies).mockResolvedValue(makeMockResponse()); 
+    fireEvent.click(screen.getByText("Prev")); 
+    await waitFor(() => {
+      expect(moviesAPI.getMovies).toHaveBeenNthCalledWith(10, 0); 
+    }); 
+
+    it("vuelve a llamar a la API cuando cambia el offset", async () => {
+    vi.mocked(moviesAPI.getMovies).mockResolvedValue(makeMockResponse());
+ 
+    render(<MovieList />);
+    await waitFor(() => screen.getByText("Next"));
+ 
+    fireEvent.click(screen.getByText("Next"));
+ 
+    await waitFor(() => {
+      // 1 llamada inicial + 1 por el cambio de offset
+      expect(moviesAPI.getMovies).toHaveBeenCalledTimes(2);
+    });
+  });
+ 
+    it("Prev está deshabilitado en la primera carga (offset=0)", async () => {
+      vi.mocked(moviesAPI.getMovies).mockResolvedValue(makeMockResponse());
+  
+      render(<MovieList />);
+      await waitFor(() => screen.getByText("Prev"));
+  
+      expect(screen.getByText("Prev")).toBeUndefined(); 
+    });
 
 
   }); 
