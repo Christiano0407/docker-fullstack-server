@@ -12,7 +12,7 @@
  *  - No renderiza nada si data es null
  */
 import { describe, it, expect, beforeEach, vi, afterEach } from "vitest";
-import { render, screen, waitFor } from "@testing-library/react";
+import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import MovieList from "../../src/components/MovieList";
 
 // ── Datos de prueba | Mocks  ───────────────────────────────────
@@ -141,5 +141,47 @@ describe("MovieList - State of the Error", () => {
     await waitFor(() => screen.getByText("⚠"));
     expect(container.querySelectorAll(".movie-card").length).toBe(0);
   });
+
+}); 
+
+// ═══════════════════════════════════════
+// SUITE 4 — Paginación
+// ═══════════════════════════════════════
+
+describe("MovieList - Pagination", () => {
+
+  afterEach(() => vi.clearAllMocks()); 
+
+  it("Call getMovies with offset=0 and click btn Next and run Pagination", async () => {
+    vi.mocked(moviesAPI.getMovies).mockRejectedValue(makeMockResponse()); 
+    render(<MovieList />); 
+    await waitFor(() => screen.getByText("Next")); 
+    fireEvent.click(screen.getByText("Next")); 
+    await waitFor(() => {
+      expect(moviesAPI.getMovies).toHaveBeenCalledWith(10, 10); 
+    }); 
+  }); 
+
+  it("Call GetMovies with offset=10 and click btn Prev and Run Pagination | Page 2", async () => {
+    // - First Load Data offset = 10 - 
+    vi.mocked(moviesAPI.getMovies).mockRejectedValue(
+      makeMockResponse({offset: 10})
+    ); 
+
+    render(<MovieList />); 
+    await waitFor(() => screen.getByText("Next")); 
+
+    // - Go To Page 2 | Event -
+    fireEvent.click(screen.getByText("Next")); 
+    await waitFor(() => {
+      expect(moviesAPI.getMovies).toHaveBeenCalledWith(10, 10); 
+    }); 
+
+    // - Back To Page 1 | Event Prev - 
+
+
+  }); 
+
+
 
 }); 
