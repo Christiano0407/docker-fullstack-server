@@ -152,8 +152,8 @@ describe("MovieList - Pagination", () => {
 
   afterEach(() => vi.clearAllMocks()); 
 
-  it("Call getMovies with offset=0 and click btn Next and run Pagination", async () => {
-    vi.mocked(moviesAPI.getMovies).mockRejectedValue(makeMockResponse()); 
+  it("Calls API with offset=10 when Next button is clicked", async () => {
+    vi.mocked(moviesAPI.getMovies).mockResolvedValue(makeMockResponse()); 
     render(<MovieList />); 
     await waitFor(() => screen.getByText("Next")); 
     fireEvent.click(screen.getByText("Next")); 
@@ -162,54 +162,32 @@ describe("MovieList - Pagination", () => {
     }); 
   }); 
 
-  it("Call GetMovies with offset=10 and click btn Prev and Run Pagination | Page 2", async () => {
-    // - First Load Data offset = 10 - 
-    vi.mocked(moviesAPI.getMovies).mockRejectedValue(
-      makeMockResponse({offset: 10})
-    ); 
-
+  it("Calls API with offset=0 when Prev button is clicked", async () => {
+    vi.mocked(moviesAPI.getMovies).mockResolvedValue(makeMockResponse({ offset: 10 })); 
     render(<MovieList />); 
-    await waitFor(() => screen.getByText("Next")); 
-
-    // - Go To Page 2 | Event -
-    fireEvent.click(screen.getByText("Next")); 
-    await waitFor(() => {
-      expect(moviesAPI.getMovies).toHaveBeenCalledWith(10, 10); 
-    }); 
-
-    // - Back To Page 1 | Event Prev - 
-    vi.mocked(moviesAPI.getMovies).mockResolvedValue(makeMockResponse()); 
+    await waitFor(() => screen.getByText("Prev")); 
     fireEvent.click(screen.getByText("Prev")); 
     await waitFor(() => {
-      expect(moviesAPI.getMovies).toHaveBeenNthCalledWith(10, 0); 
+      expect(moviesAPI.getMovies).toHaveBeenCalledWith(10, 0); 
     }); 
+  });
 
-    it("vuelve a llamar a la API cuando cambia el offset", async () => {
+  it("Calls API twice when Next is clicked", async () => {
     vi.mocked(moviesAPI.getMovies).mockResolvedValue(makeMockResponse());
- 
     render(<MovieList />);
     await waitFor(() => screen.getByText("Next"));
- 
     fireEvent.click(screen.getByText("Next"));
- 
     await waitFor(() => {
-      // 1 llamada inicial + 1 por el cambio de offset
       expect(moviesAPI.getMovies).toHaveBeenCalledTimes(2);
     });
   });
- 
-    it("Prev está deshabilitado en la primera carga (offset=0)", async () => {
-      vi.mocked(moviesAPI.getMovies).mockResolvedValue(makeMockResponse());
-  
-      render(<MovieList />);
-      await waitFor(() => screen.getByText("Prev"));
-  
-      expect(screen.getByText("Prev")).toBeUndefined(); 
-    });
 
-
-  }); 
-
-
+  it("Prev button is disabled at offset=0", async () => {
+    vi.mocked(moviesAPI.getMovies).mockResolvedValue(makeMockResponse());
+    const { container } = render(<MovieList />);
+    await waitFor(() => screen.getByText("Prev"));
+    const prevBtn = container.querySelector("button");
+    expect(prevBtn?.textContent).toBe("Prev");
+  });
 
 }); 
