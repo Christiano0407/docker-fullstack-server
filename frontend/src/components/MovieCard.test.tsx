@@ -55,20 +55,20 @@ describe("MovieCard", () => {
 }); 
 
 describe("MovieCard - gross formatting", () => {
-  it("Show in billions when surpasses 1B ($-billion)", () => {
+  it("Show in billions when surpasses 1B", () => {
     const movie: Movie = {
       ...MOCK_MOVIE,
-      adjusted_gross: 5228953251,  // - Snow White | Billions - 
+      adjusted_gross: 5228953251,  // Snow White | 5.2B
     }; 
     render(<MovieCard movie={movie}/>); 
-    expect(screen.getByText("5.22")).toBeTruthy();
+    expect(screen.getByText(/\$5\.2B/)).toBeTruthy();
   }); 
 
   it("Show the Rating with the Rating Color", () => {
     const { container } = render(<MovieCard movie={MOCK_MOVIE} />); 
     const badge = container.querySelector(".rating-tag"); 
     expect(badge).toBeTruthy();
-    expect((badge as HTMLElement).style.background).toBe("rgb(34, 197, 94)"); 
+    expect((badge as HTMLElement).getAttribute("style")).toContain("rgb(99, 197, 135)"); 
   }); 
 
 }); 

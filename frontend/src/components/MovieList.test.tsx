@@ -12,16 +12,16 @@
  *  - No renderiza nada si data es null
  */
 import { describe, it, expect, beforeEach, vi, afterEach } from "vitest";
-import { render, screen, fireEvent, waitFor } from "@testing-library/react";
+import { render, screen, waitFor } from "@testing-library/react";
 import MovieList from "../../src/components/MovieList";
 
 // ── Datos de prueba | Mocks  ───────────────────────────────────
 
 vi.mock("../../src/api/moviesApi.ts", () => ({
-  MoviesAPI: {
+  moviesAPI: {
     getMovies: vi.fn(),
   },
-})); 
+}));
 
 import { moviesAPI } from "../../src/api/moviesApi";
 
@@ -94,32 +94,19 @@ describe("Movies - MovieList | Load Data - Up", () => {
     vi.clearAllMocks(); 
   }); 
 
-  it("Spinner Out when load Data", () => {
+  it("Spinner Out when load Data", async () => {
     const { container } = render(<MovieList />); 
     await waitFor(() => {
       expect(container.querySelector(".spinner")).toBeFalsy(); 
     }); 
   }); 
 
-  it("Show Cards Movies when Load Movies Data", () => {
+  it("Show Cards Movies when Load Movies Data", async () => {
     const { container } = render(<MovieList />); 
     await waitFor(() => {
-      const cards = container.querySelector(".movie-card"); 
-      expect(cards.length).toBeNaN(3); 
+      const cards = container.querySelectorAll(".movie-card"); 
+      expect(cards.length).toBe(3); 
     }); 
   }); 
 
 }); 
-
- 
-// ═══════════════════════════════════════
-// SUITE 3 — Estado de error
-// ═══════════════════════════════════════
-
-// ═══════════════════════════════════════
-// SUITE 4 — Paginación
-// ═══════════════════════════════════════
- 
-
-// ── [TEST] Datos de prueba | Mocks  ───────────────────────────────────
-describe("MovieList", () => {}); 
