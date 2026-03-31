@@ -421,3 +421,21 @@ MIT License - Ver archivo `LICENSE` en el repositorio raíz.
 - [Vite Documentation](https://vitejs.dev)
 - [Vitest Documentation](https://vitest.dev)
 - [Testing Library](https://testing-library.com)
+
+---
+
+## TMDB API Movies
+
+> Vamos a usar la API de TMDB, para las imágenes y vídeos
+
+```bash
+
+  Archivo Propósito
+  src/api/tmdbApi.ts Cliente TMDB (imágenes + videos)
+  src/hooks/useTMDB.ts Hook para datos TMDB
+  src/types/tmdb.ts Tipos TypeScript para TMDB
+  src/components/Hero.tsx Hero Section con imagen/video
+  src/components/VideoModal.tsx Modal para reproducir trailers
+  src/utils/tmdbHelpers.ts Funciones helper (build image URL)
+
+```
