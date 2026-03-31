@@ -25,6 +25,8 @@ html {
   font-size: 62.5%;
 }
 
+/* html { scroll-behavior: smooth; } */
+
 body {
   min-height: 100dvh;
   width: 100%;
