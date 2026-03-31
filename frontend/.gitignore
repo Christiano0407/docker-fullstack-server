@@ -26,7 +26,7 @@ dist-ssr
 # VSCODE
 .vscode/ 
 
-# frontend/.gitignore — agregar
-.env.development
-.env.production
+# Env files (secretos)
 .env
+.env.*
+!.env.example
