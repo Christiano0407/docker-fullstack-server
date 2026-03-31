@@ -1,7 +1,9 @@
 /**
  * = src/components/MovieCard.tsx =
+ * Data of Movies to the API TMDB
  */
 import type { Movie } from "../api/moviesApi"; 
+import { usePoster } from "../hooks/usePoster";
 
 /**
  * = Heredamos Tipado de Movies / Props = 
@@ -26,6 +28,7 @@ function formatConvertMoney(num: number): string {
 
 export default function MovieCard({ movie }: Props) {
   const ratingColor = RATING_COLOR[movie.rating] ?? `#6b7280`
+  const poster = usePoster(movie.movie_title, movie.release_date); 
 
   return (
     <article className="movie-card">
@@ -34,18 +37,29 @@ export default function MovieCard({ movie }: Props) {
           <span className="rating-tag" style={{ background: ratingColor }} >{movie.rating}</span>
       </div>
 
-      <h2 className="movie-title">{movie.movie_title}</h2>
-      <p className="release-date">{movie.release_date}</p>
+      <div className="card-poster">
+        {poster 
+          ? <img src="{poster}" alt={movie.movie_title} className="poster-img" loading="lazy"/>
+          : <div className="poster-placeholder"><span className="placeholder-icon">✦</span></div>
+        }
+        <span></span>
+      </div>
 
-      <div className="gross-row">
-        <div className="gross-item">
-          <span className="gross-label">Total Gross</span>
-          <span className="gross-value">{formatConvertMoney(movie.total_gross)}</span>
-        </div>
-        <div className="gross-divider" />
-        <div className="gross-item">
-          <span className="gross-label">Adjusted</span>
-          <span className="gross-value adjusted">{formatConvertMoney(movie.adjusted_gross)}</span>
+      <div className="card-body">  
+        <h2 className="movie-title">{movie.movie_title}</h2>
+        <p className="release-date">{movie.release_date}</p>
+        <span className="genre-tag">{movie.genre}</span>
+
+        <div className="gross-row">
+          <div className="gross-item">
+            <span className="gross-label">Total Gross</span>
+            <span className="gross-value">{formatConvertMoney(movie.total_gross)}</span>
+          </div>
+          <div className="gross-divider" />
+          <div className="gross-item">
+            <span className="gross-label">Adjusted</span>
+            <span className="gross-value adjusted">{formatConvertMoney(movie.adjusted_gross)}</span>
+          </div>
         </div>
       </div>
     </article>
