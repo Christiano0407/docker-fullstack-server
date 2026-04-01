@@ -6,15 +6,16 @@ import React from "react";
 
 
 interface Props {
-  current: Page; 
-  onNavigate: { p.Page } => void; 
+  current:    Page;
+  onNavigate: (p: Page) => void;
 }
+ 
 
-const LINKS:{label: string;  page: Page}[] = {
-  { label: "Home",  page: "home" },
-  { label: "Catalog",  page: "catalog" },
-  { label: "Archive",  page: "archive" },
-}; 
+const LINKS: { label: string; page: Page }[] = [
+  { label: "Home",    page: "home"    },
+  { label: "Catalog", page: "catalog" },
+  { label: "Archive", page: "archive" },
+];
 
 const styles = {
   nav: {
@@ -51,19 +52,61 @@ const styles = {
   } as React.CSSProperties,
 };
 
-export const Nav = ( { current, onNavigate } ) => { 
+export default function Nav({ current, onNavigate }: Props) {
   return (
-    <nav style={styles.nav} >
+    <nav style={styles.nav}>
       <div style={styles.navBefore} />
-      <button style={styles.logo} 
-        onClick={ () => onNavigate("home")}
-      >
-        DreamsMovies
+      <button style={styles.logo} onClick={() => onNavigate("home")}>
+        V<span style={{ color: "var(--gold)" }}>◆</span>ULT
       </button>
-      <ul style={styles.ul}></ul>
+      <ul style={styles.ul}>
+        {LINKS.map(({ label, page }) => (
+          <li key={page}>
+            <NavLink
+              label={label}
+              active={current === page}
+              onClick={() => onNavigate(page)}
+            />
+          </li>
+        ))}
+      </ul>
     </nav>
-  )
+  );
 }
+ 
 
-
-const navLink = () => {}
+const NavLink = ({
+  label, active, onClick,
+}: { label: string; active: boolean; onClick: () => void }) => {
+  return (
+    <button
+      onClick={onClick}
+      style={{
+        fontFamily: "var(--font-mono)",
+        fontSize: "0.68rem",
+        letterSpacing: "0.22em",
+        textTransform: "uppercase",
+        color: active ? "var( --clr-base-white)" : "var(--clr-base)",
+        background: "none",
+        border: "none",
+        cursor: "pointer",
+        position: "relative",
+        paddingBottom: "3px",
+        transition: "color 0.25s",
+      }}
+    >
+      {label}
+      <span
+        style={{
+          position: "absolute",
+          bottom: 0, left: 0,
+          width: active ? "100%" : "0%",
+          height: "1px",
+          background: "var(--clr-base)",
+          transition: "width 0.3s cubic-bezier(0.25,0.46,0.45,0.94)",
+          display: "block",
+        }}
+      />
+    </button>
+  );
+}
