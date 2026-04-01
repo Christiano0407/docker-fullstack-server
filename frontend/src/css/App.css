@@ -20,18 +20,13 @@
   --clr-black-one: #333;
   --clr-black-light: hsl(217, 89%, 0%);
   
-  --bg:          #0c0c0e;
-  --surface:     #141417;
-  --surface-2:   #1c1c21;
-  --border:      #2a2a32;
-  --gold:        #c9a84c;
-  --gold-light:  #e8c97a;
-  --text:        #f0ede6;
-  --text-muted:  #7a7a8a;
-  --text-dim:    #4a4a5a;
-  --radius:      6px;
-  --font-display: 'Playfair Display', Georgia, serif;
-  --font-body:    'DM Sans', system-ui, sans-serif;
+  --bg:          #030b18;
+  --bg-mid:      #050f20;
+  --surface:     #071428;
+  --surface-2:   #0a1a33;
+  --surface-3:   #0d2040;
+  --border:      rgba(100, 160, 255, 0.08);
+  --border-2:    rgba(100, 160, 255, 0.14);
 
   --font-display: 'Bebas Neue', sans-serif;
   --font-body:    'Cormorant Garamond', Georgia, serif;
