@@ -20,9 +20,9 @@ const fmt = (n: number) =>
 
 const yr = (d: string) => d?.split("/")?.pop() ?? "";
 
-const Top5Card = ({ movie, rank, onNavigate }: {
+function Top5Card({ movie, rank, onNavigate }:{
   movie: Movie; rank: number; onNavigate: (p: Page) => void;
-}) =>  {
+}){
   const poster = usePoster(movie.movie_title, movie.release_date);
   const [hovered, setHovered] = useState(false);
  
@@ -96,4 +96,56 @@ const Top5Card = ({ movie, rank, onNavigate }: {
   );
 }
 
-export default Top5Grid = ({onNavigate}: Props ) => {}
+export default function Top5Grid({onNavigate}: Props ){
+  const [movies, setMovies] = useState<Movie[]>([]);
+  const [loading, setLoading] =useState(true);  
+
+  useEffect(() => {
+    moviesAPI.getMovies(10, 0)
+    .then( m => {
+      const sorted = [...m.data]
+        .sort((a, b) => b.adjusted_gross - a.adjusted_gross)
+        .slice(0.5);
+        setMovies(sorted); 
+    })
+    .catch(console.error)
+    .finally(() => setLoading(false)); 
+  }, []); 
+
+  if (loading) return ( 
+    <div className="grid-loading" 
+      style={{ 
+        display: "grid", 
+        gridTemplateColumns: "repeat(6, 1fr)", 
+        gap: "19x", 
+        background: "var(--border)", 
+        border: "1px solid var(--border)", 
+    }}>
+      {Array(5).fill(0).map((_, i) => (
+        <div key={i} style={{ background: "var(--surface)", padding: "1rem" }}>
+          <div style={{
+            aspectRatio: "2/3",
+            background: "var(--surface-2)",
+            marginBottom: "1rem",
+          }} />
+          <div className="skel-line" />
+          <div className="skel-line short" />
+        </div>
+      ))}
+    </div>
+  ); 
+
+  return (
+    <div className="grids"
+      style={{ display: "grid", gridTemplateColumns: "repeat(5, 1fr)", 
+        gap: "1px", background: "var(--border)", border: "1px solid var(--border)"
+      }}>
+        { movies.map((m, i) => (
+          <Top5Card key={m.movie_title} movie={m} rank={i + 1} onNavigate={onNavigate}/>
+        )) }
+
+    </div>
+  ); 
+
+
+}; 
