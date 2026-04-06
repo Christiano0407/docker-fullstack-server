@@ -13,6 +13,7 @@
     "test:coverage": "vitest --coverage"
   },
   "dependencies": {
+    "gsap": "^3.14.2",
     "react": "^19.2.0",
     "react-dom": "^19.2.0"
   },

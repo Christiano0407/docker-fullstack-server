@@ -1,24 +1,51 @@
+
+/* ═══════════════════════════════════════════
+   App - css — Design System
+   Disney Cinema Archive · Deep Ocean Palette
+   ═══════════════════════════════════════════ */
+
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Mono:wght@300;400;500&display=swap');
+
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
 :root {
+  --clr-base: #0046FF;
+  --clr-base-black: #001BB7;
+  --clr-base-white: #60B5FF;
+
   --clr-white: #fff;
   --clr-white-one: #f2f2f2f2;
   --clr-saturation: hsl(217, 0%, 61%);
   --clr-black: #111;
   --clr-black-one: #333;
   --clr-black-light: hsl(217, 89%, 0%);
-  --bg:          #0c0c0e;
-  --surface:     #141417;
-  --surface-2:   #1c1c21;
-  --border:      #2a2a32;
-  --gold:        #c9a84c;
-  --gold-light:  #e8c97a;
-  --text:        #f0ede6;
-  --text-muted:  #7a7a8a;
-  --text-dim:    #4a4a5a;
-  --radius:      6px;
-  --font-display: 'Playfair Display', Georgia, serif;
-  --font-body:    'DM Sans', system-ui, sans-serif;
+  
+  --bg:          #030b18;
+  --bg-mid:      #050f20;
+  --surface:     #071428;
+  --surface-2:   #0a1a33;
+  --surface-3:   #0d2040;
+  --border:      rgba(100, 160, 255, 0.08);
+  --border-2:    rgba(100, 160, 255, 0.14);
+
+  --font-display: 'Bebas Neue', sans-serif;
+  --font-body:    'Cormorant Garamond', Georgia, serif;
+  --font-mono:    'DM Mono', monospace;
+  --ease:         cubic-bezier(0.25, 0.46, 0.45, 0.94);
+
+  --bg:          #030b18;
+  --bg-mid:      #050f20;
+  --surface:     #071428;
+  --surface-2:   #0a1a33;
+  --surface-3:   #0d2040;
+  --border:      rgba(100, 160, 255, 0.08);
+  --border-2:    rgba(100, 160, 255, 0.14);
+
+  --rating-g:    #22c55e;
+  --rating-pg:   #3b82f6;
+  --rating-pg13: #f59e0b;
+  --rating-r:    #ef4444;
+  --rating-nr:   #6b7280;
 }
 
 html {
@@ -30,6 +57,8 @@ html {
 body {
   min-height: 100dvh;
   width: 100%;
+  background: var(--clr-base);
+  color: var(--clr-white-one)
 }
 
 a {
@@ -90,4 +119,25 @@ figure:has(> img) {
 
 hr {
   width: 100%;
+}
+
+/* ====================================================================== */
+
+/* ---- Grain ---- */
+.grain {
+  position: fixed;
+  inset: -50;
+  width: 200%;
+  height: 200%;
+  opacity: 0.028;
+  pointer-events: none;
+  z-index: 9990;
+  animation: grain-animation 0.6s steps(2) infinite;
+}
+
+@keyframes grain-animation {
+  0%,100% { transform: translate(0,0); }
+  25%     { transform: translate(-1%,-1%); }
+  50%     { transform: translate(1%,1%); }
+  75%     { transform: translate(-1%,1%); }
 }
