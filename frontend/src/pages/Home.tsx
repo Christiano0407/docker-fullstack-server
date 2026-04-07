@@ -182,7 +182,19 @@ export const Home = ({onNavigate}: Props) => {
       </section>
       
       {/* === About === */}
-      <div className="home__about"></div>
+      <div className="home__about">
+        <div className="home__about--text">
+          <p  className="eyebrow">The Collection</p>
+          <h2 className="about-title"> About <br/> The Archive</h2>
+          <p className="about-paragraph">
+            A comprehensive dataset spanning eight decades of Disney's cinematic output.
+            From Snow White in 1937 to Rogue One in 2016 — every title documented with
+            financial performance, genre classification, and MPAA ratings.
+          </p>
+        </div>
+
+        <div className="home__about__stats"></div>
+      </div>
       
       {/* === Footer === */}
       <Footer />

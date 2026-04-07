@@ -301,3 +301,20 @@ hr {
   cursor: pointer;
   transition: color 0.25s;
 }
+.home__about {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: .1rem;
+  background: var(--border);
+}
+.about-title{
+  margin-bottom: 0;
+}
+.about-paragraph {
+  font-size: 1.15rem;
+  line-height: 1.9;
+  color: var(--text-muted);
+  font-weight: 300;
+  margin-top: 1.5rem;
+  max-width: 38ch;
+}
