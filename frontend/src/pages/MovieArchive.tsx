@@ -26,7 +26,7 @@ export default function MovieArchive() {
   const fetchMovies = useCallback(async () => {
     setLoading(true);
     try {
-      const data = await moviesAPI.getMovies(200, 0);
+      const data = await moviesAPI.getMovies(100, 0);
       setMovies(data.data);
     } catch (e) {
       setError(e instanceof Error ? e.message : "Failed to load archive");

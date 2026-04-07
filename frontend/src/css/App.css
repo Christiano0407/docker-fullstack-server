@@ -235,7 +235,7 @@ hr {
   display: flex;
   gap: 0;
   margin-top: 2.8rem;
-  border-top: .1 rem solid var(var(--border)); 
+  border-top: 0.1rem solid var(--border); 
   padding-top: 1rem;
 }
 .ref--num {
