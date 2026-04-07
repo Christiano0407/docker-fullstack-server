@@ -301,7 +301,7 @@ hr {
   cursor: pointer;
   transition: color 0.25s;
 }
-.home__about {
+.home__about, .home__about__stats {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: .1rem;

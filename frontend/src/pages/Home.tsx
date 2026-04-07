@@ -38,10 +38,10 @@ export const Home = ({onNavigate}: Props) => {
 
   const [statsData, setStateData] = useState<{ 
     total: number;
-    genre: number; 
+    genres: number; 
     topGross: string;
     topTitle: string; 
-  }>
+  } | null>(null); 
 
   // = Scroll Animated Movies = 
   useEffect(() => {
@@ -85,9 +85,9 @@ export const Home = ({onNavigate}: Props) => {
    }, []); 
 
    // = Mock Data stats = 
-   aboutStats = statsData ? [
+   const aboutStats = statsData?[
     [statsData.total,    "Total Films",  "1937 – 2016"],
-    [statsData.genre,   "Genres",       "Classified"],
+    [statsData.genres,   "Genres",       "Classified"],
     [statsData.topGross, "Top Gross",    statsData.topTitle],
     [79,                 "Years",        "of Production"],
   ] : [];
@@ -193,9 +193,22 @@ export const Home = ({onNavigate}: Props) => {
           </p>
         </div>
 
-        <div className="home__about__stats"></div>
+        <div className="home__about__stats">
+          {
+            aboutStats.map(([num, label, note], i) => (
+              <div key={i} 
+                onMouseEnter={e => (e.currentTarget.style.background = "var(--surface-2)")}
+                onMouseLeave={e => (e.currentTarget.style.background = "var(--surface)")}
+              > 
+                <div style={{ fontFamily:"var(--font-display)", fontSize:"3rem", color:"var(--gold-bright)", lineHeight:1, marginBottom:"0.4rem" }}>{num}</div>
+                <div  style={{ fontFamily:"var(--font-mono)", fontSize:"0.6rem", letterSpacing:"0.2em", textTransform:"uppercase", color:"var(--text-muted)" }}>{label}</div>
+                <div style={{ fontSize:"0.82rem", color:"var(--text-dim)", marginTop:"0.3rem" }}>{note}</div>
+              </div>
+            ))
+          }
+        </div>
+
       </div>
-      
       {/* === Footer === */}
       <Footer />
     </div>
