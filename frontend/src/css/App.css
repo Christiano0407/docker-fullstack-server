@@ -169,3 +169,47 @@ hr {
   background-image: linear-gradient(rgba(100,160,255,0.03) 1px, transparent 1px), linear-gradient(90deg,rgba(100,160,255,0.03) 1px,transparent 1px);
   background-size: 6rem 6rem;
 }
+.hero--btnFade {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 3rem;
+  background-color: linear-gradient(to bottom, transparent, var(--bg));
+  pointer-events: none;
+}
+
+.home--ghostYear {
+  position: absolute;
+  right: 2.5rem;
+  top: 50%;
+  transform: translateY(-50%);
+  font-family: var(--font-display);
+  font-size: clamp(12rem, 2vw, 26rem);
+  color: transparent;
+  -webkit-text-stroke: 1px rgba(100, 160, 255, 0.06);
+  pointer-events: none;
+  user-select: none;
+  line-height: 1;
+}
+.home__content{
+  position: relative;
+  z-index: 1;
+}
+.home__content--paragraph {
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.4rem;
+  text-transform: uppercase;
+  color: var(--font-display);
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+.paragraph--text{
+  display: inline-block;
+  width: 2rem;
+  height: .1rem;
+  background-color: var(--clr-white-one);
+}

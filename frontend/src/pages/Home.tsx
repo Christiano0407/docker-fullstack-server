@@ -102,12 +102,22 @@ export const Home = ({onNavigate}: Props) => {
       <div className="home__hero--mesh" />
       {/* === Grid === */}
       <div className="home__hero--grid" />
+      {/* === Btn Fade === */}
+      <div className="hero--btnFade" />
+
       {/* === Ghost Year === */}
+      <div className="home--ghostYear">1937</div>
 
       {/* === Content === */}
+      <div className="home__content">
+        <p className="home__content--paragraph">
+          <span className="paragraph--text">Disney Cinema Archive · 1937 — 2016</span>
+        </p>
+      </div>
+
       </section>
 
-      {/* === MARQUE ITEMS === */}
+      {/* === MARQUE ITEMS | Slides === */}
       <div className="home__items"></div>
 
       {/* === Top 5 Movies === */}
