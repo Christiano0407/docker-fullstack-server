@@ -79,9 +79,7 @@ export const Home = ({onNavigate}: Props) => {
       topGross: fmt(s.total_gross?.adjusted_gross?? 0),
       topTitle: s.total_gross?.top_title?? "",
     }))
-
     .catch(() => {})
-
    }, []); 
 
    // = Mock Data stats = 
