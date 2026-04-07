@@ -238,3 +238,22 @@ hr {
   border-top: .1 rem solid var(var(--border)); 
   padding-top: 1rem;
 }
+.ref--num {
+  font-family: var(--font-display);
+  font-size: 2.4rem;
+  color: var(--clr-white-one);
+  line-height: 1;
+}
+.ref--label {
+  font-family: var(--font-mono);
+  font-size: 0.5rem;
+  letter-spacing: 0.2rem;
+  text-transform: uppercase;
+  color: var(--clr-base-white);
+  margin-top: 0.2rem;
+}
+.home__rowRefBtn{
+  display: flex;
+  gap: 1rem;
+  margin-top: 2.5rem;
+}

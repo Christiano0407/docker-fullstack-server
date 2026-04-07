@@ -121,12 +121,39 @@ export const Home = ({onNavigate}: Props) => {
       </div>
       {/* === Row Ref | Motion === */}
        <div className="home__rowRef">
-        
+        {
+          [
+            [<><span ref={countRef}>579</span></>, "Films"], 
+            ["20", "Genres"], 
+            ["$22b+", "Combined Gross"], 
+            ["79", "Years"]
+          ].map(([num, label], i) => ( 
+           <div key={i} 
+              style={{ 
+                flex: 1,
+                paddingRight: i < 3 ? "2rem":"0",
+                paddingLeft: i < 0 ? "2rem":"0",
+                borderLeft: i < 0 ? ".1rem solid var(--border)":"none",
+              }}>
+              <div className="ref--num">{num}</div>
+              <div className="ref--label" >{label}</div>
+           </div>
+          ))
+        }
        </div>
+       {/* === Row Ref | Btn === */}
+        <div className="home__rowRefBtn">
+          <button className="btn btn--gold" onClick={() => onNavigate(`catalog`)}>
+            <span className="btn--collection">Collections</span>
+          </button>
+          <button className="btn btn--outline" onClick={() => onNavigate(`archive`)}>
+            View Archive
+          </button>
+        </div>
 
       </section>
 
-      {/* === MARQUE ITEMS | Slides === */}
+      {/* === ---- MARQUE ITEMS | Slides ---- === */}
       <div className="home__items"></div>
 
       {/* === Top 5 Movies === */}
@@ -141,3 +168,5 @@ export const Home = ({onNavigate}: Props) => {
   )
 
 }; 
+
+export default Home; 
