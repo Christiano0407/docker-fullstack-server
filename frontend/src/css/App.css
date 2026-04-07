@@ -141,3 +141,180 @@ hr {
   50%     { transform: translate(1%,1%); }
   75%     { transform: translate(-1%,1%); }
 }
+
+/* ========================== Home ============================================ */
+.wrapper__home {
+  min-height: 100vh;
+  width: 100%;
+}
+.home__hero {
+  position: relative;
+  height: 100vh;
+  min-height: 60rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: .5rem;
+  overflow: hidden;
+}
+.home__hero--mesh {
+  position: absolute;
+  inset: 0;
+  background-color:
+            radial-gradient(ellipse 100% 80% at 60% 30%, rgba(26,111,255,0.08) 0%, transparent 60%),
+}
+.home__hero--grid{
+  position: absolute; 
+  inset: 0;
+  background-image: linear-gradient(rgba(100,160,255,0.03) 1px, transparent 1px), linear-gradient(90deg,rgba(100,160,255,0.03) 1px,transparent 1px);
+  background-size: 6rem 6rem;
+}
+.hero--btnFade {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 3rem;
+  background-color: linear-gradient(to bottom, transparent, var(--bg));
+  pointer-events: none;
+}
+
+.home--ghostYear {
+  position: absolute;
+  right: 2.5rem;
+  top: 50%;
+  transform: translateY(-50%);
+  font-family: var(--font-display);
+  font-size: clamp(12rem, 2vw, 26rem);
+  color: transparent;
+  -webkit-text-stroke: 1px rgba(100, 160, 255, 0.06);
+  pointer-events: none;
+  user-select: none;
+  line-height: 1;
+}
+.home__content{
+  position: relative;
+  z-index: 1;
+}
+.home__content--paragraph {
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.4rem;
+  text-transform: uppercase;
+  color: var(--font-display);
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+.paragraph--text{
+  display: inline-block;
+  width: 2rem;
+  height: .1rem;
+  background-color: var(--clr-white-one);
+}
+.home__content--title {
+  font-family: var(--font-display);
+  font-size: clamp(4rem, 11vh, 12rem);
+  line-height: 0.88rem;
+  letter-spacing: 0.1rem;
+  color: var(--clr-base-white);
+  max-width: 75%;
+}
+.title--text {
+  display: block;
+  font-family: var(--font-body);
+  font-style: italic;
+  font-weight: 300;
+  font-size: 0.42rem;
+  color: var(--clr-white-one);
+  letter-spacing: 0.1rem;
+  margin-top: 0.6rem;
+}
+.home__rowRef {
+  display: flex;
+  gap: 0;
+  margin-top: 2.8rem;
+  border-top: .1 rem solid var(var(--border)); 
+  padding-top: 1rem;
+}
+.ref--num {
+  font-family: var(--font-display);
+  font-size: 2.4rem;
+  color: var(--clr-white-one);
+  line-height: 1;
+}
+.ref--label {
+  font-family: var(--font-mono);
+  font-size: 0.5rem;
+  letter-spacing: 0.2rem;
+  text-transform: uppercase;
+  color: var(--clr-base-white);
+  margin-top: 0.2rem;
+}
+.home__rowRefBtn{
+  display: flex;
+  gap: 1rem;
+  margin-top: 2.5rem;
+}
+.home__items {
+  overflow: hidden;
+  border-top: .1rem solid var(--border);
+  border-bottom: .1rem solid var(--border);
+  background: var(--surface);
+  padding: 1rem 0rem;
+}
+.home__items--slider {
+  display: flex;
+  width: max-content;
+  animation: scroll 35s linear infinite;
+}
+@keyframes scroll {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.home__moviesTop {
+  padding: 5rem 4rem;
+  border-bottom: .1rem solid var(--border);
+}
+.home__moviesTop--container {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 2.5rem;
+}
+.moviesTop--btn {
+  font-family: mono;
+  font-size: 0.6rem;
+  letter-spacing: 0.2rem;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  background: none;
+  border: none;
+  border-bottom: .1rem solid var(--border-2);
+  padding-bottom: 0.2rem;
+  cursor: pointer;
+  transition: color 0.25s;
+}
+.home__about, .home__about__stats {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: .1rem;
+  background: var(--border);
+}
+.about-title{
+  margin-bottom: 0;
+}
+.about-paragraph {
+  font-size: 1.15rem;
+  line-height: 1.9;
+  color: var(--text-muted);
+  font-weight: 300;
+  margin-top: 1.5rem;
+  max-width: 38ch;
+}

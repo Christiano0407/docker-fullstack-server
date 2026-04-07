@@ -5,11 +5,11 @@
 import { useState, useRef } from "react"; 
 import gsap from "gsap";
 import Nav from "../src/components/Nav"; 
-//import Home from "../src/pages/Home"; 
+import Home from "../src/pages/Home"; 
 //import Catalog from "../src/pages/MovieCatalog"; 
 //import Archive from "../src/pages/MovieArchive"; 
 //import MovieList from './components/MovieList'
-import './css/App.css'
+import './css/App.css'; 
 
 
 export type Page = "home" | "catalog" | "archive"; 
