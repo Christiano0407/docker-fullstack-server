@@ -141,3 +141,31 @@ hr {
   50%     { transform: translate(1%,1%); }
   75%     { transform: translate(-1%,1%); }
 }
+
+/* ========================== Home ============================================ */
+.wrapper__home {
+  min-height: 100vh;
+  width: 100%;
+}
+.home__hero {
+  position: relative;
+  height: 100vh;
+  min-height: 60rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: .5rem;
+  overflow: hidden;
+}
+.home__hero--mesh {
+  position: absolute;
+  inset: 0;
+  background-color:
+            radial-gradient(ellipse 100% 80% at 60% 30%, rgba(26,111,255,0.08) 0%, transparent 60%),
+}
+.home__hero--grid{
+  position: absolute; 
+  inset: 0;
+  background-image: linear-gradient(rgba(100,160,255,0.03) 1px, transparent 1px), linear-gradient(90deg,rgba(100,160,255,0.03) 1px,transparent 1px);
+  background-size: 6rem 6rem;
+}

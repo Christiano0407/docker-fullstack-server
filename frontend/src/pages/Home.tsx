@@ -11,6 +11,7 @@ import Top5Grid from "../components/Top5Grid";
 import Footer  from "../components/Footer";
 import { moviesAPI } from "../api/moviesApi";
 import type { Page } from "../App"; 
+import "../css/App.css"; 
 
 
 gsap.registerPlugin(ScrollTrigger); 
@@ -69,5 +70,55 @@ export const Home = ({onNavigate}: Props) => {
   },[]); 
 
    // = Load stats for About section | Data Movies =
+   useEffect(() => {
+    fetch("api/v1/movies/stats")
+    .then(r => r.json())
+    .then(s => s.setStateData({
+      total: s.total_movies ?? 579,
+      genre: s.genres.length ?? 20,
+      topGross: fmt(s.total_gross?.adjusted_gross?? 0),
+      topTitle: s.total_gross?.top_title?? "",
+    }))
+
+    .catch(() => {})
+
+   }, []); 
+
+   // = Mock Data stats = 
+   aboutStats = statsData ? [
+    [statsData.total,    "Total Films",  "1937 – 2016"],
+    [statsData.genre,   "Genres",       "Classified"],
+    [statsData.topGross, "Top Gross",    statsData.topTitle],
+    [79,                 "Years",        "of Production"],
+  ] : [];
+
+
+  // = return Component = 
+  return (
+    <div className="wrapper__home">
+      {/* === Hero Section === */}
+      <section className="home__hero">
+      {/* === Mesh === */}
+      <div className="home__hero--mesh" />
+      {/* === Grid === */}
+      <div className="home__hero--grid" />
+      {/* === Ghost Year === */}
+
+      {/* === Content === */}
+      </section>
+
+      {/* === MARQUE ITEMS === */}
+      <div className="home__items"></div>
+
+      {/* === Top 5 Movies === */}
+      <section className="home__moviesTop"></section>
+      
+      {/* === About === */}
+      <div className="home__about"></div>
+      
+      {/* === Footer === */}
+      <footer />
+    </div>
+  )
 
 }; 
