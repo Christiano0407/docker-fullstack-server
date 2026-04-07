@@ -9,7 +9,6 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Top5Grid from "../components/Top5Grid";
 import  Footer  from "../components/Footer";
-import { moviesAPI } from "../api/moviesApi";
 import type { Page } from "../App"; 
 import "../css/App.css"; 
 
@@ -17,7 +16,7 @@ import "../css/App.css";
 gsap.registerPlugin(ScrollTrigger); 
 
 interface Props {
-  onNavigate: (p: Page) => Void; 
+  onNavigate: (p: Page) => void; 
 }
 
  
@@ -73,9 +72,9 @@ export const Home = ({onNavigate}: Props) => {
    useEffect(() => {
     fetch("api/v1/movies/stats")
     .then(r => r.json())
-    .then(s => s.setStateData({
+    .then(s => setStateData({
       total: s.total_movies ?? 579,
-      genre: s.genres.length ?? 20,
+      genres: s.genres?.length ?? 20,
       topGross: fmt(s.total_gross?.adjusted_gross?? 0),
       topTitle: s.total_gross?.top_title?? "",
     }))

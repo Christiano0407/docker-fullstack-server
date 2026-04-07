@@ -6,9 +6,8 @@ import { useState, useRef } from "react";
 import gsap from "gsap";
 import Nav from "../src/components/Nav"; 
 import Home from "../src/pages/Home"; 
-//import Catalog from "../src/pages/MovieCatalog"; 
-//import Archive from "../src/pages/MovieArchive"; 
-//import MovieList from './components/MovieList'
+import Catalog from "../src/pages/MovieCatalog"; 
+import Archive from "../src/pages/MovieArchive";
 import './css/App.css'; 
 
 
@@ -48,8 +47,8 @@ export default function App() {
       <Nav current={current} onNavigate={navigate} />
       <main id="idMain" className="main">
         { current === "home" && <Home onNavigate={navigate} /> }
-        { current === "catalog" && <Catalog /> }
-        { current === "archive" && <Archive /> }
+        { current === "catalog" && <Catalog onNavigate={navigate} /> }
+        { current === "archive" && <Archive onNavigate={navigate} /> }
       </main>
     </>
   )
