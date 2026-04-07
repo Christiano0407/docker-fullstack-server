@@ -8,7 +8,7 @@ import { useState, useEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Top5Grid from "../components/Top5Grid";
-import Footer  from "../components/Footer";
+import  Footer  from "../components/Footer";
 import { moviesAPI } from "../api/moviesApi";
 import type { Page } from "../App"; 
 import "../css/App.css"; 
@@ -154,16 +154,38 @@ export const Home = ({onNavigate}: Props) => {
       </section>
 
       {/* === ---- MARQUE ITEMS | Slides ---- === */}
-      <div className="home__items"></div>
+      <div className="home__items">
+        <div className="home__items--slider">
+          {  
+            [...MARQUEE_ITEMS, ...MARQUEE_ITEMS, ...MARQUEE_ITEMS, ...MARQUEE_ITEMS].map((g,i) => (
+              <span key={i}
+                style={{
+                  fontFamily:"var(--font-display)", fontSize:"0.9rem", letterSpacing: "0.3rem", textTransform:"uppercase", color: "var(--text-dim)", padding:"0.3rem", borderRight: ".1rem solid var(--border)", whiteSpace: "nowrap",  
+                }}
+                >{g}<span style={{color:"var(--clr-base-white: #60B5FF)", marginLeft: "3rem"}}>◆</span>
+              </span>
+            ))
+          }
+        </div>
+      </div>
 
       {/* === Top 5 Movies === */}
-      <section className="home__moviesTop"></section>
+      <section className="home__moviesTop">
+          <div className="home__moviesTop--container" >
+            <div className="moviesTop--text">
+              <p  className="eyebrow">Featured</p>
+              <h2 className="section-title">Top Grossing</h2>
+            </div>
+            <button className="btn moviesTop--btn" onClick={() => onNavigate("catalog")}>Full Catalog</button>
+          </div>
+          <Top5Grid onNavigate={onNavigate} />
+      </section>
       
       {/* === About === */}
       <div className="home__about"></div>
       
       {/* === Footer === */}
-      <footer />
+      <Footer />
     </div>
   )
 

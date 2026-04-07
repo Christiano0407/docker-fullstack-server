@@ -257,3 +257,47 @@ hr {
   gap: 1rem;
   margin-top: 2.5rem;
 }
+.home__items {
+  overflow: hidden;
+  border-top: .1rem solid var(--border);
+  border-bottom: .1rem solid var(--border);
+  background: var(--surface);
+  padding: 1rem 0rem;
+}
+.home__items--slider {
+  display: flex;
+  width: max-content;
+  animation: scroll 35s linear infinite;
+}
+@keyframes scroll {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.home__moviesTop {
+  padding: 5rem 4rem;
+  border-bottom: .1rem solid var(--border);
+}
+.home__moviesTop--container {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 2.5rem;
+}
+.moviesTop--btn {
+  font-family: mono;
+  font-size: 0.6rem;
+  letter-spacing: 0.2rem;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  background: none;
+  border: none;
+  border-bottom: .1rem solid var(--border-2);
+  padding-bottom: 0.2rem;
+  cursor: pointer;
+  transition: color 0.25s;
+}
