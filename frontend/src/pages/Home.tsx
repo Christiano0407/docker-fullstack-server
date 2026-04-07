@@ -113,7 +113,16 @@ export const Home = ({onNavigate}: Props) => {
         <p className="home__content--paragraph">
           <span className="paragraph--text">Disney Cinema Archive · 1937 — 2016</span>
         </p>
+        <h1 className="home__content--title">
+          Eight
+          <br />Decades
+          <span className="title--text"> of cinematic History & Magic Dishes</span>
+        </h1>
       </div>
+      {/* === Row Ref | Motion === */}
+       <div className="home__rowRef">
+        
+       </div>
 
       </section>
 

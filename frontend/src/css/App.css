@@ -213,3 +213,28 @@ hr {
   height: .1rem;
   background-color: var(--clr-white-one);
 }
+.home__content--title {
+  font-family: var(--font-display);
+  font-size: clamp(4rem, 11vh, 12rem);
+  line-height: 0.88rem;
+  letter-spacing: 0.1rem;
+  color: var(--clr-base-white);
+  max-width: 75%;
+}
+.title--text {
+  display: block;
+  font-family: var(--font-body);
+  font-style: italic;
+  font-weight: 300;
+  font-size: 0.42rem;
+  color: var(--clr-white-one);
+  letter-spacing: 0.1rem;
+  margin-top: 0.6rem;
+}
+.home__rowRef {
+  display: flex;
+  gap: 0;
+  margin-top: 2.8rem;
+  border-top: .1 rem solid var(var(--border)); 
+  padding-top: 1rem;
+}
