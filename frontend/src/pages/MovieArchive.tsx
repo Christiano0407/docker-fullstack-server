@@ -5,11 +5,6 @@
 import { useState, useEffect, useCallback } from "react";
 import { moviesAPI, type Movie } from "../api/moviesApi";
 import Footer from "../components/Footer";
-import type { Page } from "../App";
-
-interface Props {
-  onNavigate: (p: Page) => void;
-}
 
 const fmt = (n: number) =>
   n >= 1e9 ? `$${(n / 1e9).toFixed(1)}B`
@@ -20,7 +15,7 @@ const yr = (d: string) => d?.split("/")?.pop() ?? "";
 
 
 
-export default function MovieArchive({ onNavigate: _onNavigate }: Props) {
+export default function MovieArchive() {
   const [movies, setMovies] = useState<Movie[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);

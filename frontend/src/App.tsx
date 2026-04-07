@@ -47,8 +47,8 @@ export default function App() {
       <Nav current={current} onNavigate={navigate} />
       <main id="idMain" className="main">
         { current === "home" && <Home onNavigate={navigate} /> }
-        { current === "catalog" && <Catalog onNavigate={navigate} /> }
-        { current === "archive" && <Archive onNavigate={navigate} /> }
+        { current === "catalog" && <Catalog /> }
+        { current === "archive" && <Archive /> }
       </main>
     </>
   )

@@ -7,11 +7,6 @@ import { moviesAPI, type Movie } from "../api/moviesApi";
 import MovieCard from "../components/MovieCard";
 import Pagination from "../components/Pagination";
 import Footer from "../components/Footer";
-import type { Page } from "../App";
-
-interface Props {
-  onNavigate: (p: Page) => void;
-}
 
 const LIMIT = 12;
 const ALL_GENRES = [
@@ -30,7 +25,7 @@ const SORT_OPTIONS = [
 
 const yr = (d: string) => d?.split("/")?.pop() ?? "";
 
-export default function MovieCatalog({ onNavigate: _onNavigate }: Props) {
+export default function MovieCatalog() {
   const [movies, setMovies] = useState<Movie[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
