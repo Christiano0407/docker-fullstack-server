@@ -105,7 +105,7 @@ export default function Top5Grid({onNavigate}: Props ){
     .then( m => {
       const sorted = [...m.data]
         .sort((a, b) => b.adjusted_gross - a.adjusted_gross)
-        .slice(0.5);
+        .slice(0, 5);
         setMovies(sorted); 
     })
     .catch(console.error)

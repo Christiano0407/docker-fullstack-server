@@ -6,18 +6,13 @@
 
 import { useState, useEffect, useRef } from "react";
 import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Top5Grid from "../components/Top5Grid";
 import  Footer  from "../components/Footer";
-import { moviesAPI } from "../api/moviesApi";
 import type { Page } from "../App"; 
 import "../css/App.css"; 
 
-
-gsap.registerPlugin(ScrollTrigger); 
-
 interface Props {
-  onNavigate: (p: Page) => Void; 
+  onNavigate: (p: Page) => void; 
 }
 
  
@@ -45,8 +40,9 @@ export const Home = ({onNavigate}: Props) => {
 
   // = Scroll Animated Movies = 
   useEffect(() => {
-    const elsMov = [eyeRef.current, titleRef.current, rowRef.current, actsRef.current]; 
-    gsap.set(elsMov, { opacity: 0, y: 30 }); 
+    if (!eyeRef.current || !titleRef.current || !rowRef.current || !actsRef.current) return;
+
+    gsap.set([eyeRef.current, titleRef.current, rowRef.current, actsRef.current], { opacity: 0, y: 30 }); 
 
     const tl = gsap.timeline({ delay: 0.15 });
     tl.to(eyeRef.current,   { opacity: 1, y: 0, duration: 0.7, ease: "power3.out" })
@@ -55,7 +51,7 @@ export const Home = ({onNavigate}: Props) => {
       .to(actsRef.current,  { opacity: 1, y: 0, duration: 0.6, ease: "power2.out" }, "-=0.2");
 
     // = Counter = 
-    if(countRef) {
+    if(countRef.current) {
       const obj = { v:0 }; 
       tl.to(obj, {
         v: 579, duration: 1.8, ease: "power2.out",
@@ -73,11 +69,11 @@ export const Home = ({onNavigate}: Props) => {
    useEffect(() => {
     fetch("api/v1/movies/stats")
     .then(r => r.json())
-    .then(s => s.setStateData({
+    .then(s => setStateData({
       total: s.total_movies ?? 579,
-      genre: s.genres.length ?? 20,
-      topGross: fmt(s.total_gross?.adjusted_gross?? 0),
-      topTitle: s.total_gross?.top_title?? "",
+      genres: s.genres?.length ?? 20,
+      topGross: fmt(s.top_grossing?.adjusted_gross ?? 0),
+      topTitle: s.top_grossing?.movie_title ?? "",
     }))
     .catch(() => {})
    }, []); 
@@ -160,7 +156,7 @@ export const Home = ({onNavigate}: Props) => {
                 style={{
                   fontFamily:"var(--font-display)", fontSize:"0.9rem", letterSpacing: "0.3rem", textTransform:"uppercase", color: "var(--text-dim)", padding:"0.3rem", borderRight: ".1rem solid var(--border)", whiteSpace: "nowrap",  
                 }}
-                >{g}<span style={{color:"var(--clr-base-white: #60B5FF)", marginLeft: "3rem"}}>◆</span>
+                >{g}<span style={{color:"var(--accent)", marginLeft: "3rem"}}>◆</span>
               </span>
             ))
           }

@@ -47,7 +47,7 @@ export async function searchPoster(title: string, year?:string): Promise<string 
 
     return posterUrl(movie?.poster_path ?? null); 
 
-  } catch(err) {
-    return `Error: ${err} | ${null}`; 
+  } catch {
+    return null;
   }
 }; 

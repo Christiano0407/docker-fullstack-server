@@ -39,7 +39,7 @@ export default function MovieCard({ movie }: Props) {
 
       <div className="card-poster">
         {poster 
-          ? <img src="{poster}" alt={movie.movie_title} className="poster-img" loading="lazy"/>
+          ? <img src={poster} alt={movie.movie_title} className="poster-img" loading="lazy"/>
           : <div className="poster-placeholder"><span className="placeholder-icon">✦</span></div>
         }
         <span></span>
