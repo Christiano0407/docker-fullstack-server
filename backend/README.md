@@ -199,24 +199,13 @@ backend/
 
 ---
 
-<<<<<<< HEAD
-## Pipeline Tests
+## Testing
 
-> Proceso de Desarrollo de Pruebas [Tests]
+> Pipeline de Tests con pytest
 
-```bash
-
-# Solo movies (sin tocar Auth)
-pytest tests/unit/test_movies_service.py -v
-pytest tests/integration/test_movies_endpoints.py -v
-
-# Todos juntos
-pytest tests/ -v
+### Estructura de Tests
 
 ```
-
-```bash
-
 backend/
 ├── app/
 │   ├── api/
@@ -224,58 +213,43 @@ backend/
 │   ├── schemas/
 │   ├── services/
 │   └── main.py
-├── tests/              ← aquí (fuera de app/)
+├── tests/              ← fuera de app/ (no se despliega)
 │   ├── conftest.py
 │   ├── unit/
 │   │   └── test_movies_service.py
 │   └── integration/
 │       └── test_movies_endpoints.py
 ├── data/
-├── pytest.ini          ← aquí (al lado de pyproject.toml)
+├── pytest.ini
 ├── pyproject.toml
 └── uv.lock
-
 ```
 
-> Instalar dependencias de test y correr:
+> **¿Por qué `tests/` fuera de `app/`?**
+> `app/` es código que se despliega en el contenedor Docker. Los tests **no deben ir al contenedor de producción**.
+
+### Dependencias de Test
 
 ```bash
+# Agregar dependencias
+uv add --dev pytest pytest-asyncio httpx
 
-uv add --dev pytest httpx
-pytest
+# Correr tests
+pytest tests/ -v
+```
 
-# Por qué `tests/` fuera de `app/`
+### Comandos
 
-`app/` es código que se despliega — va dentro del contenedor Docker. Los tests **no deben ir al contenedor de producción**. Al estar en `tests/` separado, el `Dockerfile` los ignora naturalmente y el `.dockerignore` puede excluirlos explícitamente:
-
-# .dockerignore
-tests/
-pytest.ini
-
-# Solo movies (sin tocar Auth)
+```bash
+# Solo movies
 pytest tests/unit/test_movies_service.py -v
 pytest tests/integration/test_movies_endpoints.py -v
 
 # Todos juntos
 pytest tests/ -v
-=======
-## uv Deps to Pipeline Tests
 
-> project file [.toml]
-
-```bash
-
-# Deps principales
-uv add pydantic-settings sqlalchemy psycopg2-binary pyjwt bcrypt redis
-
-# Deps de desarrollo (tests)
-uv add --dev pytest pytest-asyncio httpx
-
-# Correr
-pytest app/tests/unit/test_movies_service.py -v
-pytest app/tests/ -v
->>>>>>> develop
-
+# Con coverage
+pytest --cov=app tests/ --cov-report=html
 ```
 
 ---
