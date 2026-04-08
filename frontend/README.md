@@ -1,56 +1,85 @@
-# 🎬 Disney Movies - Frontend
+# 🎬 Disney Movies Archive - Frontend
 
 ![React](https://img.shields.io/badge/React-19.2.0-61DAFB?logo=react&logoColor=white)
 ![TypeScript](https://img.shields.io/badge/TypeScript-5.9.3-3178C6?logo=typescript&logoColor=white)
 ![Vite](https://img.shields.io/badge/Vite-7.3.1-646CFF?logo=vite&logoColor=white)
+![GSAP](https://img.shields.io/badge/GSAP-3.14.2-88CE02?logo=greensock&logoColor=white)
 ![Vitest](https://img.shields.io/badge/Vitest-4.1.2-6E9F18?logo=vitest&logoColor=white)
 ![Docker](https://img.shields.io/badge/Docker-Ready-2496ED?logo=docker&logoColor=white)
+![Nginx](https://img.shields.io/badge/Nginx-Alpine-009639?logo=nginx&logoColor=white)
 
-Aplicación frontend para la **Disney Movies API**. Presenta un catálogo interactivo de películas de Disney con búsqueda, paginación y diseño responsivo.
+> **Aplicación web SPA** para explorar el archivo histórico de películas de Disney (1937–2016). Catalogación interactiva con animaciones, filtros avanzados y exportación de datos.
 
 ---
 
 ## 📋 Tabla de Contenidos
 
-- [Descripción](#-descripción)
-- [Tecnologías](#-tecnologías)
+- [Visión General](#-visión-general)
+- [Stack Tecnológico](#-stack-tecnológico)
 - [Estructura del Proyecto](#-estructura-del-proyecto)
-- [Requisitos](#-requisitos)
-- [Instalación](#-instalación)
+- [Requisitos Previos](#-requisitos-previos)
+- [Instalación Rápida](#-instalación-rápida)
+- [Desarrollo Local](#-desarrollo-local)
 - [Variables de Entorno](#-variables-de-entorno)
 - [Scripts Disponibles](#-scripts-disponibles)
-- [Desarrollo Local](#-desarrollo-local)
-- [Docker](#-docker)
-- [Tests](#-tests)
-- [API Endpoints](#-api-endpoints)
 - [Arquitectura](#-arquitectura)
+- [Diseño del Sistema](#-diseño-del-sistema)
+- [Flujo de Datos](#-flujo-de-datos)
+- [API Endpoints](#-api-endpoints)
+- [Componentes](#-componentes)
+- [Docker](#-docker)
+- [Testing](#-testing)
+- [Convenciones de Código](#-convenciones-de-código)
 - [Contribución](#-contribución)
+- [Licencia](#-licencia)
 
 ---
 
-## 📖 Descripción
+## 🎯 Visión General
 
-Disney Movies Frontend es una aplicación React que permite visualizar y explorar el catálogo de películas de Disney desde 1937 hasta 2016. Ofrece:
+Disney Movies Archive es una aplicación **Single Page Application (SPA)** construida con React que permite:
 
-- Lista paginada de películas con información financiera (gross/box office)
-- Filtrado por género y clasificación MPAA
-- Diseño responsivo optimizado para desktop y mobile
-- Estados de carga, error y vacío
-- Tests unitarios con Vitest
+- ✅ Explorar el catálogo completo de películas Disney (579 títulos)
+- ✅ Filtrar por género, clasificación MPAA y búsqueda por título
+- ✅ Ordenar por fecha, gross y título
+- ✅ Visualizar estadísticas históricas del archivo
+- ✅ Exportar datos a CSV
+- ✅ Animaciones fluidas con GSAP
+- ✅ Diseño completamente responsivo
+- ✅ Estados de carga, error y vacío optimizados
 
 ---
 
-## 🛠 Tecnologías
+## 🛠 Stack Tecnológico
 
-| Tecnología | Versión | Propósito |
-|------------|---------|-----------|
+### Core
+| Tecnología | Versión | Rol |
+|------------|---------|-----|
 | React | 19.2.0 | Framework UI |
 | TypeScript | 5.9.3 | Tipado estático |
-| Vite | 7.3.1 | Bundling y dev server |
+| Vite | 7.3.1 | Bundler & Dev Server |
+
+### Animaciones
+| Tecnología | Versión | Uso |
+|------------|---------|-----|
+| GSAP | 3.14.2 | Animaciones de entrada y transiciones |
+
+### Testing
+| Tecnología | Versión | Propósito |
+|------------|---------|-----------|
 | Vitest | 4.1.2 | Testing framework |
-| Testing Library | 10.x | Utilidades de testing |
-| Nginx | Alpine | Servidor de producción |
-| Docker | Latest | Contenedores |
+| Testing Library | 16.x | Testing de componentes React |
+
+### Deployment
+| Tecnología | Imagen | Propósito |
+|------------|--------|-----------|
+| Node.js | 20-alpine | Build stage |
+| Nginx | alpine | Servidor de producción |
+
+### Package Manager
+| Herramienta | Versión |
+|------------|---------|
+| pnpm | 10.x |
 
 ---
 
@@ -58,47 +87,87 @@ Disney Movies Frontend es una aplicación React que permite visualizar y explora
 
 ```
 frontend/
-├── public/                      # Assets públicos
+│
+├── .opencode/                      # Configuración de OpenCode (AI)
+│   └── skills/
+│       └── frontend-design/        # Skill de diseño frontend
+│
+├── public/                         # Assets públicos estáticos
+│
 ├── src/
 │   ├── api/
-│   │   └── moviesApi.ts        # Cliente HTTP tipado
+│   │   ├── moviesApi.ts           # Cliente HTTP tipado para movies
+│   │   └── tmdb/                  # (Futuro) Cliente TMDB API
+│   │
 │   ├── components/
-│   │   ├── MovieCard.tsx      # Tarjeta individual de película
-│   │   ├── MovieCard.test.tsx
-│   │   ├── MovieList.tsx      # Lista con fetch y estados
-│   │   ├── MovieList.test.tsx
-│   │   ├── Pagination.tsx      # Controles de paginación
-│   │   └── Pagination.test.tsx
+│   │   ├── Footer.tsx             # Pie de página
+│   │   ├── GenreBar.tsx           # Barra de géneros (en desarrollo)
+│   │   ├── MovieCard.tsx          # Tarjeta de película
+│   │   ├── MovieList.tsx          # Lista de películas (no usado)
+│   │   ├── Nav.tsx                # Navegación principal
+│   │   ├── Pagination.tsx         # Controles de paginación
+│   │   ├── Top5Grid.tsx           # Grid de top 5 películas
+│   │   └── tmdb/                  # Componentes TMDB (en desarrollo)
+│   │       ├── Hero.tsx
+│   │       └── VideoModal.tsx
+│   │
+│   ├── hooks/
+│   │   ├── usePoster.ts           # Hook para posters de TMDB
+│   │   └── useTMDB.ts             # Hook para datos TMDB
+│   │
+│   ├── pages/
+│   │   ├── Home.tsx               # Página principal (landing)
+│   │   ├── MovieArchive.tsx        # Archivo histórico (tabla + CSV)
+│   │   └── MovieCatalog.tsx        # Catálogo (grid + filtros)
+│   │
+│   ├── types/
+│   │   └── tmdb.ts                # Tipos TypeScript para TMDB
+│   │
+│   ├── utils/
+│   │   └── tmdbHelpers.ts         # Helpers para URLs de TMDB
+│   │
+│   ├── css/
+│   │   └── App.css                 # Estilos principales (953 líneas)
+│   │
 │   ├── test/
-│   │   └── setup.ts           # Configuración global de tests
-│   ├── App.tsx                # Componente principal
-│   ├── App.css                # Estilos de App
-│   ├── main.tsx               # Punto de entrada
-│   └── index.css              # Estilos globales
-├── .env                       # Variables de entorno locales
-├── .env.example               # Plantilla de variables
-├── Dockerfile                 # Multi-stage build
-├── nginx-spa.conf             # Configuración Nginx para SPA
-├── vite.config.ts             # Configuración de Vite
-├── vitest.config.ts           # Configuración de Vitest
+│   │   ├── setup.ts                # Configuración global de tests
+│   │   └── unit/
+│   │       └── moviesApi.test.tsx  # Tests unitarios del API client
+│   │
+│   ├── App.tsx                    # Componente raíz + Router SPA
+│   ├── main.tsx                   # Punto de entrada
+│   └── index.css                  # Reset CSS + variables globales
+│
+├── .env                           # Variables locales (no commitear)
+├── .env.example                   # Plantilla de variables
+├── .gitignore
+├── Dockerfile                     # Multi-stage build
+├── nginx-spa.conf                 # Configuración Nginx SPA
 ├── package.json
-└── tsconfig.json
+├── pnpm-lock.yaml
+├── tsconfig.json
+├── tsconfig.node.json
+├── vite.config.ts
+├── vitest.config.ts
+└── README.md
 ```
 
 ---
 
-## 📦 Requisitos
+## 📦 Requisitos Previos
 
-- **Node.js** 18+ (recomendado: 20 LTS)
-- **pnpm** 8+ (o npm/yarn)
-- **Docker** 24+ (para producción)
-- **Git**
+| Requisito | Versión Mínima | Versión Recomendada |
+|-----------|----------------|---------------------|
+| Node.js | 18.x | 20 LTS |
+| pnpm | 8.x | 10.x |
+| Docker | 24.x | Latest |
+| Git | 2.x | Latest |
 
 ---
 
-## 🚀 Instalación
+## 🚀 Instalación Rápida
 
-### 1. Clonar el repositorio
+### 1. Clonar repositorio
 
 ```bash
 git clone https://github.com/Christiano0407/docker-fullstack-server.git
@@ -117,134 +186,402 @@ pnpm install
 cp .env.example .env
 ```
 
-Edita `.env` según tu entorno:
-
-```env
-VITE_API_URL=http://localhost:5000/api/v1
-VITE_ENVIRONMENT=development
-```
-
----
-
-## 🔧 Variables de Entorno
-
-| Variable | Descripción | Valor por defecto |
-|----------|-------------|-------------------|
-| `VITE_API_URL` | URL base del backend | `http://localhost:5000/api/v1` |
-| `VITE_ENVIRONMENT` | Entorno (`development`/`production`) | `development` |
-| `VITE_TMDB_TOKEN` | Token de TMDB para posters (opcional) | - |
-
-> **Nota:** Las variables deben empezar con `VITE_` para ser accesibles en el navegador.
-
----
-
-## 📜 Scripts Disponibles
+### 4. Iniciar desarrollo
 
 ```bash
-# Desarrollo
-pnpm dev              # Iniciar dev server con HMR
-pnpm dev --port 3000 # Puerto personalizado
-
-# Build
-pnpm build            # Build de producción
-pnpm preview          # Preview del build
-
-# Calidad de código
-pnpm lint             # ESLint
-pnpm lint:fix         # ESLint con autofix
-
-# Tests
-pnpm test             # Tests en modo watch
-pnpm test:run         # Tests una ejecución
-pnpm test:coverage    # Tests con cobertura
+pnpm dev
 ```
 
 ---
 
 ## 💻 Desarrollo Local
 
-El servidor de desarrollo de Vite configura automáticamente un proxy para `/api` hacia `localhost:5000`, evitando problemas de CORS.
+### Requisitos
+- Backend corriendo en `http://localhost:5000`
+- O usar el proxy de Vite para desarrollo sin backend
 
-```bash
-# 1. Asegúrate de que el backend esté corriendo en puerto 5000
-# cd ../backend && pnpm dev
+### Proxy Automático (vite.config.ts)
 
-# 2. Iniciar frontend
-cd frontend
-pnpm dev
-
-# 3. Abrir http://localhost:5173
-```
-
-### Proxy配置 (vite.config.ts)
+Vite configura automáticamente un proxy para `/api`:
 
 ```typescript
-server: {
-  port: 5173,
-  proxy: {
-    "/api": {
-      target: "http://localhost:5000",
-      changeOrigin: true,
+// vite.config.ts
+export default defineConfig({
+  plugins: [react()],
+  server: {
+    port: 5173,
+    proxy: {
+      '/api': {
+        target: 'http://localhost:5000',
+        changeOrigin: true,
+      },
     },
   },
+})
+```
+
+### Comandos
+
+```bash
+# Desarrollo con HMR
+pnpm dev
+
+# Puerto personalizado
+pnpm dev --port 3000
+
+# Preview del build de producción
+pnpm build && pnpm preview
+```
+
+---
+
+## ⚙️ Variables de Entorno
+
+| Variable | Descripción | Valor por Defecto |
+|----------|-------------|-------------------|
+| `VITE_API_URL` | URL base del backend | `/api/v1` |
+| `VITE_ENVIRONMENT` | Entorno de ejecución | `development` |
+| `VITE_TMDB_TOKEN` | Token API de TMDB (opcional) | - |
+
+> **Nota:** Las variables deben tener prefijo `VITE_` para ser accesibles en el navegador.
+
+---
+
+## 📜 Scripts Disponibles
+
+```bash
+# === Desarrollo ===
+pnpm dev              # Dev server con HMR en puerto 5173
+pnpm dev --port 3000 # Puerto personalizado
+
+# === Build ===
+pnpm build            # Build de producción (TypeScript + Vite)
+pnpm preview          # Preview del build localmente
+
+# === Calidad de Código ===
+pnpm lint             # ESLint (sin autofix)
+pnpm lint:fix        # ESLint con correcciones automáticas
+
+# === TypeScript ===
+pnpm typecheck        # Verificación de tipos (tsc -b)
+
+# === Testing ===
+pnpm test             # Tests en modo watch
+pnpm test:run         # Tests ejecución única
+pnpm test:coverage    # Tests con cobertura de código
+```
+
+---
+
+## 🏗 Arquitectura
+
+### Arquitectura General
+
+```
+┌─────────────────────────────────────────────────────────────────────┐
+│                           BROWSER                                     │
+│                                                                      │
+│  ┌─────────────┐    ┌─────────────┐    ┌─────────────────────────┐ │
+│  │   SPA App   │───▶│  moviesApi  │───▶│  Nginx (Proxy/Load Bal.) │ │
+│  │   (React)   │    │  (Fetch)    │    │         Port 80          │ │
+│  └─────────────┘    └─────────────┘    └─────────────────────────┘ │
+│        │                                          │                 │
+│        ▼                                          ▼                 │
+│  ┌─────────────┐                          ┌─────────────────────┐   │
+│  │  Components │                          │   Backend Pool      │   │
+│  │  (GSAP)    │                          │  ┌──────┐ ┌──────┐  │   │
+│  └─────────────┘                          │  │  B1  │ │  B2  │  │   │
+│                                           │  │:5000 │ │:5000 │  │   │
+│                                           │  └──────┘ └──────┘  │   │
+│                                           │    FastAPI          │   │
+└───────────────────────────────────────────────────────────────────┘
+```
+
+### Router SPA (Custom)
+
+El routing se maneja con estado en `App.tsx`:
+
+```typescript
+type Page = 'home' | 'catalog' | 'archive';
+
+const [current, setCurrent] = useState<Page>('home');
+```
+
+Transiciones con GSAP overlay para efectos de página.
+
+---
+
+## 🎨 Diseño del Sistema
+
+### Variables CSS (App.css)
+
+```css
+:root {
+  /* === Colores Base === */
+  --bg: #030b18;
+  --surface: #071428;
+  --surface-2: #0c1e3a;
+  --surface-3: #122a4d;
+  
+  /* === Tipografía === */
+  --font-display: 'Bebas Neue', sans-serif;
+  --font-body: 'Cormorant Garamond', serif;
+  --font-mono: 'DM Mono', monospace;
+  
+  /* === Espaciado === */
+  --space-xs: 0.25rem;
+  --space-sm: 0.5rem;
+  --space-md: 1rem;
+  --space-lg: 2rem;
+  --space-xl: 4rem;
+  
+  /* === Transiciones === */
+  --ease-smooth: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  --ease-bounce: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+```
+
+### Estructura de Páginas
+
+| Página | Ruta | Descripción |
+|--------|------|-------------|
+| `Home` | `/` | Landing con hero, top 5, stats |
+| `MovieCatalog` | `/catalog` | Grid con filtros y paginación |
+| `MovieArchive` | `/archive` | Tabla histórica con exportación CSV |
+
+### BEM Naming Convention
+
+```css
+.block {}
+.block__element {}
+.block--modifier {}
+```
+
+Ejemplo:
+```css
+.home__hero {}
+.home__hero--mesh {}
+.home__rowRef {}
+```
+
+---
+
+## 🔄 Flujo de Datos
+
+### Fetch de Películas
+
+```
+User Visits Catalog
+        │
+        ▼
+┌───────────────────┐
+│  MovieCatalog     │
+│  (useEffect)      │
+└────────┬──────────┘
+         │
+         ▼
+┌───────────────────┐
+│  moviesAPI         │
+│  .getMovies()     │
+└────────┬──────────┘
+         │
+         ▼
+┌───────────────────┐     ┌────────────────┐
+│  fetch()          │────▶│  Backend API   │
+│  /api/v1/movies   │     │  /api/v1/movies│
+└────────┬──────────┘     └────────────────┘
+         │
+    ┌────┴────┐
+    │         │
+Success     Error
+    │         │
+    ▼         ▼
+setMovies  setError
+    │
+    ▼
+Filtered + Sorted
+    │
+    ▼
+Paginated
+    │
+    ▼
+Render MovieCard Grid
+```
+
+### Estados de Carga
+
+```typescript
+interface State {
+  movies: Movie[];
+  loading: boolean;
+  error: string | null;
 }
 ```
 
 ---
 
-## 🐳 Docker
+## 🔌 API Endpoints
 
-### Build de imagen
+### Consumidos por Frontend
 
-```bash
-cd docker-fullstack-server
-docker compose build frontend
+| Método | Endpoint | Descripción |
+|--------|----------|-------------|
+| `GET` | `/api/v1/movies` | Lista paginada (limit, offset) |
+| `GET` | `/api/v1/movies/stats` | Estadísticas del dataset |
+| `GET` | `/api/v1/movies/search` | Búsqueda con filtros |
+
+### Parámetros de Query
+
+```typescript
+// Paginación
+GET /api/v1/movies?limit=12&offset=0
+
+// Búsqueda
+GET /api/v1/movies/search?genre=Adventure&rating=PG
+
+// Stats
+GET /api/v1/movies/stats
 ```
 
-### Levantar contenedor
+### Tipos TypeScript
 
-```bash
-docker compose up -d frontend
-```
+```typescript
+interface MovieListResponse {
+  count: number;
+  total: number;
+  limit: number;
+  offset: number;
+  data: Movie[];
+}
 
-El contenedor servirá en `http://localhost:80`.
+interface Movie {
+  movie_title: string;
+  release_date: string;     // Formato: DD/MM/YYYY
+  genre: string;
+  rating: 'G' | 'PG' | 'PG-13' | 'R' | 'Not Rated';
+  total_gross: number;     // USD sin ajustar
+  adjusted_gross: number;  // USD ajustado por inflación
+}
 
-### Dockerfile Multi-Stage
-
-1. **Stage 1 (builder)**: Compila React con Vite
-2. **Stage 2 (runtime)**: Sirve con Nginx
-
-```dockerfile
-# Build args disponibles
-ARG VITE_API_URL=/api/v1
-ARG VITE_ENVIRONMENT=production
+interface StatsResponse {
+  total_movies: number;
+  genres: GenreStats[];
+  top_grossing: Movie;
+  most_recent: Movie;
+}
 ```
 
 ---
 
-## 🧪 Tests
+## 🧩 Componentes
 
-### Estructura
+### Core Components
 
-Los archivos de test van en la misma carpeta que los componentes:
+| Componente | Descripción | Props |
+|------------|-------------|-------|
+| `Nav` | Barra de navegación | `current: Page`, `onNavigate: (p) => void` |
+| `MovieCard` | Tarjeta de película | `movie: Movie` |
+| `Pagination` | Controles de paginación | `offset`, `limit`, `total`, `onPrev`, `onNext` |
+| `Top5Grid` | Grid de top 5 | `onNavigate: (p) => void` |
+| `Footer` | Pie de página | - |
+
+### Page Components
+
+| Componente | Descripción |
+|-----------|-------------|
+| `Home` | Landing page con hero animado, stats, top 5 |
+| `MovieCatalog` | Grid filtrable con búsqueda y paginación |
+| `MovieArchive` | Tabla histórica con ordenamiento y exportación CSV |
+
+### Hooks Personalizados
+
+| Hook | Descripción |
+|------|-------------|
+| `usePoster(movieTitle)` | Obtiene poster de TMDB (futuro) |
+| `useTMDB()` | Datos de TMDB (futuro) |
+
+---
+
+## 🐳 Docker
+
+### Build Multi-Stage
+
+```dockerfile
+# Stage 1: Build
+FROM node:20-alpine AS builder
+WORKDIR /app
+RUN corepack enable
+COPY package.json pnpm-lock.yaml ./
+RUN pnpm install
+COPY . .
+ARG VITE_API_URL=/api/v1
+RUN pnpm build
+
+# Stage 2: Runtime
+FROM nginx:alpine
+COPY --from=builder /app/dist /usr/share/nginx/html
+COPY nginx-spa.conf /etc/nginx/conf.d/default.conf
+EXPOSE 80
+CMD ["nginx", "-g", "daemon off;"]
+```
+
+### Comandos Docker Compose
+
+```bash
+# Desde la raíz del proyecto
+cd docker-fullstack-server
+
+# Build de imagen
+docker compose build frontend
+
+# Levantar contenedor
+docker compose up -d frontend
+
+# Ver logs
+docker compose logs -f frontend
+
+# Detener
+docker compose down
+```
+
+### Variables de Build
+
+```yaml
+# docker-compose.yml
+build:
+  context: ./frontend
+  args:
+    VITE_API_URL: /api/v1
+    VITE_ENVIRONMENT: production
+```
+
+---
+
+## 🧪 Testing
+
+### Estructura de Tests
+
+Los tests van junto al componente que prueban:
 
 ```
 src/
 ├── components/
-│   ├── MovieList.tsx
-│   ├── MovieList.test.tsx  ← Tests junto al componente
 │   ├── MovieCard.tsx
-│   ├── MovieCard.test.tsx
-│   ├── Pagination.tsx
-│   └── Pagination.test.tsx
+│   └── MovieCard.test.tsx    ← Tests aquí
+│
+├── api/
+│   ├── moviesApi.ts
+│   └── moviesApi.test.tsx
+│
 └── test/
-    └── setup.ts            ← Config global
+    └── setup.ts              ← Config global
 ```
 
 ### Configuración (vitest.config.ts)
 
 ```typescript
-import { defineConfig } from 'vitest/config'
+import { defineConfig } from 'vitest/config';
+import react from '@vitejs/plugin-react';
 
 export default defineConfig({
   plugins: [react()],
@@ -252,159 +589,106 @@ export default defineConfig({
     globals: true,
     environment: 'jsdom',
     setupFiles: './src/test/setup.ts',
+    coverage: {
+      provider: 'v8',
+      reporter: ['text', 'html'],
+    },
   },
-})
+});
 ```
 
-### Ejecutar tests
+### Ejecutar Tests
 
 ```bash
-# Modo interactivo (watch)
+# Modo watch (desarrollo)
 pnpm test
 
-# Una ejecución
+# Ejecución única (CI/CD)
 pnpm test:run
 
 # Con cobertura
 pnpm test:coverage
 ```
 
-### Tests incluidos
+### Tests Implementados
 
-| Componente | Tests |
-|------------|-------|
-| `MovieCard` | Renderizado de datos, formateo de moneda, colores de rating |
-| `MovieList` | Estados loading/error, renderizado de cards, paginación |
-| `Pagination` | Cálculo de páginas, botones habilitados/deshabilitados, callbacks |
-| `moviesApi` | Mock de fetch, manejo de errores, estructura de respuesta |
+| Módulo | Cobertura |
+|--------|----------|
+| `moviesApi` | Fetch, errores, respuestas tipadas |
+| Componentes | Renderizado, props, estados |
 
 ---
 
-## 🔌 API Endpoints
-
-El frontend consume los siguientes endpoints del backend:
-
-| Método | Endpoint | Descripción |
-|--------|----------|-------------|
-| `GET` | `/api/v1/movies` | Lista paginada de películas |
-| `GET` | `/api/v1/movies?limit=10&offset=0` | Con paginación |
-| `GET` | `/api/v1/movies/search?genre=Adventure` | Filtrar por género |
-| `GET` | `/api/v1/movies/search?rating=PG` | Filtrar por rating |
-| `GET` | `/api/v1/movies/stats` | Estadísticas del dataset |
-
-### Respuesta esperada
-
-```typescript
-interface MovieListResponse {
-  count: number;    // Items en esta página
-  total: number;    // Total de items
-  limit: number;    // Límite por página
-  offset: number;   // Offset actual
-  data: Movie[];    // Array de películas
-}
-
-interface Movie {
-  movie_title: string;
-  release_date: string;
-  genre: string;
-  rating: 'G' | 'PG' | 'PG-13' | 'R' | 'Not Rated';
-  total_gross: number;
-  adjusted_gross: number;
-}
-```
-
----
-
-## 🏗 Arquitectura
-
-```
-┌─────────────────────────────────────────────────────────────┐
-│                      Browser (React App)                      │
-│                                                              │
-│  ┌──────────────┐    ┌──────────────┐    ┌──────────────┐  │
-│  │  MovieList   │───▶│  moviesApi   │───▶│    Nginx     │  │
-│  │  (State)     │    │  (Fetch)     │    │  (Proxy)    │  │
-│  └──────────────┘    └──────────────┘    └──────────────┘  │
-│         │                                        │           │
-│         ▼                                        ▼           │
-│  ┌──────────────┐                      ┌──────────────────┐  │
-│  │  MovieCard   │                      │  Load Balancer    │  │
-│  │  (Display)   │                      │  (Round Robin)    │  │
-│  └──────────────┘                      └──────────────────┘  │
-│         │                                        │           │
-│         │                              ┌─────────┴─────────┐ │
-│         │                              ▼                   ▼ │
-│         │                      ┌────────────┐   ┌────────────┐│
-│         │                      │  backend_1 │   │  backend_2 ││
-│         │                      │  (FastAPI) │   │  (FastAPI) ││
-│         │                      └────────────┘   └────────────┘│
-└─────────┼────────────────────────────────────────────────────┘
-          │
-          ▼
-    ┌───────────┐
-    │  Pagination│
-    │  (Nav)    │
-    └───────────┘
-```
-
----
-
-## 📊 Flujo de Datos
-
-```
-User Action
-     │
-     ▼
-MovieList (useEffect)
-     │
-     ▼
-moviesAPI.getMovies(limit, offset)
-     │
-     ▼
-fetch(BASE_URL + /movies)
-     │
-     ├── Success ──▶ setData ──▶ Render cards
-     │
-     └── Error ────▶ setError ──▶ Show error UI
-```
-
----
-
-## 🎨 Convenciones de Código
+## 📏 Convenciones de Código
 
 ### Nomenclatura
 
-- **Componentes**: PascalCase (`MovieList.tsx`)
-- **Hooks**: camelCase con prefijo `use` (`useMovies.ts`)
-- **Tests**: `*.test.{ts,tsx}`
-- **Mocks**: `*.mock.{ts,tsx}`
+| Tipo | Convención | Ejemplo |
+|------|------------|---------|
+| Componentes | PascalCase | `MovieCard.tsx` |
+| Hooks | camelCase + `use` | `usePoster.ts` |
+| Utilidades | camelCase | `tmdbHelpers.ts` |
+| Tests | `*.test.{ts,tsx}` | `MovieCard.test.tsx` |
+| Types | PascalCase | `tmdb.ts` |
 
 ### Imports
 
 ```typescript
-// Relative paths para componentes locales
+// Componentes locales (relative paths)
 import MovieCard from './MovieCard';
+import Footer from '../components/Footer';
 
 // Alias para API
 import { moviesAPI } from '../api/moviesApi';
+
+// Tipos
+import type { Movie } from '../api/moviesApi';
 ```
+
+### Estilos CSS
+
+- Usar **variables CSS** para colores, espaciado y tipografía
+- **BEM** para naming de clases
+- Evitar `!important`
+- Mobile-first responsive
 
 ---
 
 ## 🤝 Contribución
 
-1. Fork el repositorio
-2. Crea una rama (`git checkout -b feature/nueva-funcion`)
-3. Commit tus cambios (`git commit -m 'feat: agregar nueva función'`)
-4. Push a la rama (`git push origin feature/nueva-funcion`)
-5. Abre un Pull Request
+### Flujo de Trabajo
 
-### Normas
+```bash
+# 1. Fork y clone
+git clone https://github.com/TU_USER/docker-fullstack-server.git
+cd docker-fullstack-server/frontend
 
-- Ejecuta `pnpm test:run` antes de commitear
-- Ejecuta `pnpm lint` para verificar estilo
-- Agrega tests para nuevas funcionalidades
-- Actualiza este README si agregas cambios significativos
+# 2. Crear rama
+git checkout -b feature/nueva-funcion
+
+# 3. Desarrollar
+pnpm dev
+
+# 4. Tests
+pnpm test:run
+pnpm lint
+
+# 5. Commit (Conventional Commits)
+git commit -m 'feat: agregar nueva funcionalidad'
+git commit -m 'fix: corregir bug en paginación'
+git commit -m 'refactor: extraer estilos a CSS modules'
+
+# 6. Push y PR
+git push origin feature/nueva-funcion
+```
+
+### Checklist Pre-commit
+
+- [ ] `pnpm test:run` pasa sin errores
+- [ ] `pnpm lint` sin warnings
+- [ ] `pnpm build` compila correctamente
+- [ ] Tests nuevos incluidos
+- [ ] README.md actualizado si necesario
 
 ---
 
@@ -416,26 +700,25 @@ MIT License - Ver archivo `LICENSE` en el repositorio raíz.
 
 ## 🔗 Enlaces
 
+### Proyecto
 - [Disney Movies API - Backend](https://github.com/Christiano0407/docker-fullstack-server)
+- [Repositorio Principal](https://github.com/Christiano0407/docker-fullstack-server)
+
+### Documentación
 - [React Documentation](https://react.dev)
-- [Vite Documentation](https://vitejs.dev)
-- [Vitest Documentation](https://vitest.dev)
-- [Testing Library](https://testing-library.com)
+- [TypeScript Handbook](https://www.typescriptlang.org/docs/)
+- [Vite Guide](https://vitejs.dev/guide/)
+- [GSAP Documentation](https://gsap.com/docs/)
+- [Vitest Guide](https://vitest.dev/guide/)
+- [Testing Library Docs](https://testing-library.com/docs/react-testing-library/intro/)
+
+### APIs
+- [The Movie Database (TMDB)](https://www.themoviedb.org/documentation/api)
 
 ---
 
-## TMDB API Movies
-
-> Vamos a usar la API de TMDB, para las imágenes y vídeos
-
-```bash
-
-  Archivo Propósito
-  src/api/tmdbApi.ts Cliente TMDB (imágenes + videos)
-  src/hooks/useTMDB.ts Hook para datos TMDB
-  src/types/tmdb.ts Tipos TypeScript para TMDB
-  src/components/Hero.tsx Hero Section con imagen/video
-  src/components/VideoModal.tsx Modal para reproducir trailers
-  src/utils/tmdbHelpers.ts Funciones helper (build image URL)
-
-```
+<div align="center">
+  <p>Disney Movies Archive Frontend</p>
+  <p>Construido con React + TypeScript + Vite + GSAP</p>
+  <p>Construido con SKILLS</p>
+</div>
