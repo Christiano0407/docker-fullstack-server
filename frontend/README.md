@@ -502,6 +502,181 @@ interface StatsResponse {
 
 ---
 
+## 🎬 Hero Component (Streaming Style)
+
+Hero section estilo Netflix/Disney+ con slideshow automático, carousel de películas y animaciones GSAP.
+
+### Estructura de Archivos
+
+```
+src/components/Hero/
+├── Hero.tsx           # Componente principal con slideshow
+├── HeroSlide.tsx      # Slide individual con backdrop y contenido
+├── MovieCarousel.tsx  # Carousel horizontal de películas
+├── Hero.css           # Estilos (900+ líneas)
+└── index.ts          # Barrel exports
+```
+
+### Características Implementadas
+
+| Característica | Descripción |
+|----------------|-------------|
+| **Backdrop Images** | Imágenes de TMDB en alta resolución con Ken Burns effect |
+| **Gradient Overlay** | Overlay oscuro progresivo de izquierda para legibilidad del texto |
+| **Auto-Slideshow** | Cambio automático cada 7 segundos |
+| **Pause on Hover** | Pausa automática al pasar el mouse |
+| **Navigation Arrows** | Botones prev/next con hover effects |
+| **Progress Indicators** | Dots indicadores con estado activo |
+| **Movie Carousel** | Carousel horizontal con drag support |
+| **GSAP Animations** | Transiciones suaves con timeline |
+| **Responsive Design** | Adaptado para mobile, tablet y desktop |
+
+### Componentes Hijos
+
+#### HeroSlide
+
+Slide individual del hero con backdrop, overlay y contenido.
+
+```typescript
+interface HeroSlideProps {
+  movie: Movie;           // Datos de la película
+  isActive: boolean;      // Estado activo para animación
+  onSelect: () => void;   // Callback al hacer click en Play
+}
+```
+
+**Elementos visuales:**
+- Título de la película (font-display, 4-8rem)
+- Metadata (rating badge, año, género)
+- Descripción (máx 2 líneas)
+- Botones Play y My List
+- Stats (box office, adjusted gross)
+
+#### MovieCarousel
+
+Carousel horizontal de películas destacadas.
+
+```typescript
+interface MovieCarouselProps {
+  movies: Movie[];              // Lista de películas
+  currentIndex: number;         // Índice activo
+  onSelectMovie: (m: Movie) => void;  // Callback de selección
+}
+```
+
+**Características:**
+- Scroll horizontal con grab cursor
+- Drag support (mouse)
+- Card activa con scale y glow
+- Gradientes de colores por película
+- Auto-scroll al cambiar slide
+
+### Props del Hero Principal
+
+```typescript
+interface HeroProps {
+  movies: Movie[];                      // Películas para el slideshow
+  onSelectMovie: (movie: Movie) => void;  // Callback de selección
+}
+```
+
+### Estilos CSS
+
+```css
+/* Container principal */
+.hero { }
+.hero__slides { }
+.hero__loading { }
+
+/* Slide */
+.hero-slide { }
+.hero-slide--active { }
+.hero-slide__backdrop { }
+.hero-slide__overlay { }
+.hero-slide__content { }
+
+/* Botones */
+.hero-btn { }
+.hero-btn--play { }
+.hero-btn--list { }
+
+/* Navegación */
+.hero__nav { }
+.hero__nav-btn { }
+.hero__indicators { }
+.hero__indicator { }
+
+/* Carousel */
+.movie-carousel { }
+.movie-carousel__track { }
+.movie-carousel__card { }
+.movie-carousel__poster { }
+```
+
+### Animaciones GSAP
+
+```typescript
+// Animación de entrada del slide
+gsap.to(imageRef, { scale: 1, duration: 1.5, ease: 'power2.out' })
+gsap.to(contentRef, { opacity: 1, x: 0, duration: 0.9, ease: 'power3.out' })
+
+// Timeline con stagger
+const tl = gsap.timeline({ delay: 0.15 });
+tl.to(ref1, { opacity: 1, y: 0 })
+  .to(ref2, { ... }, '-=0.3')
+```
+
+### Responsive Breakpoints
+
+| Breakpoint | Comportamiento |
+|------------|----------------|
+| `< 480px` | Stack vertical, sin descripción, carousel más pequeño |
+| `768px` | Ajuste de tamaños, navegación oculta |
+| `1024px` | Contenido al 60% del ancho |
+| `> 1024px` | Contenido al 50% del ancho |
+
+### Bundle Size
+
+```
+dist/index.css    ~26 kB (Hero styles incluidos)
+dist/index.js     ~288 kB (GSAP + React)
+```
+
+### Uso en Home
+
+```typescript
+import { Hero } from '../components/Hero';
+
+function Home() {
+  const handleSelectMovie = (movie: Movie) => {
+    console.log('Selected:', movie.movie_title);
+  };
+
+  return (
+    <div className="wrapper__home">
+      <Hero
+        movies={heroMovies}
+        onSelectMovie={handleSelectMovie}
+      />
+      {/* Resto del contenido... */}
+    </div>
+  );
+}
+```
+
+### TMDB Integration
+
+El Hero soporta imágenes de TMDB para backdrops y posters:
+
+```typescript
+const IMAGE_BASE_URL = 'https://image.tmdb.org/t/p/original';
+const backdropUrl = `${IMAGE_BASE_URL}/k3j9J9mAH8NOGzN9z4YUxS8qT8.jpg`;
+```
+
+> **Nota:** Requiere token de API de TMDB en `VITE_TMDB_TOKEN` para usar imágenes reales.
+
+---
+
 ## 🐳 Docker
 
 ### Build Multi-Stage

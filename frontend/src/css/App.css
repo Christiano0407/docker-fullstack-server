@@ -147,15 +147,8 @@ hr {
   min-height: 100vh;
   width: 100%;
 }
-.home__hero {
+.wrapper__home > .hero {
   position: relative;
-  height: 100vh;
-  min-height: 60rem;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-  padding: .5rem;
-  overflow: hidden;
 }
 .home__hero--mesh {
   position: absolute;
@@ -277,6 +270,20 @@ hr {
     transform: translateX(-50%);
   }
 }
+.marquee-item {
+  font-family: var(--font-display);
+  font-size: 0.9rem;
+  letter-spacing: 0.3rem;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  padding: 0.3rem;
+  border-right: .1rem solid var(--border);
+  white-space: nowrap;
+}
+.marquee-dot {
+  color: var(--accent, var(--gold));
+  margin-left: 3rem;
+}
 
 .home__moviesTop {
   padding: 5rem 4rem;
@@ -317,6 +324,33 @@ hr {
   font-weight: 300;
   margin-top: 1.5rem;
   max-width: 38ch;
+}
+.about-stat {
+  background: var(--surface);
+  padding: 2.4rem;
+  transition: background 0.25s;
+}
+.about-stat:hover {
+  background: var(--surface-2);
+}
+.about-stat__value {
+  font-family: var(--font-display);
+  font-size: 3rem;
+  color: var(--gold-bright);
+  line-height: 1;
+  margin-bottom: 0.4rem;
+}
+.about-stat__label {
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+.about-stat__note {
+  font-size: 0.82rem;
+  color: var(--text-dim);
+  margin-top: 0.3rem;
 }
 
 /* ========================== Catalog ============================================ */
