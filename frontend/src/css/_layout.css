@@ -1,0 +1,109 @@
+/**
+ * _layout.css — Layout & Structure
+ * Disney Cinema Archive
+ */
+
+/* ═══════════════════════════════════════
+   Grain Overlay
+   ═══════════════════════════════════════ */
+.grain {
+  position: fixed;
+  inset: -50%;
+  width: 200%;
+  height: 200%;
+  opacity: 0.028;
+  pointer-events: none;
+  z-index: 9990;
+  animation: grain-animation 0.6s steps(2) infinite;
+}
+
+/* ═══════════════════════════════════════
+   Main Content
+   ═══════════════════════════════════════ */
+.main {
+  min-height: 100vh;
+}
+
+/* ═══════════════════════════════════════
+   Wrappers
+   ═══════════════════════════════════════ */
+.wrapper__home {
+  min-height: 100vh;
+  width: 100%;
+
+  > .hero {
+    position: relative;
+  }
+}
+
+.wrapper__catalog {
+  min-height: 100vh;
+  width: 100%;
+  padding-top: 8rem;
+}
+
+.wrapper__archive {
+  min-height: 100vh;
+  width: 100%;
+  padding-top: 8rem;
+}
+
+/* ═══════════════════════════════════════
+   Eyebrow Text
+   ═══════════════════════════════════════ */
+.eyebrow {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: var(--tracking-widest);
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+/* ═══════════════════════════════════════
+   State Containers
+   ═══════════════════════════════════════ */
+.state-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 40rem;
+  padding: var(--space-40);
+
+  &.error {
+    text-align: center;
+  }
+}
+
+.spinner {
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+  letter-spacing: var(--tracking-wide);
+  color: var(--text-muted);
+}
+
+.error-icon {
+  font-size: var(--text-4xl);
+  color: var(--rating-r);
+  margin-bottom: var(--space-10);
+}
+
+/* ═══════════════════════════════════════
+   Skeleton Components
+   ═══════════════════════════════════════ */
+.skel-line {
+  height: 1rem;
+  background: linear-gradient(
+    90deg, 
+    var(--surface) 25%, 
+    var(--surface-2) 50%, 
+    var(--surface) 75%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+  margin-bottom: var(--space-5);
+
+  &.short {
+    width: 60%;
+  }
+}
