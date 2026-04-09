@@ -348,6 +348,20 @@ docker compose down && docker compose up -d --build
 | backend | http://localhost:5000/ | 30s |
 | frontend | http://localhost/ | 30s |
 
+### Mejoras Aplicadas
+
+> **Nota:** Se agregó `depends_on` con `condition: service_healthy` en el servicio `nginx` para asegurar que los backends estén completamente disponibles antes de iniciar el proxy. Esto previene errores de conexión durante el startup.
+
+```yaml
+# Ejemplo de configuración aplicada en nginx:
+nginx:
+  depends_on:
+    backend:
+      condition: service_healthy
+    backend_2:
+      condition: service_healthy
+```
+
 ---
 
 ## ⚙️ Configuración

@@ -1,0 +1,237 @@
+/**
+ * _components.css — Shared Components
+ * Disney Cinema Archive
+ */
+
+/* ═══════════════════════════════════════
+   Buttons
+   ═══════════════════════════════════════ */
+.btn {
+  padding: 1rem 2.5rem;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all var(--duration-normal) var(--ease);
+}
+
+.btn--gold {
+  background: var(--accent);
+  color: var(--bg);
+  border: none;
+
+  &:hover {
+    background: var(--accent-bright);
+  }
+}
+
+.btn--outline {
+  background: transparent;
+  color: var(--cream);
+  border: 0.1rem solid var(--border-2);
+
+  &:hover {
+    border-color: var(--accent-dim);
+    color: var(--accent);
+  }
+}
+
+.btn--primary {
+  background: var(--accent);
+  color: var(--ocean-deep);
+  border: none;
+
+  &:hover {
+    background: var(--accent-bright);
+    transform: translateY(-2px);
+  }
+}
+
+.btn--ghost {
+  background: transparent;
+  color: var(--cream);
+  border: 0.1rem solid var(--border-2);
+
+  &:hover {
+    background: var(--surface);
+    border-color: var(--accent);
+  }
+}
+
+/* ═══════════════════════════════════════
+   Pagination
+   ═══════════════════════════════════════ */
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem;
+  padding: 3rem 0;
+  border-top: 0.1rem solid var(--border);
+  margin-top: 3rem;
+}
+
+.page-btn {
+  padding: 0.8rem 2rem;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+  color: var(--cream);
+  background: var(--surface);
+  border: 0.1rem solid var(--border-2);
+  cursor: pointer;
+  transition: all var(--duration-normal) var(--ease);
+
+  &:hover:not(:disabled) {
+    border-color: var(--accent-dim);
+    color: var(--accent);
+  }
+
+  &:disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+  }
+}
+
+.page-info {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+
+.page-separation {
+  margin: 0 0.5rem;
+  color: var(--border-2);
+}
+
+.page-total {
+  color: var(--text-muted);
+}
+
+/* ═══════════════════════════════════════
+   Movie Card
+   ═══════════════════════════════════════ */
+.movie-card {
+  background: var(--surface);
+  overflow: hidden;
+  transition: transform var(--duration-slow) var(--ease);
+
+  &:hover {
+    transform: translateY(-0.3rem);
+  }
+}
+
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  padding: 1rem;
+}
+
+.card-poster {
+  position: relative;
+  aspect-ratio: 2/3;
+  background: var(--surface-2);
+}
+
+.card-body {
+  padding: 1.2rem;
+}
+
+.genre-tag {
+  font-family: var(--font-mono);
+  font-size: 0.55rem;
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+  color: var(--text-muted);
+  padding: 0.3rem 0.6rem;
+  background: var(--surface-2);
+}
+
+.rating-tag {
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  padding: 0.3rem 0.6rem;
+  color: var(--bg);
+  font-weight: var(--weight-semibold);
+}
+
+.poster-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.poster-placeholder {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: var(--text-4xl);
+  color: var(--text-muted);
+}
+
+.movie-title {
+  font-family: var(--font-body);
+  font-size: var(--text-lg);
+  font-weight: var(--weight-semibold);
+  color: var(--cream);
+  margin-bottom: 0.5rem;
+}
+
+.release-date {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  color: var(--text-muted);
+  margin-bottom: 1rem;
+}
+
+.gross-row {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding-top: 1rem;
+  border-top: 0.1rem solid var(--border);
+  margin-top: 1rem;
+}
+
+.gross-item {
+  flex: 1;
+}
+
+.gross-label {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 0.55rem;
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 0.3rem;
+}
+
+.gross-value {
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  color: var(--cream);
+
+  &.adjusted {
+    color: var(--accent);
+  }
+}
+
+.gross-divider {
+  width: 0.1rem;
+  height: 2.5rem;
+  background: var(--border);
+}
+
+/* ═══════════════════════════════════════
+   Rating Badge Colors
+   ═══════════════════════════════════════ */
+.rating-g    { background: var(--rating-g); }
+.rating-pg   { background: var(--rating-pg); }
+.rating-pg13 { background: var(--rating-pg13); }
+.rating-r    { background: var(--rating-r); }
+.rating-nr   { background: var(--rating-nr); }

@@ -1,0 +1,148 @@
+/**
+ * _archive.css — Archive Page Styles
+ * Disney Cinema Archive
+ */
+
+/* ═══════════════════════════════════════
+   Archive Header
+   ═══════════════════════════════════════ */
+.archive__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  padding: 6rem 4rem 4rem;
+  border-bottom: 0.1rem solid var(--border);
+}
+
+.archive__header--content {
+  max-width: 60rem;
+}
+
+.archive__header--actions {
+  flex-shrink: 0;
+}
+
+.archive__title {
+  font-family: var(--font-display);
+  font-size: clamp(4rem, 8vw, 8rem);
+  letter-spacing: var(--tracking-wide);
+  color: var(--cream);
+  margin: 1rem 0;
+}
+
+.archive__subtitle {
+  font-family: var(--font-body);
+  font-size: var(--text-lg);
+  color: var(--text-muted);
+  font-style: italic;
+}
+
+.archive__table-section {
+  padding: 0 4rem 4rem;
+}
+
+.archive__loading,
+.archive__error {
+  padding: 4rem;
+  min-height: 40rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  background: var(--surface);
+  border: 0.1rem solid var(--border);
+}
+
+.archive__table-wrapper {
+  overflow-x: auto;
+  background: var(--surface);
+  border: 0.1rem solid var(--border);
+}
+
+.archive__table {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+}
+
+.archive__table th {
+  padding: 1.2rem 1.5rem;
+  text-align: left;
+  font-size: 0.65rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  background: var(--surface-2);
+  border-bottom: 0.1rem solid var(--border);
+  cursor: pointer;
+  user-select: none;
+  white-space: nowrap;
+  transition: color var(--duration-normal) var(--ease);
+
+  &:hover {
+    color: var(--cream);
+  }
+}
+
+.archive__table td {
+  padding: 1rem 1.5rem;
+  border-bottom: 0.1rem solid var(--border);
+  color: var(--cream);
+  transition: background var(--duration-normal) var(--ease);
+}
+
+.table-skeleton {
+  width: 100%;
+}
+
+.skeleton-row {
+  height: 4rem;
+  background: var(--surface-2);
+  margin-bottom: 0.5rem;
+  animation: shimmer 1.5s infinite;
+}
+
+.archive__row {
+  cursor: pointer;
+  transition: background var(--duration-normal) var(--ease);
+
+  &:hover td {
+    background: var(--surface-2);
+  }
+
+  &.expanded td {
+    background: var(--surface-3);
+  }
+}
+
+.cell__title {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.cell__year {
+  color: var(--text-muted);
+}
+
+.cell__genre {
+  color: var(--accent-dim);
+}
+
+.cell__gross {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+}
+
+.cell__gross--adj {
+  color: var(--accent);
+}
+
+.row-num {
+  font-family: var(--font-display);
+  font-size: var(--text-base);
+  color: rgba(144, 224, 239, 0.2);
+  min-width: 3rem;
+}

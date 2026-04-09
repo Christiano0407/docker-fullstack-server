@@ -1,0 +1,142 @@
+/**
+ * _tokens.css — Design Tokens
+ * Disney Cinema Archive · Deep Ocean Palette
+ * Palette: #03045e, #0077b6, #00b4d8, #90e0ef
+ */
+
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Mono:wght@300;400;500&display=swap');
+
+:root {
+  /* ═══════════════════════════════════════
+     Color Palette — Deep Ocean Theme
+     ═══════════════════════════════════════ */
+  
+  /* Primary Blues (Nueva paleta) */
+  --ocean-deep: #03045e;
+  --ocean-medium: #0077b6;
+  --ocean-bright: #00b4d8;
+  --ocean-light: #90e0ef;
+  
+  /* Base Colors */
+  --clr-base: var(--ocean-medium);
+  --clr-base-black: var(--ocean-deep);
+  --clr-base-white: var(--ocean-light);
+
+  /* Neutros */
+  --clr-white: #fff;
+  --clr-white-one: #f2f2f2;
+  --clr-black: #111;
+  --clr-black-one: #333;
+  --clr-black-light: hsl(217, 89%, 0%);
+  
+  /* Backgrounds - Oscurecidos para contrastar con paleta */
+  --bg:          var(--ocean-deep);
+  --bg-mid:      #040e2a;
+  --surface:     #051440;
+  --surface-2:   #071a50;
+  --surface-3:   #092060;
+
+  /* Borders */
+  --border:      rgba(144, 224, 239, 0.08);
+  --border-2:    rgba(144, 224, 239, 0.14);
+
+  /* Textos */
+  --text-muted:   rgba(144, 224, 239, 0.6);
+  --text-dim:     rgba(144, 224, 239, 0.5);
+
+  /* Accents */
+  --accent:       var(--ocean-bright);
+  --accent-dim:   var(--ocean-medium);
+  --accent-bright: var(--ocean-light);
+  --gold:         var(--ocean-bright);
+  --gold-dim:     var(--ocean-medium);
+  --gold-bright:  var(--ocean-light);
+  --cream:        #e0f4ff;
+
+  /* Ratings MPAA */
+  --rating-g:    #22c55e;
+  --rating-pg:   var(--ocean-bright);
+  --rating-pg13: #f59e0b;
+  --rating-r:    #ef4444;
+  --rating-nr:   #6b7280;
+
+  /* ═══════════════════════════════════════
+     Typography System
+     ═══════════════════════════════════════ */
+
+  /* Fonts */
+  --font-display: 'Bebas Neue', sans-serif;
+  --font-body:    'Cormorant Garamond', Georgia, serif;
+  --font-mono:    'DM Mono', monospace;
+
+  /* Font Sizes */
+  --text-xs:   0.6rem;
+  --text-sm:   0.8rem;
+  --text-base: 1rem;
+  --text-lg:   1.2rem;
+  --text-xl:   1.4rem;
+  --text-2xl:  1.6rem;
+  --text-3xl:  2rem;
+  --text-4xl:  2.4rem;
+
+  /* Font Weights */
+  --weight-light:    300;
+  --weight-normal:   400;
+  --weight-medium:   500;
+  --weight-semibold: 600;
+
+  /* Letter Spacing */
+  --tracking-tight:  -0.05em;
+  --tracking-normal:  0;
+  --tracking-wide:   0.05em;
+  --tracking-wider:  0.1em;
+  --tracking-widest: 0.2em;
+
+  /* ═══════════════════════════════════════
+     Spacing Scale
+     ═══════════════════════════════════════ */
+
+  --space-1:  0.1rem;
+  --space-2:  0.2rem;
+  --space-3:  0.3rem;
+  --space-4:  0.4rem;
+  --space-5:  0.5rem;
+  --space-6:  0.6rem;
+  --space-8:  0.8rem;
+  --space-10: 1rem;
+  --space-12: 1.2rem;
+  --space-14: 1.4rem;
+  --space-16: 1.6rem;
+  --space-20: 2rem;
+  --space-24: 2.4rem;
+  --space-32: 3.2rem;
+  --space-40: 4rem;
+  --space-48: 4.8rem;
+  --space-64: 6.4rem;
+
+  /* ═══════════════════════════════════════
+     Transitions & Animations
+     ═══════════════════════════════════════ */
+
+  --ease:        cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  --ease-in:     cubic-bezier(0.4, 0, 1, 1);
+  --ease-out:    cubic-bezier(0, 0, 0.2, 1);
+  --ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-bounce: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+
+  /* Durations */
+  --duration-fast:   150ms;
+  --duration-normal: 250ms;
+  --duration-slow:   400ms;
+  --duration-slower: 600ms;
+
+  /* ═══════════════════════════════════════
+     Breakpoints (Mobile First)
+     ═══════════════════════════════════════ */
+
+  --bp-mobile-lg: 480px;
+  --bp-tablet:    768px;
+  --bp-desktop:   1024px;
+  --bp-desktop-lg: 1280px;
+  --bp-4k:       1536px;
+}

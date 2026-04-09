@@ -1,0 +1,102 @@
+/**
+ * _animations.css — Keyframes & Animations
+ * Disney Cinema Archive
+ */
+
+/* ═══════════════════════════════════════
+   Grain Effect
+   ═══════════════════════════════════════ */
+@keyframes grain-animation {
+  0%, 100% { transform: translate(0, 0); }
+  25%      { transform: translate(-1%, -1%); }
+  50%      { transform: translate(1%, 1%); }
+  75%      { transform: translate(-1%, 1%); }
+}
+
+/* ═══════════════════════════════════════
+   Marquee Scroll
+   ═══════════════════════════════════════ */
+@keyframes scroll {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+/* ═══════════════════════════════════════
+   Shimmer Loading
+   ═══════════════════════════════════════ */
+@keyframes shimmer {
+  0%   { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+/* ═══════════════════════════════════════
+   Spinner
+   ═══════════════════════════════════════ */
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* ═══════════════════════════════════════
+   Pulse
+   ═══════════════════════════════════════ */
+@keyframes pulse {
+  0%, 100% { 
+    opacity: 1; 
+    transform: scale(1); 
+  }
+  50% { 
+    opacity: 0.5; 
+    transform: scale(0.8); 
+  }
+}
+
+/* ═══════════════════════════════════════
+   Fade In
+   ═══════════════════════════════════════ */
+@keyframes fadeIn {
+  from { 
+    opacity: 0; 
+    transform: translateY(10px); 
+  }
+  to { 
+    opacity: 1; 
+    transform: translateY(0); 
+  }
+}
+
+/* ═══════════════════════════════════════
+   Slide In Left
+   ═══════════════════════════════════════ */
+@keyframes slideInLeft {
+  from { 
+    opacity: 0; 
+    transform: translateX(-20px); 
+  }
+  to { 
+    opacity: 1; 
+    transform: translateX(0); 
+  }
+}
+
+/* ═══════════════════════════════════════
+   Scale In
+   ═══════════════════════════════════════ */
+@keyframes scaleIn {
+  from { 
+    opacity: 0; 
+    transform: scale(0.95); 
+  }
+  to { 
+    opacity: 1; 
+    transform: scale(1); 
+  }
+}
+
+/* ═══════════════════════════════════════
+   Gradient Shift
+   ═══════════════════════════════════════ */
+@keyframes gradientShift {
+  0%   { background-position: 0% 50%; }
+  50%  { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
